@@ -19,7 +19,7 @@
 <meta property="og:url" content="http://blog.huatai.me/2016/02/13/hexo-theme-tranquilpeak/index.html">
 <meta property="og:site_name" content="阿泰的菜园">
 <meta property="og:description" content="美观并且有活跃开发的Tranquilpeak是我最近重整Blog选择的Theme，调试花费了一些时间，整理记录这篇文档。">
-<meta property="og:updated_time" content="2016-02-12T16:20:42.000Z">
+<meta property="og:updated_time" content="2016-02-12T16:38:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Hexo theme Tranquilpeak">
 <meta name="twitter:description" content="美观并且有活跃开发的Tranquilpeak是我最近重整Blog选择的Theme，调试花费了一些时间，整理记录这篇文档。">
@@ -216,31 +216,19 @@
         <div class="main-content-wrap">
             <p>美观并且有活跃开发的<a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak" target="_blank" rel="external">Tranquilpeak</a>是我最近重整Blog选择的Theme，调试花费了一些时间，整理记录这篇文档。</p>
 <a id="more"></a>
-<pre><code>cd themes
-wget https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/releases/download/v1.6.2/hexo-theme-tranquilpeak-built-for-production-1.6.2.zip
-unzip hexo-theme-tranquilpeak-built-for-production-1.6.2.zip
-mv hexo-theme-tranquilpeak-built-for-production-1.6.2 tranquilpeak
-</code></pre><blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> themes</span><br><span class="line">wget https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/releases/download/v1.<span class="number">6.2</span>/hexo-theme-tranquilpeak-built-for-production-<span class="number">1.6</span>.<span class="number">2</span>.zip</span><br><span class="line">unzip hexo-theme-tranquilpeak-built-for-production-<span class="number">1.6</span>.<span class="number">2</span>.zip</span><br><span class="line">mv hexo-theme-tranquilpeak-built-for-production-<span class="number">1.6</span>.<span class="number">2</span> tranquilpeak</span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>参考 <a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/issues/203" target="_blank" rel="external">this theme does not work well with me #203</a> ，如果是采用<code>git</code>方式获取源代码，则要自己build，否则无法工作只能看到没有任何css的丑陋页面。</p>
 <p>只有使用<a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/releases/download/v1.6.2/hexo-theme-tranquilpeak-built-for-production-1.6.2.zip" target="_blank" rel="external">tranquilpeak v1.6.2 zip包</a> 才可直接使用</p>
 </blockquote>
 <p>如果是git方式安装，使用如下命令</p>
-<pre><code>git submodule add https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme themes/tranquilpeak
-cd themes/tranquilpeak
-
-# install bower and grunt if not already installed
-npm install -g bower grunt-cli
-
-npm install
-bower install
-grunt build
-</code></pre><blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git submodule add https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme themes/tranquilpeak</span><br><span class="line"><span class="built_in">cd</span> themes/tranquilpeak</span><br><span class="line"></span><br><span class="line"><span class="comment"># install bower and grunt if not already installed</span></span><br><span class="line">npm install -g bower grunt-cli</span><br><span class="line"></span><br><span class="line">npm install</span><br><span class="line">bower install</span><br><span class="line">grunt build</span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>上述方法参考 <a href="http://inject.coffee/hexo-travis-s3-part-1-hexo-basics/" target="_blank" rel="external">Hexo, Travis, S3 - Part 1: Hexo basics</a></p>
 </blockquote>
 <h1 id="tranquilpeak_u8BBE_u7F6E"><a href="#tranquilpeak_u8BBE_u7F6E" class="headerlink" title="tranquilpeak设置"></a><code>tranquilpeak</code>设置</h1><p>修改<code>hexo</code>根目录下 <code>_config.yml</code></p>
-<pre><code>theme: tranquilpeak
-post_asset_folder: true
-</code></pre><blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: tranquilpeak&#10;post_asset_folder: true</span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>设置<code>post_asset_folder</code>可以使用到封面图像，缩略图图像和照片展示等功能。</p>
 </blockquote>
 <h2 id="tranquilpeak_u8BE6_u7EC6_u5B9A_u5236"><a href="#tranquilpeak_u8BE6_u7EC6_u5B9A_u5236" class="headerlink" title="tranquilpeak详细定制"></a><code>tranquilpeak</code>详细定制</h2><blockquote>
@@ -259,112 +247,54 @@ post_asset_folder: true
 <li>Header</li>
 </ul>
 <p><code>Header</code>是指阅读文档时候头部，例如可以定制</p>
-<pre><code>header:
-     right_link:
-         url: /#about
-         icon: question
-         class:
-</code></pre><p>这样在阅读文档的右上角就会有一个”?”图标，点击就会显示<code>about</code>页面</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header:&#10;     right_link:&#10;         url: /#about&#10;         icon: question&#10;         class:</span><br></pre></td></tr></table></figure>
+<p>这样在阅读文档的右上角就会有一个”?”图标，点击就会显示<code>about</code>页面</p>
 <p>也可以按照推荐设置</p>
-<pre><code>header:
-    right_link:
-        url: /#search
-        icon: search
-        class: st-search-show-outputs
-</code></pre><ul>
-<li><p>Author</p>
-<pre><code># Author
-author:
-    email:
-    location:
-    picture:
-    twitter:
-    google_plus:
-</code></pre></li>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header:&#10;    right_link:&#10;        url: /#search&#10;        icon: search&#10;        class: st-search-show-outputs</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Author</li>
 </ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># Author&#10;author:&#10;    email:&#10;    location:&#10;    picture:&#10;    twitter:&#10;    google_plus:</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><code>picture</code> 位于 <code>source/assets/images/</code>（production） 目录下指定一个图片</p>
 <p>如果设置了<code>gravatar_email</code>就会覆盖这里设置的<code>author.picture</code>。不过，我发现可能显示不出（被墙）。</p>
 </blockquote>
 <ul>
-<li><p>Customization</p>
-<pre><code># Customization
-sidebar_behavior: 2
-toc_title: Table of contents
-thumbnail_image: true
-thumbnail_image_position: right
-auto_thumbnail_image: true
-cover_image: cover.jpg
-favicon:
-image_gallery: true
-archive_pagination: true
-category_pagination: true
-tag_pagination: true
-</code></pre></li>
+<li>Customization</li>
 </ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># Customization&#10;sidebar_behavior: 2&#10;toc_title: Table of contents&#10;thumbnail_image: true&#10;thumbnail_image_position: right&#10;auto_thumbnail_image: true&#10;cover_image: cover.jpg&#10;favicon:&#10;image_gallery: true&#10;archive_pagination: true&#10;category_pagination: true&#10;tag_pagination: true</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><code>sidebar_behavior</code> 默认配置是<code>2</code>，也就是显示一个较缩略的导航栏，我将这个数值调整成<code>1</code>，这样就显示宽幅的导航栏（只有这种宽幅方式才能显示author的头像）</p>
 <p>其他定制请参考原文</p>
 </blockquote>
 <ul>
-<li><p>Integrated services</p>
-<pre><code># Integrated services
-disqus_shortname:
-duoshuo_shortname:
-gravatar_email: 
-google_analytics_id:  
-swiftype_install_key:
-fb_admin_ids:
-fb_app_id:
-</code></pre></li>
+<li>Integrated services</li>
 </ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># Integrated services&#10;disqus_shortname:&#10;duoshuo_shortname:&#10;gravatar_email: &#10;google_analytics_id:  &#10;swiftype_install_key:&#10;fb_admin_ids:&#10;fb_app_id:</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>这里主要设置 <code>disqus_shortname</code> 以便能够显示Disqus的评论</p>
 </blockquote>
 <h1 id="u6FC0_u6D3B_u9875_u9762"><a href="#u6FC0_u6D3B_u9875_u9762" class="headerlink" title="激活页面"></a>激活页面</h1><p><code>Tranquilpeak</code>提供了3个页面来显示所有的<code>posts</code>和按照时间排序的<code>posts</code>，请分别按照以下步骤执行，否则无法在页面上点击<code>tags</code>和<code>categories</code>功能。</p>
 <h2 id="u6FC0_u6D3Ball-categories_u9875_u9762"><a href="#u6FC0_u6D3Ball-categories_u9875_u9762" class="headerlink" title="激活all-categories页面"></a>激活<code>all-categories</code>页面</h2><p>执行命令</p>
-<pre><code>hexo new page &quot;all-categories&quot;
-</code></pre><p>然后将 <code>source/all-categories/index.md</code> 替换为</p>
-<pre><code>---
-title: &quot;all-categories&quot;
-layout: &quot;all-categories&quot;
-comments: false
----
-</code></pre><blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">"all-categories"</span></span><br></pre></td></tr></table></figure>
+<p>然后将 <code>source/all-categories/index.md</code> 替换为</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="horizontal_rule">---</span></span><br><span class="line">title: "all-categories"</span><br><span class="line">layout: "all-categories"</span><br><span class="line"><span class="header">comments: false</span><br><span class="line">---</span></span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>这样就会在<code>/all-categories</code>创建页面，访问者可以在这里搜索和过滤分类</p>
 </blockquote>
 <h2 id="u6FC0_u6D3Ball-tags_u9875_u9762"><a href="#u6FC0_u6D3Ball-tags_u9875_u9762" class="headerlink" title="激活all-tags页面"></a>激活<code>all-tags</code>页面</h2><p>执行命令</p>
 <pre><code>hexo new page &quot;all-tags&quot;
 </code></pre><p>然后将 <code>source/all-tags/index.md</code> 替换为</p>
-<pre><code>---
-title: &quot;all-tags&quot;
-layout: &quot;all-tags&quot;
-comments: false
----
-</code></pre><h2 id="u6FC0_u6D3Ball-archives_u9875_u9762"><a href="#u6FC0_u6D3Ball-archives_u9875_u9762" class="headerlink" title="激活all-archives页面"></a>激活<code>all-archives</code>页面</h2><p>执行命令</p>
-<pre><code>hexo new page &quot;all-archives&quot;
-</code></pre><p>然后将 <code>source/all-archives/index.md</code> 替换为</p>
-<pre><code>---
-title: &quot;all-archives&quot;
-layout: &quot;all-archives&quot;
-comments: false
----
-</code></pre><h1 id="u5B89_u88C5_u63D2_u4EF6"><a href="#u5B89_u88C5_u63D2_u4EF6" class="headerlink" title="安装插件"></a>安装插件</h1><p>前述的theme都配置启用了<code>rss</code>，需要安装插件<code>hexo-generator-feed</code></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="horizontal_rule">---</span></span><br><span class="line">title: "all-tags"</span><br><span class="line">layout: "all-tags"</span><br><span class="line"><span class="header">comments: false</span><br><span class="line">---</span></span><br></pre></td></tr></table></figure>
+<h2 id="u6FC0_u6D3Ball-archives_u9875_u9762"><a href="#u6FC0_u6D3Ball-archives_u9875_u9762" class="headerlink" title="激活all-archives页面"></a>激活<code>all-archives</code>页面</h2><p>执行命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">"all-archives"</span></span><br></pre></td></tr></table></figure>
+<p>然后将 <code>source/all-archives/index.md</code> 替换为</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="horizontal_rule">---</span></span><br><span class="line">title: "all-archives"</span><br><span class="line">layout: "all-archives"</span><br><span class="line"><span class="header">comments: false</span><br><span class="line">---</span></span><br></pre></td></tr></table></figure>
+<h1 id="u5B89_u88C5_u63D2_u4EF6"><a href="#u5B89_u88C5_u63D2_u4EF6" class="headerlink" title="安装插件"></a>安装插件</h1><p>前述的theme都配置启用了<code>rss</code>，需要安装插件<code>hexo-generator-feed</code></p>
 <p>添加生成RSS和sitemap的插件</p>
-<pre><code>npm install hexo-generator-feed --save
-</code></pre><p>目录下的<code>_config.yml</code>文件添加以下内容</p>
-<pre><code>feed:
-  type: atom
-  path: atom.xml
-  limit: 20
-</code></pre><p>以下步骤安装<code>sitemap</code>插件没有成功，暂时放弃</p>
-<pre><code>npm install hexo-generator-sitemap --save
-
-sitemap:
-    path: sitemap.xml
-</code></pre><p>这样就可以以普通用户身份（我是<code>huatai</code>）执行以下命令启动服务</p>
-<pre><code>hexo server
-</code></pre><p>在本机可以使用如下网址访问自己的blog <a href="http://127.0.0.1:4000" target="_blank" rel="external">http://127.0.0.1:4000</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure>
+<p>目录下的<code>_config.yml</code>文件添加以下内容</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">feed:&#10;  type: atom&#10;  path: atom.xml&#10;  limit: 20</span><br></pre></td></tr></table></figure>
 <h1 id="u53C2_u8003"><a href="#u53C2_u8003" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/blob/master/docs/user.md" target="_blank" rel="external">User documentation</a></li>
 </ul>

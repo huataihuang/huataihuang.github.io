@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.huatai.me/"/>
-  <updated>2016-02-12T16:20:42.000Z</updated>
+  <updated>2016-02-12T16:38:33.000Z</updated>
   <id>http://blog.huatai.me/</id>
   
   <author>
@@ -20,35 +20,23 @@
     <link href="http://blog.huatai.me/2016/02/13/hexo-theme-tranquilpeak/"/>
     <id>http://blog.huatai.me/2016/02/13/hexo-theme-tranquilpeak/</id>
     <published>2016-02-12T16:17:38.000Z</published>
-    <updated>2016-02-12T16:20:42.000Z</updated>
+    <updated>2016-02-12T16:38:33.000Z</updated>
     
     <content type="html">&lt;p&gt;美观并且有活跃开发的&lt;a href=&quot;https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Tranquilpeak&lt;/a&gt;是我最近重整Blog选择的Theme，调试花费了一些时间，整理记录这篇文档。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;pre&gt;&lt;code&gt;cd themes
-wget https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/releases/download/v1.6.2/hexo-theme-tranquilpeak-built-for-production-1.6.2.zip
-unzip hexo-theme-tranquilpeak-built-for-production-1.6.2.zip
-mv hexo-theme-tranquilpeak-built-for-production-1.6.2 tranquilpeak
-&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; themes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wget https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/releases/download/v1.&lt;span class=&quot;number&quot;&gt;6.2&lt;/span&gt;/hexo-theme-tranquilpeak-built-for-production-&lt;span class=&quot;number&quot;&gt;1.6&lt;/span&gt;.&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;.zip&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;unzip hexo-theme-tranquilpeak-built-for-production-&lt;span class=&quot;number&quot;&gt;1.6&lt;/span&gt;.&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;.zip&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mv hexo-theme-tranquilpeak-built-for-production-&lt;span class=&quot;number&quot;&gt;1.6&lt;/span&gt;.&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt; tranquilpeak&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
 &lt;p&gt;参考 &lt;a href=&quot;https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/issues/203&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;this theme does not work well with me #203&lt;/a&gt; ，如果是采用&lt;code&gt;git&lt;/code&gt;方式获取源代码，则要自己build，否则无法工作只能看到没有任何css的丑陋页面。&lt;/p&gt;
 &lt;p&gt;只有使用&lt;a href=&quot;https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/releases/download/v1.6.2/hexo-theme-tranquilpeak-built-for-production-1.6.2.zip&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;tranquilpeak v1.6.2 zip包&lt;/a&gt; 才可直接使用&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;如果是git方式安装，使用如下命令&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git submodule add https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme themes/tranquilpeak
-cd themes/tranquilpeak
-
-# install bower and grunt if not already installed
-npm install -g bower grunt-cli
-
-npm install
-bower install
-grunt build
-&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git submodule add https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme themes/tranquilpeak&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; themes/tranquilpeak&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# install bower and grunt if not already installed&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm install -g bower grunt-cli&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm install&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bower install&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;grunt build&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
 &lt;p&gt;上述方法参考 &lt;a href=&quot;http://inject.coffee/hexo-travis-s3-part-1-hexo-basics/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo, Travis, S3 - Part 1: Hexo basics&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&quot;tranquilpeak_u8BBE_u7F6E&quot;&gt;&lt;a href=&quot;#tranquilpeak_u8BBE_u7F6E&quot; class=&quot;headerlink&quot; title=&quot;tranquilpeak设置&quot;&gt;&lt;/a&gt;&lt;code&gt;tranquilpeak&lt;/code&gt;设置&lt;/h1&gt;&lt;p&gt;修改&lt;code&gt;hexo&lt;/code&gt;根目录下 &lt;code&gt;_config.yml&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;theme: tranquilpeak
-post_asset_folder: true
-&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;theme: tranquilpeak&amp;#10;post_asset_folder: true&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
 &lt;p&gt;设置&lt;code&gt;post_asset_folder&lt;/code&gt;可以使用到封面图像，缩略图图像和照片展示等功能。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&quot;tranquilpeak_u8BE6_u7EC6_u5B9A_u5236&quot;&gt;&lt;a href=&quot;#tranquilpeak_u8BE6_u7EC6_u5B9A_u5236&quot; class=&quot;headerlink&quot; title=&quot;tranquilpeak详细定制&quot;&gt;&lt;/a&gt;&lt;code&gt;tranquilpeak&lt;/code&gt;详细定制&lt;/h2&gt;&lt;blockquote&gt;
@@ -67,112 +55,54 @@ post_asset_folder: true
 &lt;li&gt;Header&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;code&gt;Header&lt;/code&gt;是指阅读文档时候头部，例如可以定制&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;header:
-     right_link:
-         url: /#about
-         icon: question
-         class:
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样在阅读文档的右上角就会有一个”?”图标，点击就会显示&lt;code&gt;about&lt;/code&gt;页面&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;header:&amp;#10;     right_link:&amp;#10;         url: /#about&amp;#10;         icon: question&amp;#10;         class:&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这样在阅读文档的右上角就会有一个”?”图标，点击就会显示&lt;code&gt;about&lt;/code&gt;页面&lt;/p&gt;
 &lt;p&gt;也可以按照推荐设置&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;header:
-    right_link:
-        url: /#search
-        icon: search
-        class: st-search-show-outputs
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Author&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Author
-author:
-    email:
-    location:
-    picture:
-    twitter:
-    google_plus:
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;header:&amp;#10;    right_link:&amp;#10;        url: /#search&amp;#10;        icon: search&amp;#10;        class: st-search-show-outputs&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;Author&lt;/li&gt;
 &lt;/ul&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# Author&amp;#10;author:&amp;#10;    email:&amp;#10;    location:&amp;#10;    picture:&amp;#10;    twitter:&amp;#10;    google_plus:&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;picture&lt;/code&gt; 位于 &lt;code&gt;source/assets/images/&lt;/code&gt;（production） 目录下指定一个图片&lt;/p&gt;
 &lt;p&gt;如果设置了&lt;code&gt;gravatar_email&lt;/code&gt;就会覆盖这里设置的&lt;code&gt;author.picture&lt;/code&gt;。不过，我发现可能显示不出（被墙）。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Customization&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Customization
-sidebar_behavior: 2
-toc_title: Table of contents
-thumbnail_image: true
-thumbnail_image_position: right
-auto_thumbnail_image: true
-cover_image: cover.jpg
-favicon:
-image_gallery: true
-archive_pagination: true
-category_pagination: true
-tag_pagination: true
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;Customization&lt;/li&gt;
 &lt;/ul&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# Customization&amp;#10;sidebar_behavior: 2&amp;#10;toc_title: Table of contents&amp;#10;thumbnail_image: true&amp;#10;thumbnail_image_position: right&amp;#10;auto_thumbnail_image: true&amp;#10;cover_image: cover.jpg&amp;#10;favicon:&amp;#10;image_gallery: true&amp;#10;archive_pagination: true&amp;#10;category_pagination: true&amp;#10;tag_pagination: true&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;sidebar_behavior&lt;/code&gt; 默认配置是&lt;code&gt;2&lt;/code&gt;，也就是显示一个较缩略的导航栏，我将这个数值调整成&lt;code&gt;1&lt;/code&gt;，这样就显示宽幅的导航栏（只有这种宽幅方式才能显示author的头像）&lt;/p&gt;
 &lt;p&gt;其他定制请参考原文&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Integrated services&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Integrated services
-disqus_shortname:
-duoshuo_shortname:
-gravatar_email: 
-google_analytics_id:  
-swiftype_install_key:
-fb_admin_ids:
-fb_app_id:
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;Integrated services&lt;/li&gt;
 &lt;/ul&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# Integrated services&amp;#10;disqus_shortname:&amp;#10;duoshuo_shortname:&amp;#10;gravatar_email: &amp;#10;google_analytics_id:  &amp;#10;swiftype_install_key:&amp;#10;fb_admin_ids:&amp;#10;fb_app_id:&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;blockquote&gt;
 &lt;p&gt;这里主要设置 &lt;code&gt;disqus_shortname&lt;/code&gt; 以便能够显示Disqus的评论&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&quot;u6FC0_u6D3B_u9875_u9762&quot;&gt;&lt;a href=&quot;#u6FC0_u6D3B_u9875_u9762&quot; class=&quot;headerlink&quot; title=&quot;激活页面&quot;&gt;&lt;/a&gt;激活页面&lt;/h1&gt;&lt;p&gt;&lt;code&gt;Tranquilpeak&lt;/code&gt;提供了3个页面来显示所有的&lt;code&gt;posts&lt;/code&gt;和按照时间排序的&lt;code&gt;posts&lt;/code&gt;，请分别按照以下步骤执行，否则无法在页面上点击&lt;code&gt;tags&lt;/code&gt;和&lt;code&gt;categories&lt;/code&gt;功能。&lt;/p&gt;
 &lt;h2 id=&quot;u6FC0_u6D3Ball-categories_u9875_u9762&quot;&gt;&lt;a href=&quot;#u6FC0_u6D3Ball-categories_u9875_u9762&quot; class=&quot;headerlink&quot; title=&quot;激活all-categories页面&quot;&gt;&lt;/a&gt;激活&lt;code&gt;all-categories&lt;/code&gt;页面&lt;/h2&gt;&lt;p&gt;执行命令&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;hexo new page &amp;quot;all-categories&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后将 &lt;code&gt;source/all-categories/index.md&lt;/code&gt; 替换为&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;---
-title: &amp;quot;all-categories&amp;quot;
-layout: &amp;quot;all-categories&amp;quot;
-comments: false
----
-&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;hexo new page &lt;span class=&quot;string&quot;&gt;&quot;all-categories&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后将 &lt;code&gt;source/all-categories/index.md&lt;/code&gt; 替换为&lt;/p&gt;
+&lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;horizontal_rule&quot;&gt;---&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;title: &quot;all-categories&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;layout: &quot;all-categories&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;header&quot;&gt;comments: false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;---&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
 &lt;p&gt;这样就会在&lt;code&gt;/all-categories&lt;/code&gt;创建页面，访问者可以在这里搜索和过滤分类&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&quot;u6FC0_u6D3Ball-tags_u9875_u9762&quot;&gt;&lt;a href=&quot;#u6FC0_u6D3Ball-tags_u9875_u9762&quot; class=&quot;headerlink&quot; title=&quot;激活all-tags页面&quot;&gt;&lt;/a&gt;激活&lt;code&gt;all-tags&lt;/code&gt;页面&lt;/h2&gt;&lt;p&gt;执行命令&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;hexo new page &amp;quot;all-tags&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后将 &lt;code&gt;source/all-tags/index.md&lt;/code&gt; 替换为&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;---
-title: &amp;quot;all-tags&amp;quot;
-layout: &amp;quot;all-tags&amp;quot;
-comments: false
----
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;u6FC0_u6D3Ball-archives_u9875_u9762&quot;&gt;&lt;a href=&quot;#u6FC0_u6D3Ball-archives_u9875_u9762&quot; class=&quot;headerlink&quot; title=&quot;激活all-archives页面&quot;&gt;&lt;/a&gt;激活&lt;code&gt;all-archives&lt;/code&gt;页面&lt;/h2&gt;&lt;p&gt;执行命令&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;hexo new page &amp;quot;all-archives&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后将 &lt;code&gt;source/all-archives/index.md&lt;/code&gt; 替换为&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;---
-title: &amp;quot;all-archives&amp;quot;
-layout: &amp;quot;all-archives&amp;quot;
-comments: false
----
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;u5B89_u88C5_u63D2_u4EF6&quot;&gt;&lt;a href=&quot;#u5B89_u88C5_u63D2_u4EF6&quot; class=&quot;headerlink&quot; title=&quot;安装插件&quot;&gt;&lt;/a&gt;安装插件&lt;/h1&gt;&lt;p&gt;前述的theme都配置启用了&lt;code&gt;rss&lt;/code&gt;，需要安装插件&lt;code&gt;hexo-generator-feed&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;horizontal_rule&quot;&gt;---&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;title: &quot;all-tags&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;layout: &quot;all-tags&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;header&quot;&gt;comments: false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;---&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;u6FC0_u6D3Ball-archives_u9875_u9762&quot;&gt;&lt;a href=&quot;#u6FC0_u6D3Ball-archives_u9875_u9762&quot; class=&quot;headerlink&quot; title=&quot;激活all-archives页面&quot;&gt;&lt;/a&gt;激活&lt;code&gt;all-archives&lt;/code&gt;页面&lt;/h2&gt;&lt;p&gt;执行命令&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;hexo new page &lt;span class=&quot;string&quot;&gt;&quot;all-archives&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后将 &lt;code&gt;source/all-archives/index.md&lt;/code&gt; 替换为&lt;/p&gt;
+&lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;horizontal_rule&quot;&gt;---&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;title: &quot;all-archives&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;layout: &quot;all-archives&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;header&quot;&gt;comments: false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;---&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;u5B89_u88C5_u63D2_u4EF6&quot;&gt;&lt;a href=&quot;#u5B89_u88C5_u63D2_u4EF6&quot; class=&quot;headerlink&quot; title=&quot;安装插件&quot;&gt;&lt;/a&gt;安装插件&lt;/h1&gt;&lt;p&gt;前述的theme都配置启用了&lt;code&gt;rss&lt;/code&gt;，需要安装插件&lt;code&gt;hexo-generator-feed&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;添加生成RSS和sitemap的插件&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;npm install hexo-generator-feed --save
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;目录下的&lt;code&gt;_config.yml&lt;/code&gt;文件添加以下内容&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;feed:
-  type: atom
-  path: atom.xml
-  limit: 20
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以下步骤安装&lt;code&gt;sitemap&lt;/code&gt;插件没有成功，暂时放弃&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;npm install hexo-generator-sitemap --save
-
-sitemap:
-    path: sitemap.xml
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样就可以以普通用户身份（我是&lt;code&gt;huatai&lt;/code&gt;）执行以下命令启动服务&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;hexo server
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在本机可以使用如下网址访问自己的blog &lt;a href=&quot;http://127.0.0.1:4000&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://127.0.0.1:4000&lt;/a&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install hexo-generator-feed --save&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;目录下的&lt;code&gt;_config.yml&lt;/code&gt;文件添加以下内容&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;feed:&amp;#10;  type: atom&amp;#10;  path: atom.xml&amp;#10;  limit: 20&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h1 id=&quot;u53C2_u8003&quot;&gt;&lt;a href=&quot;#u53C2_u8003&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak/blob/master/docs/user.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;User documentation&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
