@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="阿泰的菜园">
+    <title>使用vagrant snapshot创建快照备份 - 阿泰的菜园</title>
+    <meta name="author" content="阿泰">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="使用Vagrant的快照功能可以很方便快速的创建当前虚拟机的一个临时备份状态，在进行重要操作时可以先创建一个快照以便在操作失误后快速恢复。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="使用vagrant snapshot创建快照备份">
+<meta property="og:url" content="http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/index.html">
+<meta property="og:site_name" content="阿泰的菜园">
+<meta property="og:description" content="使用Vagrant的快照功能可以很方便快速的创建当前虚拟机的一个临时备份状态，在进行重要操作时可以先创建一个快照以便在操作失误后快速恢复。">
+<meta property="og:updated_time" content="2016-02-09T14:32:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用vagrant snapshot创建快照备份">
+<meta name="twitter:description" content="使用Vagrant的快照功能可以很方便快速的创建当前虚拟机的一个临时备份状态，在进行重要操作时可以先创建一个快照以便在操作失误后快速恢复。">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">阿泰的菜园</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首頁</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分類</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">標籤</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">所有文章</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜尋</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">關於</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">Atom</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            使用vagrant snapshot创建快照备份
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Thu Dec 03 2015 14:12:31 GMT+0800">
+	
+		    12月 03, 2015
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <blockquote>
+<p>使用Vagrant的快照功能可以很方便快速的创建当前虚拟机的一个临时备份状态，在进行重要操作时可以先创建一个快照以便在操作失误后快速恢复。</p>
+</blockquote>
+<a id="more"></a>
+<p>安装Vagrant快照插件：</p>
+<pre><code>vagrant plugin install vagrant-vbox-snapshot
+</code></pre><blockquote>
+<p>我是切换到root用户身份下执行上述安装命令，后来发现不应该这样操作，而是应该使用自己的普通用户账号来执行上述插件安装。</p>
+</blockquote>
+<p>支持的参数如下</p>
+<pre><code>vagrant snapshot take [vm-name] &lt;SNAPSHOT_NAME&gt;   # take snapshot, labeled by NAME
+vagrant snapshot list [vm-name]                   # list snapshots
+vagrant snapshot back [vm-name]                   # restore last taken snapshot
+vagrant snapshot delete [vm-name] &lt;SNAPSHOT_NAME&gt; # delete specified snapshot
+vagrant snapshot go [vm-name] &lt;SNAPSHOT_NAME&gt;     # restore specified snapshot
+</code></pre><p>使用方法：</p>
+<p>创建一个快照</p>
+<pre><code>vagrant snapshot take centos-7.1 centos-7.1_base
+</code></pre><p>奇怪，<code>vagrant</code>程序没有识别出<code>snapshot</code>命令，依然提示help信息列表</p>
+<p>参考 <a href="https://docs.vagrantup.com/v2/plugins/usage.html" target="_blank" rel="external">Vagrant Docs Plugins installation</a> ，插件安装后是自动由Vagrant加载的。但是，我使用 <code>vagrant plugin list</code> 命令显示，确实没有查看到刚安装的 <code>vagrant-vbox-snapshot</code>，只输出显示</p>
+<pre><code>vagrant-share (1.1.4, system)
+</code></pre><p>查看了<a href="https://docs.vagrantup.com/v2/plugins/usage.html" target="_blank" rel="external">官方plugin installation文档</a>，文档中的<code>vagrant plugin install vagrant-example-plugin</code>显示的终端提示符是普通用户，所以切换到自己的账号，重新以普通用户身份安装插件。安装完成后，再次使用 <code>vagrant pluginin list</code> 则可以看到<code>vagrant-vbox-snapshot</code>插件了</p>
+<pre><code>vagrant-share (1.1.4, system)
+vagrant-vbox-snapshot (0.0.10)
+</code></pre><p>再次执行</p>
+<pre><code>vagrant snapshot take centos-7.1 centos-7.1_base
+</code></pre><blockquote>
+<p>当前目录是Vagrant配置文件所在目录 <code>centos-7.1</code> ，我以为虚拟机的名字是 <code>centos-7.1</code> （不过看VirtualBox的图形管理界面中显示的是 <code>Vagrant_default_1448250085458_10997</code>），但是实际上述命令执行会提示错误</p>
+</blockquote>
+<pre><code>The machine with the name &apos;centos-7.1&apos; was not found configured for this Vagrant environment.
+</code></pre><p>那到底是什么名字呢？</p>
+<p>使用 <code>vagrant status</code> 可以检查当前虚拟机状态（和名字）</p>
+<pre><code>Current machine states:
+
+default                   poweroff (virtualbox)
+
+The VM is powered off. To restart the VM, simply run `vagrant up`
+</code></pre><p>好吧，既然名字是 <code>default</code> 就用下面的命令来执行快照</p>
+<pre><code>vagrant snapshot take default centos-7.1_base
+</code></pre><p>出乎意料，快照的获取是瞬间完成了</p>
+<pre><code>Taking snapshot centos-7.1_base
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+Snapshot taken. UUID: af5b803c-266e-41af-875b-9f7a2bc36794
+</code></pre><p>查看快照列表</p>
+<pre><code>vagrant snapshot list
+</code></pre><p>显示输出</p>
+<pre><code>Listing snapshots for &apos;default&apos;:
+   Name: centos-7.1_base (UUID: af5b803c-266e-41af-875b-9f7a2bc36794) *
+</code></pre><p>从指定快照中恢复</p>
+<pre><code>vagrant snapshot go &quot;Name&quot;
+</code></pre><p>删除一个快照</p>
+<pre><code>vagrant snapshot delete &quot;Name&quot;
+</code></pre><h1 id="u53C2_u8003"><a href="#u53C2_u8003" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://segmentfault.com/a/1190000003033407" target="_blank" rel="external">Vagrant建立快照备份</a></li>
+<li><a href="https://github.com/dergachev/vagrant-vbox-snapshot" target="_blank" rel="external">vagrant-vbox-snapshot github项目</a></li>
+</ul>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">標籤</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Vagrant/">Vagrant</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/03/ebtables-learning-note-1/"  data-tooltip="ebtables学习笔记（一）">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/03/use-vagrant-package-VirtualBox-environment/" data-tooltip="使用vagrant package打包VirtualBox环境">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 阿泰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/03/ebtables-learning-note-1/"  data-tooltip="ebtables学习笔记（一）">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/03/use-vagrant-package-VirtualBox-environment/" data-tooltip="使用vagrant package打包VirtualBox环境">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">阿泰</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+</html>

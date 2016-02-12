@@ -1,0 +1,462 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="阿泰的菜园">
+    <title>Docker技术概览 - 阿泰的菜园</title>
+    <meta name="author" content="阿泰">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="作为目前最有发展前景的Linux容器技术 Docker ，得到了很多开源软件和组织的支持。不仅得到了 OpenStack通过nova和heat 支持，而且被集成到最新的RHEL 7操作系统。
+这里我整理汇总Docker的学习笔记以及一些实践经验。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Docker技术概览">
+<meta property="og:url" content="http://blog.huatai.me/2014/10/02/Docker-technology/index.html">
+<meta property="og:site_name" content="阿泰的菜园">
+<meta property="og:description" content="作为目前最有发展前景的Linux容器技术 Docker ，得到了很多开源软件和组织的支持。不仅得到了 OpenStack通过nova和heat 支持，而且被集成到最新的RHEL 7操作系统。
+这里我整理汇总Docker的学习笔记以及一些实践经验。">
+<meta property="og:updated_time" content="2016-02-09T14:32:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker技术概览">
+<meta name="twitter:description" content="作为目前最有发展前景的Linux容器技术 Docker ，得到了很多开源软件和组织的支持。不仅得到了 OpenStack通过nova和heat 支持，而且被集成到最新的RHEL 7操作系统。
+这里我整理汇总Docker的学习笔记以及一些实践经验。">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">阿泰的菜园</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首頁</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分類</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">標籤</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">所有文章</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜尋</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">關於</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">Atom</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Docker技术概览
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Thu Oct 02 2014 11:38:39 GMT+0800">
+	
+		    10月 02, 2014
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>作为目前最有发展前景的Linux容器技术 <a href="http://docker.com" target="_blank" rel="external">Docker</a> ，得到了很多开源软件和组织的支持。不仅得到了 <a href="http://www.openstack.org" target="_blank" rel="external">OpenStack</a>通过<a href="https://wiki.openstack.org/wiki/Docker" target="_blank" rel="external">nova</a>和<a href="http://blog.docker.com/tag/openstack-2/" target="_blank" rel="external">heat</a> 支持，而且被集成到最新的RHEL 7操作系统。</p>
+<p>这里我整理汇总Docker的学习笔记以及一些实践经验。</p>
+<a id="more"></a>
+<h2 id="Docker_u67B6_u6784"><a href="#Docker_u67B6_u6784" class="headerlink" title="Docker架构"></a>Docker架构</h2><ul>
+<li>Docker是一个客户－服务器应用程序</li>
+<li>Docker客户端和服务器可以运行在一个系统，或者</li>
+<li>Docker客户端和远程Docker服务器通讯</li>
+<li>通讯是通过socket或者通过RESTful API实现</li>
+<li>用户可以通过客户端和服务器通讯，例如，创建，运行和停止容器</li>
+<li>服务器接受命令，执行任务</li>
+</ul>
+<blockquote>
+<p>参考 <a href="http://docs.docker.io/introduction/technology/" target="_blank" rel="external">Docker Understanding the Technology</a></p>
+</blockquote>
+<h1 id="Docker_u7EC4_u4EF6"><a href="#Docker_u7EC4_u4EF6" class="headerlink" title="Docker组件"></a>Docker组件</h1><p>Docker主要组件如下:</p>
+<ul>
+<li>Docker daemon</li>
+<li>Docker client</li>
+<li>Docker Index - 也就是中心化的Docker注册器</li>
+</ul>
+<p>Docker Index是一个全局的归档（和目录）用于提供Docker容器映像。作为一个社区项目，Docker尝试提供所有需要的工具，并且通过一个简单的Docker客户端命令可以将你创建的映像分享给社区。</p>
+<p>可以部署自己的私有Docker Index服务。</p>
+<h1 id="u5E95_u5C42_u6280_u672F"><a href="#u5E95_u5C42_u6280_u672F" class="headerlink" title="底层技术"></a>底层技术</h1><p>Docker的底层技术包括</p>
+<ul>
+<li>Namespaces</li>
+</ul>
+<p><code>namespaces</code> 提供独立的空间，称为容器。当运行一个容器时，Docker创建这个容器的一系列namespaces。</p>
+<p>Docker使用的一些namespace有:</p>
+<ul>
+<li><code>pid</code> namesapce - 用于进程号（PID: 进程ID）</li>
+<li><code>net</code> namespace - 用于管理网络接口(NET: 网络)</li>
+<li><code>ipc</code> namespace - 用于管理IPC资源（IPC:进程间通讯）</li>
+<li><code>mnt</code> namespace - 用于管理挂载点（MNT:挂载）</li>
+<li><code>uts</code> namespace - 用于隔离内核/版本标识（UTS: Unix Timesharing System）</li>
+</ul>
+<ul>
+<li>Control groups</li>
+</ul>
+<p><code>cgroup</code> 允许Docker可以公平地共享硬件资源给容器，并且设置限制。例如，限制内存最大128MB</p>
+<ul>
+<li>UnionFS</li>
+</ul>
+<p>UnionFS或者union文件系统是通过创建层次化，使其轻量级和快速的文件系统。Docker使用union文件系统提供构建容器的块设备。</p>
+<ul>
+<li>容器</li>
+</ul>
+<p>Docker结合以上组件构建一个我们称为 <code>libcontainer</code> 的容器格式。Docker也支持传统的Linux容器，如 <a href="https://linuxcontainers.org/" target="_blank" rel="external">LXC</a> 来使用这些组件。</p>
+<h1 id="u5F53_u8FD0_u884C_u5BB9_u5668_u65F6_u53D1_u751F_u4EC0_u4E48_uFF1F"><a href="#u5F53_u8FD0_u884C_u5BB9_u5668_u65F6_u53D1_u751F_u4EC0_u4E48_uFF1F" class="headerlink" title="当运行容器时发生什么？"></a>当运行容器时发生什么？</h1><p>Docker client （或者API）告诉Docker服务来运行一个容器，例如以下命令时一个 <code>Hello world</code> 举例</p>
+<pre><code>docker run -i -t ubuntu /bin/bash
+</code></pre><p>以上命令实际上执行了如下步骤:</p>
+<ul>
+<li>下载一个ubuntu镜像</li>
+<li>创建一个容器</li>
+<li>分配一个文件系统并且读写层瓜子啊</li>
+<li>分配网络和网桥接口</li>
+<li>设置IP地址</li>
+<li>执行指定的进程（这里时一个应用程序）</li>
+<li>捕获应用程序的输出</li>
+</ul>
+<h1 id="Docker_image_u5DE5_u4F5C_u539F_u7406"><a href="#Docker_image_u5DE5_u4F5C_u539F_u7406" class="headerlink" title="Docker image工作原理"></a>Docker image工作原理</h1><p>Docker image时通过一个简单的描述步骤级来构建，这个步骤级称为指令。指令存储在一个称为 <code>Dockerfile</code> 的文件中。每个指令集使用UnionFS技术来写入一个新层到一个映像方便我们查看。</p>
+<p>每个映像是从一个基本映像创建的，例如 <code>ubuntu</code> 就是一个基本Ubuntu映像，而 <code>fedora</code> 就是一个基本Fedora映像。Docker通过 <a href="http://index.docker.io/" target="_blank" rel="external">Docker Index</a> 创建和提供这些基本映像。</p>
+<h1 id="Docker_registry_u5DE5_u4F5C_u539F_u7406"><a href="#Docker_registry_u5DE5_u4F5C_u539F_u7406" class="headerlink" title="Docker registry工作原理"></a>Docker registry工作原理</h1><p>Docker registry是你存储Docker映像的地方。一旦你构建了Docker映像，你可以将它推送到 <a href="http://index.docker.io/" target="_blank" rel="external">Docker Index</a> 或者你自己在防火墙后面构建的私有注册器中。</p>
+<p>使用Docker客户端可以搜索已经发布的映像然后下载映像到你的Docker主机来从映像创建容器（或者在这这些映像上构建）。</p>
+<p><a href="http://index.docker.io/" target="_blank" rel="external">Docker Index</a> 提供共有和私有的映像存储。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">標籤</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/cloud/">cloud</a> <a class="tag tag--primary tag--small t-link" href="/tags/docker/">docker</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/02/Understanding-docker/"  data-tooltip="理解docker">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/02/kipmi0-consume-cpu-100/" data-tooltip="kipmi0占用单个cpu的100%资源">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/02/Docker-technology/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/02/Docker-technology/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/02/Docker-technology/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 阿泰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/02/Understanding-docker/"  data-tooltip="理解docker">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/02/kipmi0-consume-cpu-100/" data-tooltip="kipmi0占用单个cpu的100%资源">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/02/Docker-technology/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/02/Docker-technology/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/02/Docker-technology/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/02/Docker-technology/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/02/Docker-technology/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/02/Docker-technology/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">阿泰</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+</html>

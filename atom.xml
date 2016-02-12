@@ -1,0 +1,1584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>阿泰的菜园</title>
+  <subtitle>Your life, as you know it, is gone. Never to return.</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://blog.huatai.me/"/>
+  <updated>2016-02-09T14:32:52.000Z</updated>
+  <id>http://blog.huatai.me/</id>
+  
+  <author>
+    <name>阿泰</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vagrant Box 管理</title>
+    <link href="http://blog.huatai.me/2015/12/24/Vagrant-Box-management/"/>
+    <id>http://blog.huatai.me/2015/12/24/Vagrant-Box-management/</id>
+    <published>2015-12-24T14:02:24.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;Boxes是Vagrant环境的打包格式。一个box可以被任何Vagrant所支持的平台的任何人用于启动一个独立工作的环境。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;vagrant box&lt;/code&gt;工具提供了所有的管理boxes的功能。最简单使用box的方法是使用&lt;a href=&quot;https://atlas.hashicorp.com/boxes/search&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;publicly available catalog of Vagrant boxes&lt;/a&gt;来添加box。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;u63A2_u7D22Boxes&quot;&gt;&lt;a href=&quot;#u63A2_u7D22Boxes&quot; class=&quot;headerlink&quot; title=&quot;探索Boxes&quot;&gt;&lt;/a&gt;探索Boxes&lt;/h1&gt;&lt;p&gt;在&lt;a href=&quot;https://atlas.hashicorp.com/boxes/search&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;public Vagrant box catalog&lt;/a&gt;上提供了支持各种虚拟化，如VirtualBox，VMware，AWS等。简单添加到本机的命令如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant box add USER/BOX
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;例如：使用命令 &lt;code&gt;vagrant box add hashicorp/precise64&lt;/code&gt; ，或者快速部署环境 &lt;code&gt;vagrant init hashicorp/precise64&lt;/code&gt;。&lt;/p&gt;
+&lt;h1 id=&quot;u5FEB_u901F_u590D_u5236Vagrant_boxes&quot;&gt;&lt;a href=&quot;#u5FEB_u901F_u590D_u5236Vagrant_boxes&quot; class=&quot;headerlink&quot; title=&quot;快速复制Vagrant boxes&quot;&gt;&lt;/a&gt;快速复制Vagrant boxes&lt;/h1&gt;&lt;p&gt;当需要1:1复制出Vagrant box，简单的方法如下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;关闭box（如果当前box正在运行的话）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant halt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;创建一个&lt;code&gt;package.box&lt;/code&gt;（默认名字），或者类似如下指定创建名&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant package --output centos-6.7.box
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;请参考 &lt;a href=&quot;#使用vagrant package打包VirtualBox环境&quot;&gt;使用vagrant package打包VirtualBox环境&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;创建新的box文件 － 首先创建一个项目目录，然后在这个目录下初始化一个默认的Vagrantfile&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir devstack &amp;amp;&amp;amp; cd devstack
+vagrant init
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;编辑这个&lt;code&gt;Vagrantfile&lt;/code&gt;，修改如下行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;config.vm.box = &amp;quot;devstack&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;编辑这个&lt;code&gt;Vagrantfile&lt;/code&gt;，修改或添加如下行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;config.vm.box_url = &amp;quot;file:///Users/huatai/Documents/Vagrant/centos-7.1/centos-7.1.box&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;编辑这个&lt;code&gt;Vagrantfile&lt;/code&gt;，修改或添加如下行（如果要指定IP地址，可选）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;config.vm.network :private_network, ip: &amp;quot;192.168.33.101&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这里的&lt;code&gt;vagrant init&lt;/code&gt;，命令可以改成&lt;code&gt;vagrant box add devstack /Users/huatai/Documents/Vagrant/centos-7.1/centos-7.1.box virtualbox&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这样就不需要再修改&lt;code&gt;Vagrantfile&lt;/code&gt;（已经自动添加了&lt;code&gt;config.vm.box = &amp;quot;devstack&amp;quot;&lt;/code&gt; 和 &lt;code&gt;config.vm.box_url = &amp;quot;file:///Users/huatai/Documents/Vagrant/centos-7.1/centos-7.1.box&amp;quot;&lt;/code&gt; ）&lt;/p&gt;
+&lt;p&gt;此时只需要直接运行下一步&lt;code&gt;vagrant up&lt;/code&gt;就可以了&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;运行Vagrant box&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant up
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;u5220_u9664box&quot;&gt;&lt;a href=&quot;#u5220_u9664box&quot; class=&quot;headerlink&quot; title=&quot;删除box&quot;&gt;&lt;/a&gt;删除box&lt;/h1&gt;&lt;p&gt;因为环境搞乱或者希望重建box，可以删除再重建。以下举例删除&lt;code&gt;devstack&lt;/code&gt;（在&lt;code&gt;devstack&lt;/code&gt;目录下执行命令）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意：删除box并释放磁盘空间，需要使用&lt;a href=&quot;https://docs.vagrantup.com/v2/cli/destroy.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;DESTROY&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;cd devstack
+vagrant destroy
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;执行上述命令会提示再次确认&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    default: Are you sure you want to destroy the &amp;apos;default&amp;apos; VM? [y/N] y
+==&amp;gt; default: Destroying VM and associated drives... 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;执行后将从VirtualBox中删除掉虚拟机配置以及虚拟机相关的虚拟磁盘，真正释放空间。&lt;/p&gt;
+&lt;p&gt;然后执行 &lt;code&gt;vagrant box remove devstack&lt;/code&gt; 将Vagrant对应的&lt;code&gt;devstack&lt;/code&gt;配置清理掉。&lt;/p&gt;
+&lt;h1 id=&quot;u53C2_u8003&quot;&gt;&lt;a href=&quot;#u53C2_u8003&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.vagrantup.com/v2/boxes.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vagrant Docs - BOXES&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.dev-metal.com/copy-duplicate-vagrant-box/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;How to copy Vagrant boxes (or duplicate them)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Boxes是Vagrant环境的打包格式。一个box可以被任何Vagrant所支持的平台的任何人用于启动一个独立工作的环境。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;vagrant box&lt;/code&gt;工具提供了所有的管理boxes的功能。最简单使用box的方法是使用&lt;a href=&quot;https://atlas.hashicorp.com/boxes/search&quot;&gt;publicly available catalog of Vagrant boxes&lt;/a&gt;来添加box。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Vagrant" scheme="http://blog.huatai.me/tags/Vagrant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Gentoo Linux升级报错: C compiler cannot create executables</title>
+    <link href="http://blog.huatai.me/2015/12/24/Gentoo-Linux-upgrade-error-C-compiler-cannot-create-executables/"/>
+    <id>http://blog.huatai.me/2015/12/24/Gentoo-Linux-upgrade-error-C-compiler-cannot-create-executables/</id>
+    <published>2015-12-24T13:18:41.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;最近几个月，重新玩起了Gentoo，没事的时候，经常&lt;code&gt;emerge world&lt;/code&gt;，遇到过几次和gcc有关的报错：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;error: C compiler cannot create executables&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gcc-config: Active gcc profile is invalid!&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;简单记录一下排查的过程和解决方法：&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;u65E0_u6CD5_u521B_u5EFA_u53EF_u6267_u884C_u7A0B_u5E8F&quot;&gt;&lt;a href=&quot;#u65E0_u6CD5_u521B_u5EFA_u53EF_u6267_u884C_u7A0B_u5E8F&quot; class=&quot;headerlink&quot; title=&quot;无法创建可执行程序&quot;&gt;&lt;/a&gt;无法创建可执行程序&lt;/h2&gt;&lt;p&gt;在使用 &lt;code&gt;emerge -avtuDN world&lt;/code&gt;升级系统时候，遇到编译 &lt;code&gt;sandbox&lt;/code&gt; 报错，检查&lt;code&gt;build.log&lt;/code&gt;有如下提示&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;configure: error: in `/var/tmp/portage/sys-apps/sandbox-2.7/work/build-x86&amp;apos;:
+configure: error: C compiler cannot create executables
+See `config.log&amp;apos; for more details
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这是因为我在编译内核的时候，取消了 32位支持&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Executable file formats / Emulations  ---&amp;gt; 
+    [ ] IA32 Emulation
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;但是，在 &lt;code&gt;/etc/portage/make.conf&lt;/code&gt; 中没有指定 &lt;code&gt;-multilib&lt;/code&gt; ，所以导致不少程序编译的时候会尝试同时编译支持32程序，这就导致无法完成。&lt;/p&gt;
+&lt;p&gt;为何最初没有出现问题？&lt;/p&gt;
+&lt;p&gt;最初我选择 &lt;code&gt;eselect profile list&lt;/code&gt; 时候，选择的是 &lt;code&gt;hardened/linux/amd64/no-multilib&lt;/code&gt; ，但是最近我想编译安装KDE，所以将 &lt;code&gt;eselect&lt;/code&gt; 转换成了 &lt;code&gt;default/linux/amd64/13.0/desktop/plasma&lt;/code&gt; ，这导致默认很多程序都带上了&lt;code&gt;multilib&lt;/code&gt;编译FLAG。&lt;/p&gt;
+&lt;p&gt;所以重新切换回 &lt;code&gt;no-multilib&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;eselect profile set 11
+emerge --ask --changed-use --deep world
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;这里重新做一次emerge world，参考 &lt;a href=&quot;https://wiki.gentoo.org/wiki/KDE/Plasma_5_upgrade&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;KDE Plasma 5 upgrade&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;但是出现提示错误（我使用了 &lt;code&gt;-qt4&lt;/code&gt;）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;emerge: there are no ebuilds built with USE flags to satisfy &amp;quot;&amp;gt;=dev-libs/libdbusmenu-qt-0.3.2[qt4(+)]&amp;quot;.
+!!! One of the following packages is required to complete your request:
+- dev-libs/libdbusmenu-qt-0.9.3_pre20140619-r1::gentoo (Change USE: +qt4)
+(dependency required by &amp;quot;kde-base/kdelibs-4.14.11::gentoo&amp;quot; [ebuild])
+(dependency required by &amp;quot;media-video/vlc-2.2.1::gentoo[kde]&amp;quot; [ebuild])
+(dependency required by &amp;quot;@selected&amp;quot; [set])
+(dependency required by &amp;quot;@world&amp;quot; [argument])
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;尝试使用 &lt;code&gt;emerge --unmerge dev-libs/libdbusmenu-qt&lt;/code&gt; 提示如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;!!! CONFIG_PROTECT is empty
+ * This action can remove important packages! In order to be safer, use
+ * `emerge -pv --depclean &amp;lt;atom&amp;gt;` to check for reverse dependencies before
+ * removing packages.
+--- Couldn&amp;apos;t find &amp;apos;dev-libs/libdbusmenu-qt&amp;apos; to unmerge.
+
+&amp;gt;&amp;gt;&amp;gt; No packages selected for removal by unmerge
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;检查不需要的软件包&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;emerge -pv --depclean
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;提示&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; &amp;apos;Selected&amp;apos; packages are slated for removal.
+&amp;gt;&amp;gt;&amp;gt; &amp;apos;Protected&amp;apos; and &amp;apos;omitted&amp;apos; packages will not be removed.
+
+Packages installed:   458
+Packages in world:    36
+Packages in system:   44
+Required packages:    434
+Number to remove:     24
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;确认这些软件包删除没有问题，则清理掉&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;emerge --depclean
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后重新执行一次系统编译&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;emerge --ask --changed-use --deep world
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;问题实在太多了，发现很难解决KDE编译时候需要的USE FLAG设置，所以还是&lt;code&gt;eselect profile&lt;/code&gt;设置选择&lt;code&gt;default/linux/amd64/13.0/desktop/plasma&lt;/code&gt;，同时设置 &lt;code&gt;make.conf&lt;/code&gt; 中添加 &lt;code&gt;-multilib&lt;/code&gt;。注意，部分软件包需要&lt;code&gt;qt4&lt;/code&gt;支持，所以让系统自动选择对部分软件包添加&lt;code&gt;qt4&lt;/code&gt;支持。&lt;/p&gt;
+&lt;p&gt;但是还是会出现 sandbox 无法编译，我检查了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;emerge --info
+emerge -pv gcc
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;发现gcc编译自动添加了 &lt;code&gt;multilib&lt;/code&gt; （即使我在 &lt;code&gt;make.conf&lt;/code&gt; 中加了 &lt;code&gt;-multilib&lt;/code&gt;），所以&lt;code&gt;make.conf&lt;/code&gt;去掉了 &lt;code&gt;-multilib&lt;/code&gt; ，然后先编译 &lt;code&gt;gcc&lt;/code&gt; ，再重新编译整个系统。汗，还是错误，发现原先选择的纯64位系统，会出现&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/usr/include/gnu/stubs.h:7:27: fatal error: gnu/stubs-32.h: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;唉，还是难以解决64位为题，所以我切换回 &lt;code&gt;no-multilib&lt;/code&gt; 的 profile，想办法逐步解决 KDE 编译参数。&lt;/p&gt;
+&lt;h2 id=&quot;gcc_profile_u9519_u8BEF&quot;&gt;&lt;a href=&quot;#gcc_profile_u9519_u8BEF&quot; class=&quot;headerlink&quot; title=&quot;gcc profile错误&quot;&gt;&lt;/a&gt;&lt;code&gt;gcc profile&lt;/code&gt;错误&lt;/h2&gt;&lt;p&gt;另一次遇到&lt;code&gt;C compiler cannot create executables&lt;/code&gt;也是做&lt;code&gt;emerge -avtuDN world&lt;/code&gt;时候遇到&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;checking for x86_64-pc-linux-gnu-gcc... x86_64-pc-linux-gnu-gcc
+checking whether the C compiler works... no
+configure: error: in `/var/tmp/portage/app-eselect/eselect-python-20151117-r2/work/eselect-python-20151117&amp;apos;:
+configure: error: C compiler cannot create executables
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;检查了&lt;code&gt;eselect profile list&lt;/code&gt;，确实选择的是纯64位模式&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[11]  default/linux/amd64/13.0/no-multilib *
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;我尝试在&lt;code&gt;/etc/portage/make.conf&lt;/code&gt;中添加&lt;code&gt;-multilib&lt;/code&gt;，但是没有解决问题，并且也无法编译&lt;code&gt;gcc&lt;/code&gt;自身。&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;Hello World&lt;/code&gt;程序编译测试了一下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gcc -Wall helloworld.c -o helloworld
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;显示输出&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; * gcc-config: Active gcc profile is invalid!
+gcc-config: error: could not run/locate &amp;apos;gcc&amp;apos;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用命令 &lt;code&gt;gcc-config -l&lt;/code&gt;显示输出&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;* gcc-config: Active gcc profile is invalid!
+[1] x86_64-pc-linux-gnu-4.9.3
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;原来是因为我前面使用了 &lt;code&gt;emerge --depclean&lt;/code&gt; 结果卸载了旧版本的 &lt;code&gt;sys-devel/gcc-4.8.5&lt;/code&gt; 导致了&lt;code&gt;gcc-config&lt;/code&gt;没有切换到新版本。&lt;/p&gt;
+&lt;p&gt;参考&lt;a href=&quot;https://archives.gentoo.org/gentoo-user/message/9f193b36813b8b5b83faf5bd0cbcfff4&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;gcc-config: Active gcc profile is invalid!&lt;/a&gt;，很简单，就是使用命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gcc-config 1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;将指向切换到新版本就可以。&lt;/p&gt;
+&lt;h2 id=&quot;u53C2_u8003&quot;&gt;&lt;a href=&quot;#u53C2_u8003&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.xaprb.com/blog/2006/06/07/how-to-update-a-gcc-profile-on-gentoo/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;How to update a GCC profile on Gentoo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://forums.gentoo.org/viewtopic-t-755720-start-0.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;gcc-config: Active gcc profile is invalid!&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近几个月，重新玩起了Gentoo，没事的时候，经常&lt;code&gt;emerge world&lt;/code&gt;，遇到过几次和gcc有关的报错：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;error: C compiler cannot create executables&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gcc-config: Active gcc profile is invalid!&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;简单记录一下排查的过程和解决方法：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Gentoo" scheme="http://blog.huatai.me/tags/Gentoo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac OS X JAVA多版本并存</title>
+    <link href="http://blog.huatai.me/2015/12/07/multiple-java-versions-on-Mac-OS-X/"/>
+    <id>http://blog.huatai.me/2015/12/07/multiple-java-versions-on-Mac-OS-X/</id>
+    <published>2015-12-07T07:37:53.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;当前默认在Mac OS X上安装JAVA版本是最新的&lt;code&gt;1.8.0_66-b17&lt;/code&gt;，但是也遇到有应用程序需要使用比较早期的JAVA版本。所以需要在Mac OS X上安装不同的JDK版本。&lt;/p&gt;
+&lt;p&gt;主要有两种方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用&lt;a href=&quot;http://brew.sh/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Homebrew&lt;/a&gt;管理多个java版本&lt;/li&gt;
+&lt;li&gt;卸载最新的JAVA，然后先安装低版本JAVA再安装高版本JAVA，通过&lt;code&gt;java_home&lt;/code&gt;来切换不同的JAVA版本。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;u4F7F_u7528java_home_u5207_u6362JAVA_u7248_u672C&quot;&gt;&lt;a href=&quot;#u4F7F_u7528java_home_u5207_u6362JAVA_u7248_u672C&quot; class=&quot;headerlink&quot; title=&quot;使用java_home切换JAVA版本&quot;&gt;&lt;/a&gt;使用&lt;code&gt;java_home&lt;/code&gt;切换JAVA版本&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;首先卸载系统中已经安装的最新版本的&lt;code&gt;1.8.0_66-b17&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在&lt;a href=&quot;https://www.java.com/en/download/help/mac_uninstall_java.xml&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Mac上卸载Java&lt;/a&gt; 需要执行以下步骤&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在Terminal终端中执行以下命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo rm -fr /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin
+sudo rm -fr /Library/PreferencePanes/JavaControlPanel.prefpane
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;上述方法和&lt;a href=&quot;http://techhelpkb.com/uninstall-java-on-mac/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;How can I uninstall Java on Mac (and reinstall Apple’s Java 6)?&lt;/a&gt;中通过Finder找到&lt;code&gt;JavaAppletPlugin.plugin&lt;/code&gt;进行删除是一样的效果。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;上述命令只是删除了&lt;code&gt;plugin&lt;/code&gt;和&lt;code&gt;System Perference&lt;/code&gt;中的控制项，实际执行程序并没有删除。删除执行程序的方法参考&lt;a href=&quot;http://stackoverflow.com/questions/19039752/removing-java-8-jdk-from-mac&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Removing Java 8 JDK from Mac&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo rm -rf /Library/Java/JavaVirtualMachines/jdk&amp;lt;version&amp;gt;.jdk
+sudo rm -rf /Library/PreferencePanes/JavaControlPanel.prefPane
+sudo rm -rf /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin
+sudo rm -rf /Library/LaunchAgents/com.oracle.java.Java-Updater.plist
+sudo rm -rf /Library/PrivilegedHelperTools/com.oracle.java.JavaUpdateHelper
+sudo rm -rf /Library/LaunchDaemons/com.oracle.java.JavaUpdateHelper.plist
+sudo rm -rf /Library/Preferences/com.oracle.java.Helper-Tool.plist
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;上述方法删除彻底，此时再执行&lt;code&gt;java -version&lt;/code&gt;时，OS X会引导去Oracled Java安装的下载网站（已经不再提供Java 6的下载）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;安装Java版本&lt;code&gt;1.7.0_80-b15&lt;/code&gt;，安装完成后执行&lt;code&gt;java -version&lt;/code&gt;可以看到当前版本是&lt;code&gt;1.7.0_80-b15&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;再次安装Java版本&lt;code&gt;1.8.0_66-b17&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装完成后执行&lt;code&gt;java -version&lt;/code&gt;可以看到版本现在切换到了&lt;code&gt;1.8.0_66-b17&lt;/code&gt;。不过，此时系统中实际已经安装了2个版本的JDK，下面我们要设置多版本切换。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;检查当前系统安装的Java版本&lt;/p&gt;
+&lt;p&gt;  /usr/libexec/java_home -verbose&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以看到输出有两个版本&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Matching Java Virtual Machines (2):
+    1.8.0_66, x86_64:    &amp;quot;Java SE 8&amp;quot;    /Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home
+    1.7.0_80, x86_64:    &amp;quot;Java SE 7&amp;quot;    /Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home
+
+/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;设置终端中通过&lt;code&gt;java7&lt;/code&gt;命令和&lt;code&gt;java8&lt;/code&gt;命令来切换环境（&lt;a href=&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home&quot;&gt;Mac OS X and multiple Java versions&lt;/a&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在&lt;code&gt;~/.bash_profile&lt;/code&gt;中添加设置&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
+export JAVA_7_HOME=$(/usr/libexec/java_home -v1.7)
+
+alias java7=&amp;apos;export JAVA_HOME=$JAVA_7_HOME&amp;apos;
+alias java8=&amp;apos;export JAVA_HOME=$JAVA_8_HOME&amp;apos;
+
+#default java8
+export JAVA_HOME=$JAVA_8_HOME
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后就可以通过命令&lt;code&gt;java7&lt;/code&gt;或者&lt;code&gt;java8&lt;/code&gt;来切换环境，切换环境后，再在终端中执行&lt;code&gt;java&lt;/code&gt;命令就会对应使用指定的Java版本。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过&lt;code&gt;java_home&lt;/code&gt;方法可以切换终端中执行的java版本，但是无法影响图形应用程序执行的java版本。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;u4F7F_u7528homebrew_u7BA1_u7406java_u591A_u7248_u672C&quot;&gt;&lt;a href=&quot;#u4F7F_u7528homebrew_u7BA1_u7406java_u591A_u7248_u672C&quot; class=&quot;headerlink&quot; title=&quot;使用homebrew管理java多版本&quot;&gt;&lt;/a&gt;使用&lt;code&gt;homebrew&lt;/code&gt;管理java多版本&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;未实践&lt;/strong&gt; 记录供参考 &lt;a href=&quot;http://stackoverflow.com/questions/26252591/mac-os-x-and-multiple-java-versions&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Mac OS X and multiple Java versions&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;安装&lt;a href=&quot;http://brew.sh&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;homebrew&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装homebrew &lt;code&gt;jenv&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;brew install jenv
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装 &lt;code&gt;homebrew-cask&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;brew install homebrew-cask
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;查看当前版本&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;brew cask search java
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装需要的java版本&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;brew cask install java7
+brew cask install java6
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用&lt;code&gt;jenv&lt;/code&gt;管理版本&lt;/p&gt;
+&lt;p&gt;  jenv add /Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;使用&lt;code&gt;/usr/libexec/java_home -verbose&lt;/code&gt;来检查系统安装的JDK版本&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;u53C2_u8003&quot;&gt;&lt;a href=&quot;#u53C2_u8003&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://dzone.com/articles/multiple-versions-java-os-x&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Multiple Versions of Java on OS X Mavericks&lt;/a&gt; 这个文档提供了在终端中切换Java的方法（但是不影响图形界面运行java程序）&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;图形界面运行java程序指定java版本需要一些hack - &lt;a href=&quot;http://stackoverflow.com/questions/17885494/how-can-i-change-mac-oss-default-java-vm-returned-from-usr-libexec-java-home&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;* &lt;a href=&quot;https://dzone.com/articles/multiple-versions-java-os-x&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Multiple Versions of Java on OS X Mavericks&lt;/a&gt;&lt;/a&gt; 不过我没有实践成功（没有理解方法）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;卸载Java on Mac的方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://techhelpkb.com/uninstall-java-on-mac/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;How can I uninstall Java on Mac (and reinstall Apple’s Java 6)?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;官方文档&lt;a href=&quot;https://www.java.com/en/download/help/mac_uninstall_java.xml&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;How do I uninstall Java on my Mac?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;完整的删除方法&lt;a href=&quot;http://stackoverflow.com/questions/19039752/removing-java-8-jdk-from-mac&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Removing Java 8 JDK from Mac&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/26252591/mac-os-x-and-multiple-java-versions&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Mac OS X and multiple Java versions&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;当前默认在Mac OS X上安装JAVA版本是最新的&lt;code&gt;1.8.0_66-b17&lt;/code&gt;，但是也遇到有应用程序需要使用比较早期的JAVA版本。所以需要在Mac OS X上安装不同的JDK版本。&lt;/p&gt;
+&lt;p&gt;主要有两种方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用&lt;a href=&quot;http://brew.sh/&quot;&gt;Homebrew&lt;/a&gt;管理多个java版本&lt;/li&gt;
+&lt;li&gt;卸载最新的JAVA，然后先安装低版本JAVA再安装高版本JAVA，通过&lt;code&gt;java_home&lt;/code&gt;来切换不同的JAVA版本。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://blog.huatai.me/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>给爬山小白的自己一点建议</title>
+    <link href="http://blog.huatai.me/2015/12/06/climbing-for-newbie-me/"/>
+    <id>http://blog.huatai.me/2015/12/06/climbing-for-newbie-me/</id>
+    <published>2015-12-06T15:33:47.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;昨天杭州下了一场大雪，今天和同事正好相约爬山（做公益清洁垃圾），从上天竺到云栖竹径，一路迤逦，观赏雪后山景，同时积累到一些经验，（作为业余登山者）我们登山究竟需要准备什么。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/climb/hangzhou_climbing.jpg&quot; alt=&quot;杭州上天竺到云栖竹径&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;一双好鞋&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这次爬山穿了一双平时走路上下班的&lt;a href=&quot;https://detail.tmall.com/item.htm?id=40463392182&amp;amp;spm=a1z09.2.0.0.ehhcFM&amp;amp;_u=61k88vu8c6f&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;迪卡侬轻盈透气网面跑鞋&lt;/a&gt;，刚在山路上走了几步就后悔了。融化掉雪水很快就滲透到鞋子里面，即使登山路上浑身发热，但双脚始终是冰冷潮湿的，非常难受。&lt;/p&gt;
+&lt;p&gt;这是最大的教训，在户外徒步登山时，一定要有一双好的登山鞋，防水透气，否则即使是简单的行走，也会使得自己精疲力尽无法持续。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果是攀岩或者走雪地，可能需要更为适合环境的专业鞋，这个今后要仔细研究，做好准备。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;登山杖&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在登山过程中给自己一个支撑点，有时候还是很有必要的。特别是泥泞的山路，连滚带爬总是非常痛苦的，如果有登山杖作为支持，可以平衡好很多。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;防水透气的衣裤（带帽子）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;林间穿行，不断有雪水落下，此时有防水透气的衣裤，并且有保暖防水的帽子是很大的帮助。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;双层保温杯&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;登山途中，有同事拿出自带的双层保温杯，喝上一口热茶或者热巧克力，应该是非常鼓舞力量的。这个下次要作为一个重点来保障。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果是长途徒步，应该带上炊具！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;以上是今天的一点点小小的收获，即使简单也是有意义的！&lt;/strong&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;昨天杭州下了一场大雪，今天和同事正好相约爬山（做公益清洁垃圾），从上天竺到云栖竹径，一路迤逦，观赏雪后山景，同时积累到一些经验，（作为业余登山者）我们登山究竟需要准备什么。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/climb/hangzhou_climbing.jpg&quot; alt=&quot;杭州上天竺到云栖竹径&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Life" scheme="http://blog.huatai.me/tags/Life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>烤箱第一次烹饪：烤鸡翅</title>
+    <link href="http://blog.huatai.me/2015/12/05/fired-chicken-wings/"/>
+    <id>http://blog.huatai.me/2015/12/05/fired-chicken-wings/</id>
+    <published>2015-12-05T15:51:10.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;双11卖了烤箱之后，今天第一次使用烤箱烹饪，选择相对较容易的烤鸡翅练手。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;卖相不好，不过味道基本还行，也算烘焙烧烤第一步吧 ^_^&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;/img/cook/fired_chicken_wings.jpg&quot; alt=&quot;烤鸡翅&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;超市卖了一包鸡中翅，440克左右，一共10块鸡中翅，约25元。&lt;/p&gt;
+&lt;p&gt;从&lt;code&gt;下厨房&lt;/code&gt;APP找了一个相对赞数最多的烹饪方法，开始实践。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;菜谱没有提供详细的调料份量，中国菜谱你懂的，以下是我自己根据炒菜自己琢磨的，实际情况也得你自己多尝试&lt;/p&gt;
+&lt;p&gt; 这里”调羹”是指我们平时中餐时使用的瓷调羹，用量不精确，下次我改成西餐使用的量勺试试 ^-^&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;准备以下调料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;老抽一调羹&lt;/li&gt;
+&lt;li&gt;生抽一调羹（实际这次一调羹多一点点）&lt;/li&gt;
+&lt;li&gt;孜然粉半调羹&lt;/li&gt;
+&lt;li&gt;蒜蓉（两瓣蒜）&lt;/li&gt;
+&lt;li&gt;黑胡椒粉（随意撒了点，估计小半调羹）&lt;/li&gt;
+&lt;li&gt;蜂蜜&lt;/li&gt;
+&lt;li&gt;纯橄榄油（菜谱说用色拉油，没有找到，就用前几天买的炒菜的纯橄榄油代替了）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;u6B65_u9AA4&quot;&gt;&lt;a href=&quot;#u6B65_u9AA4&quot; class=&quot;headerlink&quot; title=&quot;步骤&quot;&gt;&lt;/a&gt;步骤&lt;/h1&gt;&lt;h2 id=&quot;u51C6_u5907&quot;&gt;&lt;a href=&quot;#u51C6_u5907&quot; class=&quot;headerlink&quot; title=&quot;准备&quot;&gt;&lt;/a&gt;准备&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;在鸡翅上正反划两刀，目的是为了让调味更入味&lt;/li&gt;
+&lt;li&gt;使用乐扣玻璃盒，放入鸡翅后加入 老抽、生抽、孜然粉、黑胡椒粉、蒜蓉，然后反复揉搓鸡翅几分钟使调味酱料均匀沾到鸡翅上。&lt;/li&gt;
+&lt;li&gt;盖上乐扣盖子，将玻璃盒放入冰箱冷藏腌制两小时。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;u70E7_u70E4&quot;&gt;&lt;a href=&quot;#u70E7_u70E4&quot; class=&quot;headerlink&quot; title=&quot;烧烤&quot;&gt;&lt;/a&gt;烧烤&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;烤箱试用请参考烤箱说明书，每个厂商不同型号的烤箱都有差异，所以要参考说明书多实践几次找到（和菜谱匹配的）规律。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;烤箱预热200度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;烤箱说明书指明的预热时间是：观察加热管颜色变化状况，当加热管由红色专为黑色，表示预热完成。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;将烤盘铺上烧烤铝纸，均匀放上鸡翅，然后放入烤箱中下层，烤10分钟&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;烤箱说明书：单层烤肉或西点，建议将烤盘或烤网放置在中下层，即往上数第二层，该层温度相对均匀，有利于烤肉或西点的烘培。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;取出鸡翅，将老抽、 蜂蜜、橄榄（色拉）油混合（我这次采用了一调羹老抽、一调羹蜂蜜、一调羹橄榄油），涂在鸡翅上，放入烤箱继续烤5分钟。&lt;/li&gt;
+&lt;li&gt;取出鸡翅，翻面，同样再刷一遍老抽、蜂蜜、橄榄（色拉）油，再继续烤5分钟。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;u5FC3_u5F97_u548C_u540E_u7EED_u6539_u8FDB&quot;&gt;&lt;a href=&quot;#u5FC3_u5F97_u548C_u540E_u7EED_u6539_u8FDB&quot; class=&quot;headerlink&quot; title=&quot;心得和后续改进&quot;&gt;&lt;/a&gt;心得和后续改进&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;没想到腌制入味并不容易：我按照以往烧菜的经验，使用一调羹老抽和一调羹生抽，腌制近两个小时。但是实际品尝起来，味道还是有点淡，而且味道没有进入肉的内部。下次刀切要深一些，并且腌制时间最好3到4小时。&lt;/li&gt;
+&lt;li&gt;腌制的调味酱里面加上蒜蓉应该是不错的，甚至可以加洋葱、罗勒叶，但是烤制的时候不要带上蒜蓉，因为会发黑外观不好。&lt;/li&gt;
+&lt;li&gt;老婆希望味道有点辣味，类似KFC的新奥尔良烤翅。下次加辣椒酱腌制。&lt;/li&gt;
+&lt;li&gt;按照菜谱说主要是采用老抽，但是实践下来发现卖相不好，颜色比较深且有些发黑。KFC的新奥尔良烤翅明显外观色泽就比较好，我觉得应该减少老抽（半调羹）增加生抽（一调羹半），这样色泽应该会接近KFC的烤翅。&lt;/li&gt;
+&lt;li&gt;这次烤翅有些沾底了，导致第一次翻鸡翅，底下的鸡翅表皮粘在了铝箔纸上，太可惜了。这应该是我刚开始烤的时候，没有在底盘（铝箔纸）上涂橄榄油导致的，因为我发现第二次翻鸡翅就没有问题，因为第二次翻动之前，已经在上层涂抹过橄榄油、老抽、蜂蜜的混合液了。&lt;/li&gt;
+&lt;li&gt;烤翅内部水份有些流失，感觉有些柴，不像KFC的烤翅内部有鸡汁，这点我得想想，如何像西餐中烤牛排一样锁住食物的水份。&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;双11卖了烤箱之后，今天第一次使用烤箱烹饪，选择相对较容易的烤鸡翅练手。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;卖相不好，不过味道基本还行，也算烘焙烧烤第一步吧 ^_^&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;/img/cook/fired_chicken_wings.jpg&quot; alt=&quot;烤鸡翅&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="cook" scheme="http://blog.huatai.me/tags/cook/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>libguestfs学习笔记（一）</title>
+    <link href="http://blog.huatai.me/2015/12/03/libguestfs-learning-note-1/"/>
+    <id>http://blog.huatai.me/2015/12/03/libguestfs-learning-note-1/</id>
+    <published>2015-12-03T09:03:43.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;libguestfs&quot;&gt;&lt;a href=&quot;#libguestfs&quot; class=&quot;headerlink&quot; title=&quot;libguestfs&quot;&gt;&lt;/a&gt;&lt;code&gt;libguestfs&lt;/code&gt;&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://libguestfs.org&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;libguestfs&lt;/a&gt;是一个访问和修改虚拟机磁盘镜像的一组工具。可以使用这个工具查看和修改guest虚拟机中的文件，通过脚本修改虚拟机，&lt;a href=&quot;http://libguestfs.org/virt-df.1.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;监视磁盘使用状态&lt;/a&gt;，&lt;a href=&quot;http://libguestfs.org/virt-builder.1.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;创建虚拟机&lt;/a&gt;，P2V，&lt;a href=&quot;http://libguestfs.org/virt-v2v.1.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;V2V&lt;/a&gt;，执行备份，clone虚拟机，构建虚拟机，格式化磁盘，修改磁盘大小等等。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;&lt;strong&gt;libguestfs几乎可以访问任何image化的磁盘镜像&lt;/strong&gt;，并且不需要root账号，可以使用多层次访问磁盘镜像。另外libguestfs可以访问远程主机上的磁盘镜像或者在CD/U盘上的磁盘镜像，可以访问类似VMware和Hyper-V的系统。&lt;/p&gt;
+&lt;p&gt;所有的功能都是通过一个可以脚本化的shell，称为 &lt;a href=&quot;http://libguestfs.org/guestfish.1.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;guestfish&lt;/a&gt; 或者一个交互的救援shell &lt;a href=&quot;http://libguestfs.org/virt-rescue.1.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;virt-rescue&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;libguestfs是一个C库&lt;/strong&gt;，所以可以链接到&lt;a href=&quot;http://libguestfs.org/guestfs.3.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;C和C++&lt;/a&gt;管理程序，并且可以绑定到一系列其它可编程语言。使用FUSE模块，还可以&lt;a href=&quot;http://libguestfs.org/guestmount.1.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;直接将guest文件系统挂载到物理机&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://libguestfs.org/hivex.3.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hivex子项目&lt;/a&gt;可以在Windows虚拟机中[合并修改到Windows注册表]。可以&lt;a href=&quot;http://libguestfs.org/virt-inspector.1.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;检查未知的磁盘镜像&lt;/a&gt;来查找它包含的内容&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;libguestfs从2009年开始不断持续开发（一个活跃的开源项目），具有&lt;a href=&quot;http://libguestfs.org/guestfs.3.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;250页手册&lt;/a&gt;，以及在企业级环境部署的成熟案例，并被很多项目所使用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;libguestfs_u5B89_u88C5&quot;&gt;&lt;a href=&quot;#libguestfs_u5B89_u88C5&quot; class=&quot;headerlink&quot; title=&quot;libguestfs安装&quot;&gt;&lt;/a&gt;libguestfs安装&lt;/h1&gt;&lt;p&gt;Fedora和Red Hat Enterprise Linux&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo yum install libguestfs-tools
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Debian/Ubuntu&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install libguestfs-tools
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;打开镜像的方法简单如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;guestfish --ro -i -a disk.img
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;qemu-nbd&quot;&gt;&lt;a href=&quot;#qemu-nbd&quot; class=&quot;headerlink&quot; title=&quot;qemu-nbd&quot;&gt;&lt;/a&gt;&lt;code&gt;qemu-nbd&lt;/code&gt;&lt;/h1&gt;&lt;p&gt;&lt;code&gt;qemu-nbd&lt;/code&gt;可以实现挂载虚拟磁盘到物理服务器，这个工具是通过使用NBD协议来输出Qemu磁盘镜像。&lt;/p&gt;
+&lt;h1 id=&quot;u53C2_u8003&quot;&gt;&lt;a href=&quot;#u53C2_u8003&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blogs.gnome.org/muelli/2010/03/mounting-qemu-qcow2-image-using-nbd/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Mounting QEmu qcow2 Image using NBD&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://manpages.ubuntu.com/manpages/jaunty/man8/qemu-nbd.8.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; qemu-nbd - QEMU Disk Network Block Device Server&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/shendl/article/details/5798333&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;qemu nbd&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://rwmj.wordpress.com/tag/libguestfs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;libguestfs博客&lt;/a&gt; - 非常完整的历年libguestfs发展各阶段的技术文档，值得参考&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;libguestfs&quot;&gt;&lt;a href=&quot;#libguestfs&quot; class=&quot;headerlink&quot; title=&quot;libguestfs&quot;&gt;&lt;/a&gt;&lt;code&gt;libguestfs&lt;/code&gt;&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://libguestfs.org&quot;&gt;libguestfs&lt;/a&gt;是一个访问和修改虚拟机磁盘镜像的一组工具。可以使用这个工具查看和修改guest虚拟机中的文件，通过脚本修改虚拟机，&lt;a href=&quot;http://libguestfs.org/virt-df.1.html&quot;&gt;监视磁盘使用状态&lt;/a&gt;，&lt;a href=&quot;http://libguestfs.org/virt-builder.1.html&quot;&gt;创建虚拟机&lt;/a&gt;，P2V，&lt;a href=&quot;http://libguestfs.org/virt-v2v.1.html&quot;&gt;V2V&lt;/a&gt;，执行备份，clone虚拟机，构建虚拟机，格式化磁盘，修改磁盘大小等等。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="libguestfs" scheme="http://blog.huatai.me/tags/libguestfs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ebtables学习笔记（一）</title>
+    <link href="http://blog.huatai.me/2015/12/03/ebtables-learning-note-1/"/>
+    <id>http://blog.huatai.me/2015/12/03/ebtables-learning-note-1/</id>
+    <published>2015-12-03T09:02:05.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;a href=&quot;http://ebtables.netfilter.org&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ebtalbes&lt;/a&gt; 是 netfilter 针对Linux网桥防火墙的一个过滤工具。&lt;code&gt;ebtables&lt;/code&gt;透明地过滤通过Linux网桥传输的数据流。这个&lt;code&gt;ebtables&lt;/code&gt;过滤可以限制链路层过滤以及一些更网络层的基础过滤。同时也包括了高级日志，&lt;code&gt;MAC DNAT/SNAT&lt;/code&gt; 和&lt;code&gt;brouter&lt;/code&gt;能力。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;brouter&lt;/code&gt;即&lt;code&gt;bridge router&lt;/code&gt;，也就是同时作为网桥（交换机）和路由器的网络设备。&lt;code&gt;brouter&lt;/code&gt; 为已知协议路由数据包，同时将其他所有非已知协议数据包类似网桥方式进行简单转发。（&lt;a href=&quot;https://en.wikipedia.org/wiki/Bridge_router&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Bridge router - Wikipedia&lt;/a&gt;）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;ebtables&lt;/code&gt;可以结合到其他Linux过滤工具（&lt;code&gt;iptables&lt;/code&gt;，&lt;code&gt;ip6tables&lt;/code&gt;和&lt;code&gt;arptables&lt;/code&gt;）来使网桥防火墙能够过滤更高网络层。这个网桥过滤架构已经包含到标准Linux内核。&lt;/p&gt;
+&lt;h1 id=&quot;u4EC0_u4E48_u662Febtables&quot;&gt;&lt;a href=&quot;#u4EC0_u4E48_u662Febtables&quot; class=&quot;headerlink&quot; title=&quot;什么是ebtables&quot;&gt;&lt;/a&gt;什么是&lt;code&gt;ebtables&lt;/code&gt;&lt;/h1&gt;&lt;p&gt;&lt;code&gt;ebtables&lt;/code&gt;工具在Linux网桥上实现了基础的以太网帧过滤，日志，MAC NAT和brouting功能。&lt;code&gt;ebtables&lt;/code&gt;只提供基础的IP过滤（完整功能的IP过滤由iptables实现）。一个称为&lt;code&gt;bridge-nf&lt;/code&gt;的代码让iptables能够看见网桥过的IP数据包饼实现透明的IP NAT。防火墙工具&lt;code&gt;iptables&lt;/code&gt;和&lt;code&gt;ebtables&lt;/code&gt;可以结合使用、互为补充。&lt;code&gt;etables&lt;/code&gt;可以提供&lt;code&gt;iptables&lt;/code&gt;不能提供的网桥过滤，实现非IP流量的过滤。&lt;/p&gt;
+&lt;h2 id=&quot;ebtalbes_u529F_u80FD&quot;&gt;&lt;a href=&quot;#ebtalbes_u529F_u80FD&quot; class=&quot;headerlink&quot; title=&quot;ebtalbes功能&quot;&gt;&lt;/a&gt;&lt;code&gt;ebtalbes&lt;/code&gt;功能&lt;/h2&gt;&lt;p&gt;&lt;code&gt;ebtables&lt;/code&gt;主要功能包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用方法类似 &lt;code&gt;iptables&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;以太网过滤&lt;/li&gt;
+&lt;li&gt;MAC NAT：可以修改MAC以太网的源和目的地址。这个功能在一些特殊设置中非常有用。&lt;/li&gt;
+&lt;li&gt;Brouting（网桥路由）：决定哪个流量可以在两个接口间交换并决定相同的两个接口哪些流量可以路由。这两个接口属于一个逻辑网桥设备，但是它们有自己的IP地址并且可以属于不同的子网。&lt;/li&gt;
+&lt;li&gt;使用&lt;code&gt;netlink sockets&lt;/code&gt;（ulog监视器）给用户空间程序传递数据包&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;etables&lt;/code&gt;可以做什么？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;以太网协议过滤&lt;/li&gt;
+&lt;li&gt;MAC地址过滤&lt;/li&gt;
+&lt;li&gt;简单的IP头过滤&lt;/li&gt;
+&lt;li&gt;ARP头过滤&lt;/li&gt;
+&lt;li&gt;802.1Q VLANgu哦旅&lt;/li&gt;
+&lt;li&gt;进/出 接口过滤（逻辑和物理设备）&lt;/li&gt;
+&lt;li&gt;MAC地址nat&lt;/li&gt;
+&lt;li&gt;日志&lt;/li&gt;
+&lt;li&gt;帧计数&lt;/li&gt;
+&lt;li&gt;可以添加，删除和插入规则；刷新过滤链路；计数器清零&lt;/li&gt;
+&lt;li&gt;Brouter功能&lt;/li&gt;
+&lt;li&gt;可以自动加载一个完整表，包含你创建的所有规则到内核&lt;/li&gt;
+&lt;li&gt;支持用户定义过滤链&lt;/li&gt;
+&lt;li&gt;支持标记帧和匹配标记的帧&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;ebtables&lt;/code&gt;不能做什么？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;全功能的IPv4/IPv6/ARP过滤（请使用iptables/ip6tables/arptables）&lt;/li&gt;
+&lt;li&gt;过滤高于802.3以太网层的协议，过滤在802.3以太网帧内的ARP包。{Ip,Ip6,Arp}tables当前也不能过滤在802.3以太网帧的IPv4/IPv6/ARP流量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;有关802.3以太网帧，请参考 &lt;a href=&quot;http://support.huawei.com/ecommunity/bbs/10154435.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;浅谈以太网帧格式&lt;/a&gt; 和 &lt;a href=&quot;http://cvgcv6666.blog.51cto.com/713624/267028&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;四种格式的以太网帧结构&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Ethernet 802.3是IEEE制定的，但是没有像预期地流行起来。&lt;/p&gt;
+&lt;p&gt;Ethernet V2（ARPA）是intel和DEC等几个公司制定的，现在是以太网帧事实上的标准，使用的非常广泛。&lt;/p&gt;
+&lt;p&gt;大多数应用的以太网数据包是Ethernet V2的帧（如HTTP、FTP、SMTP、POP3等应用），而交换机之间的BPDU（桥协议数据单元）数据包则是IEEE802.3的帧，VLAN Trunk协议如802.1Q和Cisco的CDP（思科发现协议）等则是采用IEEE802.3 SNAP的帧。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;u4EC0_u4E48_u662Fbridge-netfilter&quot;&gt;&lt;a href=&quot;#u4EC0_u4E48_u662Fbridge-netfilter&quot; class=&quot;headerlink&quot; title=&quot;什么是bridge-netfilter&quot;&gt;&lt;/a&gt;什么是&lt;code&gt;bridge-netfilter&lt;/code&gt;&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;从Linux内核3.18-rc1开始，需要使用&lt;code&gt;modprobe br_netfilter&lt;/code&gt;命令来激活&lt;code&gt;bridge-netfilter&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;bridge-netfilter&lt;/code&gt;代码激活了以下功能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;{ip,ip6,arp}tables 可以过滤交换类型的IPv4/IPv6/ARP数据包，即使这些数据包是使用了 802.1Q VLAN 或PPPoE头包装的。这个功能可以用于状态型透明防火墙。&lt;/li&gt;
+&lt;li&gt;所有过滤、日志、NAT功能都可以用于交换类型帧。&lt;/li&gt;
+&lt;li&gt;结合&lt;code&gt;ebtables&lt;/code&gt;，&lt;code&gt;bridge-nf&lt;/code&gt;代码可以让Linux实现非常强劲的透明防火墙。&lt;/li&gt;
+&lt;li&gt;创建透明的masquerade（伪装，即NAT）主机，使得所有本地主机都以为它们是直接连接Internet&lt;/li&gt;
+&lt;li&gt;可以通过使用相应的&lt;code&gt;proc&lt;/code&gt;对象让{ip,ip6,arp}tables检查交换类型数据流。即&lt;code&gt;proc&lt;/code&gt;文件系统的&lt;code&gt;/proc/sys/net/bridge/&lt;/code&gt;目录下&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;bridge-nf-call-arptables&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bridge-nf-call-iptables&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bridge-nf-call-ip6tables&lt;/code&gt;&lt;br&gt;同样，让上述防火墙工具能够检查 802.1Q VLAN 和 PPPoE 包装的数据包也可以在相同目录下激活&lt;code&gt;proc&lt;/code&gt;项&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bridge-nf-filter-vlan-tagged&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bridge-nf-filter-pppoe-tagged&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些&lt;code&gt;proc&lt;/code&gt;对象是常规文件，使用&lt;code&gt;1&lt;/code&gt;开启功能（&lt;code&gt;echo 1 &amp;gt; file&lt;/code&gt;），而使用&lt;code&gt;0&lt;/code&gt;则关闭功能。&lt;/p&gt;
+&lt;h1 id=&quot;u8FDB_u9636_u6587_u6863&quot;&gt;&lt;a href=&quot;#u8FDB_u9636_u6587_u6863&quot; class=&quot;headerlink&quot; title=&quot;进阶文档&quot;&gt;&lt;/a&gt;进阶文档&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;以下详细文档待整理和学习&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;官方文档&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#ebtables FAQ&quot;&gt;ebtables FAQ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#arptables FAQ&quot;&gt;arptables FAQ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#bridge-nf FAQ&quot;&gt;bridge-nf FAQ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#ebtables man手册&quot;&gt;ebtables man手册&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#arptables man手册&quot;&gt;arptables man手册&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#网桥防火墙交互&quot;&gt;网桥防火墙交互&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#ebtables hacking HOWTO&quot;&gt;ebtables hacking HOWTO&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;第三方文档&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://linux.sys-con.com/read/48126.htm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;使用Linux坚固的防火墙&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.linuxsecure.de/index.php?action=90&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;bridge+ebtables+iptables&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.linuxjournal.com/article/8172&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Linux以太网桥&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.linux-magazine.com/issue/50/Bridgewall_Firewalling.pdf&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;交换层防火墙部署&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://osx.freshmeat.net/articles/view/1433/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;使用Squid和ebtables在网桥上配置透明代理/Web缓存&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://lwn.net/Articles/145406/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;IDS负载均衡HOWTO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www-ivs.cs.uni-magdeburg.de/EuK/forschung/projekte/nse/howtos/ns2uml_userguide.ps&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;使用NS2和UML模拟无线网络&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.linuxfoundation.org/en/Net:Bridge&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Linux网桥&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;u53C2_u8003&quot;&gt;&lt;a href=&quot;#u53C2_u8003&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://ebtables.netfilter.org/documentation/docs.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ebtables官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;http://ebtables.netfilter.org&quot;&gt;ebtalbes&lt;/a&gt; 是 netfilter 针对Linux网桥防火墙的一个过滤工具。&lt;code&gt;ebtables&lt;/code&gt;透明地过滤通过Linux网桥传输的数据流。这个&lt;code&gt;ebtables&lt;/code&gt;过滤可以限制链路层过滤以及一些更网络层的基础过滤。同时也包括了高级日志，&lt;code&gt;MAC DNAT/SNAT&lt;/code&gt; 和&lt;code&gt;brouter&lt;/code&gt;能力。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="netfilter" scheme="http://blog.huatai.me/tags/netfilter/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用vagrant snapshot创建快照备份</title>
+    <link href="http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/"/>
+    <id>http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/</id>
+    <published>2015-12-03T06:12:31.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;使用Vagrant的快照功能可以很方便快速的创建当前虚拟机的一个临时备份状态，在进行重要操作时可以先创建一个快照以便在操作失误后快速恢复。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;安装Vagrant快照插件：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant plugin install vagrant-vbox-snapshot
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;我是切换到root用户身份下执行上述安装命令，后来发现不应该这样操作，而是应该使用自己的普通用户账号来执行上述插件安装。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;支持的参数如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant snapshot take [vm-name] &amp;lt;SNAPSHOT_NAME&amp;gt;   # take snapshot, labeled by NAME
+vagrant snapshot list [vm-name]                   # list snapshots
+vagrant snapshot back [vm-name]                   # restore last taken snapshot
+vagrant snapshot delete [vm-name] &amp;lt;SNAPSHOT_NAME&amp;gt; # delete specified snapshot
+vagrant snapshot go [vm-name] &amp;lt;SNAPSHOT_NAME&amp;gt;     # restore specified snapshot
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用方法：&lt;/p&gt;
+&lt;p&gt;创建一个快照&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant snapshot take centos-7.1 centos-7.1_base
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;奇怪，&lt;code&gt;vagrant&lt;/code&gt;程序没有识别出&lt;code&gt;snapshot&lt;/code&gt;命令，依然提示help信息列表&lt;/p&gt;
+&lt;p&gt;参考 &lt;a href=&quot;https://docs.vagrantup.com/v2/plugins/usage.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vagrant Docs Plugins installation&lt;/a&gt; ，插件安装后是自动由Vagrant加载的。但是，我使用 &lt;code&gt;vagrant plugin list&lt;/code&gt; 命令显示，确实没有查看到刚安装的 &lt;code&gt;vagrant-vbox-snapshot&lt;/code&gt;，只输出显示&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant-share (1.1.4, system)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;查看了&lt;a href=&quot;https://docs.vagrantup.com/v2/plugins/usage.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官方plugin installation文档&lt;/a&gt;，文档中的&lt;code&gt;vagrant plugin install vagrant-example-plugin&lt;/code&gt;显示的终端提示符是普通用户，所以切换到自己的账号，重新以普通用户身份安装插件。安装完成后，再次使用 &lt;code&gt;vagrant pluginin list&lt;/code&gt; 则可以看到&lt;code&gt;vagrant-vbox-snapshot&lt;/code&gt;插件了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant-share (1.1.4, system)
+vagrant-vbox-snapshot (0.0.10)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;再次执行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant snapshot take centos-7.1 centos-7.1_base
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;当前目录是Vagrant配置文件所在目录 &lt;code&gt;centos-7.1&lt;/code&gt; ，我以为虚拟机的名字是 &lt;code&gt;centos-7.1&lt;/code&gt; （不过看VirtualBox的图形管理界面中显示的是 &lt;code&gt;Vagrant_default_1448250085458_10997&lt;/code&gt;），但是实际上述命令执行会提示错误&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;The machine with the name &amp;apos;centos-7.1&amp;apos; was not found configured for this Vagrant environment.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;那到底是什么名字呢？&lt;/p&gt;
+&lt;p&gt;使用 &lt;code&gt;vagrant status&lt;/code&gt; 可以检查当前虚拟机状态（和名字）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Current machine states:
+
+default                   poweroff (virtualbox)
+
+The VM is powered off. To restart the VM, simply run `vagrant up`
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;好吧，既然名字是 &lt;code&gt;default&lt;/code&gt; 就用下面的命令来执行快照&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant snapshot take default centos-7.1_base
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;出乎意料，快照的获取是瞬间完成了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Taking snapshot centos-7.1_base
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+Snapshot taken. UUID: af5b803c-266e-41af-875b-9f7a2bc36794
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;查看快照列表&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant snapshot list
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;显示输出&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Listing snapshots for &amp;apos;default&amp;apos;:
+   Name: centos-7.1_base (UUID: af5b803c-266e-41af-875b-9f7a2bc36794) *
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;从指定快照中恢复&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant snapshot go &amp;quot;Name&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;删除一个快照&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant snapshot delete &amp;quot;Name&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;u53C2_u8003&quot;&gt;&lt;a href=&quot;#u53C2_u8003&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://segmentfault.com/a/1190000003033407&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vagrant建立快照备份&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/dergachev/vagrant-vbox-snapshot&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;vagrant-vbox-snapshot github项目&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;使用Vagrant的快照功能可以很方便快速的创建当前虚拟机的一个临时备份状态，在进行重要操作时可以先创建一个快照以便在操作失误后快速恢复。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="Vagrant" scheme="http://blog.huatai.me/tags/Vagrant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用vagrant package打包VirtualBox环境</title>
+    <link href="http://blog.huatai.me/2015/12/03/use-vagrant-package-VirtualBox-environment/"/>
+    <id>http://blog.huatai.me/2015/12/03/use-vagrant-package-VirtualBox-environment/</id>
+    <published>2015-12-03T06:11:09.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;code&gt;vagrant package&lt;/code&gt;是一个当前运行的VirtualBox环境打包成一个可重用的&lt;a href=&quot;http://docs.vagrantup.com/v2/boxes.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;box&lt;/a&gt;方法。注意，&lt;code&gt;vagrant package&lt;/code&gt;不能用于其它&lt;a href=&quot;http://docs.vagrantup.com/v2/providers/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;provider&lt;/a&gt;，只支持VirtalBox。其它provider需要手工完成打包。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;package         packages a running vagrant environment into a box&lt;/p&gt;
+&lt;p&gt;可以对运行状态的虚拟机环境打包&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;u7B80_u5355_u7684_u6253_u5305_u65B9_u6CD5&quot;&gt;&lt;a href=&quot;#u7B80_u5355_u7684_u6253_u5305_u65B9_u6CD5&quot; class=&quot;headerlink&quot; title=&quot;简单的打包方法&quot;&gt;&lt;/a&gt;简单的打包方法&lt;/h1&gt;&lt;p&gt;进入Vagrant的项目目录，执行简单的命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant package
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;就可以看到如下输出显示打包过程&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;==&amp;gt; default: Clearing any previously set forwarded ports...
+==&amp;gt; default: Exporting VM...
+==&amp;gt; default: Compressing package to: /Users/huatai/Documents/Vagrant/centos-6.7/package.box
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;u53C2_u6570_u4F7F_u7528&quot;&gt;&lt;a href=&quot;#u53C2_u6570_u4F7F_u7528&quot; class=&quot;headerlink&quot; title=&quot;参数使用&quot;&gt;&lt;/a&gt;参数使用&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;--base NAME&lt;/code&gt; - 替代打包一个VirtualBox主机，这个参数打包一个VirtualBox manages的VirtualBox。这里&lt;code&gt;NAME&lt;/code&gt;是VirtualBox GUI中显示的虚拟机的UUID或者名字。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;--output NAME&lt;/code&gt; - 这个参数设置打包的名字，如果没有这个参数，则默认保存为 &lt;code&gt;package.box&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;--include x,y,z&lt;/code&gt; - 附加一些文件到box中，这是让打包Vagrantfile执行附加任务&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;--vagrantfile FILE&lt;/code&gt; - 打包一个Vagrantfile到box中，这个Vagrantfile将作为box使用的Vagrantfile load&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;使用案例&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant package --output centos-6.7.box
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;显示输出&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;==&amp;gt; default: Exporting VM...
+==&amp;gt; default: Compressing package to: /Users/huatai/Documents/Vagrant/centos-6.7/centos-6.7.box
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;Vagrant还支持快照备份，以便快速创建当前虚拟机的一个临时备份状态，在重要操作时可以先创建一个快照以便在操作失误时快速恢复 - &lt;a href=&quot;http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/&quot;&gt;使用vagrant snapshot创建快照备份&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;u53C2_u8003&quot;&gt;&lt;a href=&quot;#u53C2_u8003&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://docs.vagrantup.com/v2/cli/package.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vagrant Docs - PACKAGE&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;code&gt;vagrant package&lt;/code&gt;是一个当前运行的VirtualBox环境打包成一个可重用的&lt;a href=&quot;http://docs.vagrantup.com/v2/boxes.html&quot;&gt;box&lt;/a&gt;方法。注意，&lt;code&gt;vagrant package&lt;/code&gt;不能用于其它&lt;a href=&quot;http://docs.vagrantup.com/v2/providers/&quot;&gt;provider&lt;/a&gt;，只支持VirtalBox。其它provider需要手工完成打包。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;package         packages a running vagrant environment into a box&lt;/p&gt;
+&lt;p&gt;可以对运行状态的虚拟机环境打包&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="Vagrant" scheme="http://blog.huatai.me/tags/Vagrant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vagrant up下载镜像失败无法断点续传问题的处理方法</title>
+    <link href="http://blog.huatai.me/2015/12/03/vagrant-up-download-image-resume-error/"/>
+    <id>http://blog.huatai.me/2015/12/03/vagrant-up-download-image-resume-error/</id>
+    <published>2015-12-03T06:08:19.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;在新增&lt;code&gt;bento/centos-6.7&lt;/code&gt;时（&lt;code&gt;vagrant up&lt;/code&gt;），由于网络不佳，终止了当前下载进程，遇到了一些小麻烦。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;pre&gt;&lt;code&gt;mkdir centos-6.7
+cd centos-6.7
+vagrant init bento/centos-6.7
+vagrant up
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;下载过程中按过&lt;code&gt;ctrl-c&lt;/code&gt;终止过，导致遗留了文件。Vagrant会尝试断点续传，但是遇到http服务器不支持断点续传，就会出现以下报错&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;An error occurred while downloading the remote file. The error
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;message, if any, is reproduced below. Please fix this error and try&lt;br&gt;again.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;HTTP server doesn&amp;apos;t seem to support byte ranges. Cannot resume.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;解决方法参考 &lt;a href=&quot;https://github.com/mitchellh/vagrant/issues/4479&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;vagrant up fails after aborted download&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;就是进入 &lt;code&gt;~/.vagrant.d/tmp&lt;/code&gt; 目录删除以前下载的内容，然后重新开始&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意：如果并行安装下载，这个目录包含了多个子目录，需要小心处理对应的虚拟机目录&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在新增&lt;code&gt;bento/centos-6.7&lt;/code&gt;时（&lt;code&gt;vagrant up&lt;/code&gt;），由于网络不佳，终止了当前下载进程，遇到了一些小麻烦。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Vagrant" scheme="http://blog.huatai.me/tags/Vagrant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Vagrant部署开发测试环境</title>
+    <link href="http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/"/>
+    <id>http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/</id>
+    <published>2015-12-03T03:50:56.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;a href=&quot;https://www.vagrantup.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vagrant&lt;/a&gt;基于工业标准化技术至上提供了易于配置，可重复部署以及可移植的工作环境，并且通过一个简单的一致性的工作流提供控制来帮助你和你的团队最大化生产力和可伸缩性。&lt;/p&gt;
+&lt;p&gt;为了实现这个奇迹，Vagrant站在了巨人的肩膀之上。主机由VirtualBox，VMware，AWS或&lt;a href=&quot;http://docs.vagrantup.com/v2/providers/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;其他provider&lt;/a&gt;提供。然后，工业标准化的供给工具，例如shell脚本，Chef或Puppet，可以提供自动化安装和配置主机中的软件。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;blockquote&gt;
+&lt;p&gt;个人感觉Vagrant和Docker类似，通过组合底层开源技术加上自己开发的程序/脚本以及良好定义的规则，实现了标准化的快速部署虚拟系统的架构。所不同的是，Docker采用的是轻量级的容器技术，Vagrant则使用kvm/virtualbox等重量级的全/半虚拟化平台。&lt;/p&gt;
+&lt;p&gt;Vagrant实现的是根据模版快速提供虚拟系统，大规模生产虚拟系统，需要结合进一步定制的管理控制平台来实现PaaS。&lt;/p&gt;
+&lt;p&gt;Vagrant更适合部署完全虚拟化集群，可以实现更为复杂的系统模拟，在特定的需要安全性隔离环境以及需要实现完整的操作系统功能的虚拟系统。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;Vagrant_u4F18_u52BF&quot;&gt;&lt;a href=&quot;#Vagrant_u4F18_u52BF&quot; class=&quot;headerlink&quot; title=&quot;Vagrant优势&quot;&gt;&lt;/a&gt;Vagrant优势&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;对于&lt;code&gt;开发者&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Vagrant隔离了依赖和它们的配置到一个单一的一次性的，一致性的环境，不需要担忧任何使用的工具。一旦你或者其他人创建了一个&lt;a href=&quot;http://docs.vagrantup.com/v2/vagrantfile/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vagrant文件&lt;/a&gt;，你只需要使用 &lt;code&gt;vagrant up&lt;/code&gt; 然后，所有软件被安装和配置。其他团队成员也适用相同的配置文件创建他们的环境，无论你们是工作在Linux， Mac OS X或Windows 。所有团队成员在相同环境中运行代码，基于相同的依赖。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于&lt;code&gt;操作工程师&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Vagrant给予操作工程师一个一次性环境并且一致性的工作流用于开发和测试基础架构管理脚本。你可以快速地像shell脚本一样测试。Chef cookbooks， Puppet modules和使用本地虚拟化技术，诸如Virtualbo或VMware。然后，使用相同的配置，你可以在云平台，例如AWS或者RackSpace（两者使用相同的工作流）上测试这些脚本。放弃你自己定制的脚本来重启EC2绘画，停止针对不同主机调试SSH prompts，使用Vagrant可以给你的生活带来有序。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于&lt;code&gt;设计师&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Vagrant自动化所有需要用于web app的环境，以便设计师专注于自己擅长的设计。对于开发提供的环境，只需要用相同的vagrant配置，使用命令 &lt;code&gt;vagrant up&lt;/code&gt; 就可以开始设计。&lt;/p&gt;
+&lt;h1 id=&quot;u5B89_u88C5&quot;&gt;&lt;a href=&quot;#u5B89_u88C5&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;首先从&lt;a href=&quot;https://www.virtualbox.org/wiki/Downloads&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;VirtualBox官方下载&lt;/a&gt;安装VirtualBox&lt;/li&gt;
+&lt;li&gt;访问&lt;a href=&quot;https://www.vagrantup.com/downloads.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vargant官方下载&lt;/a&gt;安装Vargant&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;安装程序将自动添加&lt;code&gt;vagrant&lt;/code&gt;到你的系统路径，这样就可以在终端中直接使用。如果你通过&lt;a href=&quot;http://en.wikipedia.org/wiki/RubyGems&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;RubyGems&lt;/a&gt;安装了旧版本Vagrant 1.0.x，请删除掉重新安装最新版本。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当前版本已经不支持通过RubyGem安装&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;u5F00_u59CB_u4F7F_u7528&quot;&gt;&lt;a href=&quot;#u5F00_u59CB_u4F7F_u7528&quot; class=&quot;headerlink&quot; title=&quot;开始使用&quot;&gt;&lt;/a&gt;开始使用&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;更为详细的OReilly书籍&lt;a href=&quot;http://www.amazon.com/gp/product/1449335837/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=1449335837&amp;amp;linkCode=as2&amp;amp;tag=vagrant-20&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vagrant: Up and Running&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;vagrant init hashicorp/precise32
+vagrant up
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上述命令创建运行 Ubuntu 12.04 LTS 32-bit的虚拟机，就可以通过 &lt;code&gt;vagrant ssh&lt;/code&gt; 登录这个虚拟机&lt;/p&gt;
+&lt;h1 id=&quot;u9879_u76EE_u8BBE_u7F6E&quot;&gt;&lt;a href=&quot;#u9879_u76EE_u8BBE_u7F6E&quot; class=&quot;headerlink&quot; title=&quot;项目设置&quot;&gt;&lt;/a&gt;项目设置&lt;/h1&gt;&lt;p&gt;配置任何Vagrant项目的第一步是创建一个&lt;a href=&quot;http://docs.vagrantup.com/v2/vagrantfile/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vagrantfile&lt;/a&gt;。这Vagrantfileyou两个目的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;标记项目的根目录，一些Vagrant配置归属到这个根目录中&lt;/li&gt;
+&lt;li&gt;描述主机类型和需要运行项目的资源，例如软件安装以及如何访问它&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Vagrant有一个内建命令来初始化目录 &lt;code&gt;vagrant init&lt;/code&gt; 。这个命令将&lt;code&gt;Vagrantfile&lt;/code&gt;放到当前目录，可以查看这个文件（包含了很多注释和例子）。也可以在已经存在的目录执行 &lt;code&gt;vagrant init&lt;/code&gt; 来设置Vagrant。&lt;/p&gt;
+&lt;h1 id=&quot;Boxes&quot;&gt;&lt;a href=&quot;#Boxes&quot; class=&quot;headerlink&quot; title=&quot;Boxes&quot;&gt;&lt;/a&gt;Boxes&lt;/h1&gt;&lt;p&gt;Vagrant使用一个基础镜像来clone虚拟机，这个基础镜像称为boxes，并且在 &lt;a href=&quot;https://atlas.hashicorp.com/boxes/search&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;HashiCorp’s Atlas box catalog&lt;/a&gt; 可以找到各种可用的镜像&lt;/p&gt;
+&lt;p&gt;以下以安装&lt;code&gt;vagrant init bento/centos-7.1&lt;/code&gt;为例&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir centos-7.1
+cd centos-7.1
+vagrant init bento/centos-7.1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;立即提示&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;A `Vagrantfile` has been placed in this directory. You are now
+ready to `vagrant up` your first virtual environment! Please read
+the comments in the Vagrantfile as well as documentation on
+`vagrantup.com` for more information on using Vagrant.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在这个目录下执行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant up
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;则开始下载镜像并启动&lt;/p&gt;
+&lt;p&gt;再增加一个&lt;code&gt;bento/centos-6.7&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir centos-6.7
+cd centos-6.7
+vagrant init bento/centos-6.7
+vagrant up
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;#vagrant up下载镜像失败无法断点续传处理&quot;&gt;vagrant up下载镜像失败无法断点续传处理&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;如果你已经运行了&lt;code&gt;vagrant init&lt;/code&gt;创建了box，则不再需要下面这个&lt;code&gt;vagrant box add&lt;/code&gt;。&lt;/strong&gt; 这个操作是存储box到一个特殊的名字，这样多个Vagrant环境可以重用它。&lt;/p&gt;
+&lt;p&gt;通过多个项目，可以重用被添加的box。每个项目使用一个box来作为初始镜像来clone，并且永远不会更改这个基础镜像。这也意味着，如果有两个项目都是用前述的 &lt;code&gt;bento/centos-6.7&lt;/code&gt;，添加文件到其中的一个guest主机，将不会影响另外一个主机。&lt;/p&gt;
+&lt;h1 id=&quot;up__u548C_ssh&quot;&gt;&lt;a href=&quot;#up__u548C_ssh&quot; class=&quot;headerlink&quot; title=&quot;up 和 ssh&quot;&gt;&lt;/a&gt;up 和 ssh&lt;/h1&gt;&lt;p&gt;启动Vagrant环境&lt;/p&gt;
+&lt;p&gt;   vagrant up&lt;/p&gt;
+&lt;p&gt;完成启动后，执行命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vagrant ssh
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这个&lt;code&gt;vagrant ssh&lt;/code&gt;命令将登录到SSH环境。注意，不要使用 &lt;code&gt;rm -rf /&lt;/code&gt; ，因为 Vagrant 共享了一个 &lt;code&gt;/vagrant&lt;/code&gt; 实际是那个包含了 Vagrantfile 的物理服务器目录（但是这个目录由于可以从虚拟机中访问，所以要注意不要误删除）。&lt;/p&gt;
+&lt;p&gt;如果你不再需要这个虚拟机，则运行 &lt;code&gt;vagrant destroy&lt;/code&gt; 来销毁虚拟机。&lt;/p&gt;
+&lt;h1 id=&quot;SYNCED_FOLDERS&quot;&gt;&lt;a href=&quot;#SYNCED_FOLDERS&quot; class=&quot;headerlink&quot; title=&quot;SYNCED FOLDERS&quot;&gt;&lt;/a&gt;SYNCED FOLDERS&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;这里我遇到一个问题，就是在虚拟机执行&lt;code&gt;df&lt;/code&gt;命令，输出中显示一个错误&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;df: `/vagrant&amp;apos;: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;原因是升级过虚拟机中的Linux内核，需要&lt;a href=&quot;#升级虚拟机中CentOS内核后重新编译VirtualBox扩展包的内核模块&quot;&gt;升级虚拟机中CentOS内核后重新编译VirtualBox扩展包的内核模块&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;u4FEE_u6539_synced__u76EE_u5F55&quot;&gt;&lt;a href=&quot;#u4FEE_u6539_synced__u76EE_u5F55&quot; class=&quot;headerlink&quot; title=&quot;修改 synced 目录&quot;&gt;&lt;/a&gt;修改 synced 目录&lt;/h2&gt;&lt;p&gt;可以通过修改 &lt;code&gt;Vagrantfile&lt;/code&gt; 配置来实现对默认共享目录位置的修改，例如&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;config.vm.synced_folder &amp;quot;/Users/huatai/Documents/Vagrant/sharedata&amp;quot;, &amp;quot;/sharedata&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;可以用来在不同的虚拟机之间使用共享目录，这样方便部署一个简单的共享集群。即，在物理服务器上构建一个共享给多个虚拟机使用的网络存储（不需要单独部署NFS或者CIFS），方便构建测试集群。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;u5907_u4EFD&quot;&gt;&lt;a href=&quot;#u5907_u4EFD&quot; class=&quot;headerlink&quot; title=&quot;备份&quot;&gt;&lt;/a&gt;备份&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;package&lt;/code&gt; - &lt;a href=&quot;http://blog.huatai.me/2015/12/03/use-vagrant-package-VirtualBox-environment/&quot;&gt;使用vagrant package打包VirtualBox环境&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;u5FEB_u7167&quot;&gt;&lt;a href=&quot;#u5FEB_u7167&quot; class=&quot;headerlink&quot; title=&quot;快照&quot;&gt;&lt;/a&gt;快照&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;snapshot插件&lt;/code&gt; - &lt;a href=&quot;http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/&quot;&gt;使用vagrant snapshot创建快照备份&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;u53C2_u8003&quot;&gt;&lt;a href=&quot;#u53C2_u8003&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://docs.vagrantup.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vagrant Docs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://www.vagrantup.com/&quot;&gt;Vagrant&lt;/a&gt;基于工业标准化技术至上提供了易于配置，可重复部署以及可移植的工作环境，并且通过一个简单的一致性的工作流提供控制来帮助你和你的团队最大化生产力和可伸缩性。&lt;/p&gt;
+&lt;p&gt;为了实现这个奇迹，Vagrant站在了巨人的肩膀之上。主机由VirtualBox，VMware，AWS或&lt;a href=&quot;http://docs.vagrantup.com/v2/providers/&quot;&gt;其他provider&lt;/a&gt;提供。然后，工业标准化的供给工具，例如shell脚本，Chef或Puppet，可以提供自动化安装和配置主机中的软件。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Vagrant" scheme="http://blog.huatai.me/tags/Vagrant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac OS X ssh登陆Linux是终端提示cannot change locale (UTF-8)</title>
+    <link href="http://blog.huatai.me/2015/12/03/Mac-OS-X-ssh-to-Linux-prompt-setlocale-LC-CTYPE-cannot-change-locale-UTF-8/"/>
+    <id>http://blog.huatai.me/2015/12/03/Mac-OS-X-ssh-to-Linux-prompt-setlocale-LC-CTYPE-cannot-change-locale-UTF-8/</id>
+    <published>2015-12-03T03:47:19.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;在Mac OS X工作桌面上，ssh登陆到&lt;a href=&quot;http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/&quot;&gt;通过Vagrant创建的centos&lt;/a&gt; 系统中，发现每次都提示&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;我在 &lt;code&gt;centos&lt;/code&gt; 虚拟机的操作系统 &lt;code&gt;/etc/profile&lt;/code&gt; 中添加了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;LC_CTYPE=en_US.UTF-8
+export LC_CTYPE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;但是报错依旧是一样的。奇怪，这个不是远程Liunx操作系统的环境变量么？&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这个告警或错误是OpenSSH服务器和OS X ssh终端客户程序共同导致的问题，可以通过几种方式来修复。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;u7406_u89E3LC_*_u73AF_u5883_u53D8_u91CF&quot;&gt;&lt;a href=&quot;#u7406_u89E3LC_*_u73AF_u5883_u53D8_u91CF&quot; class=&quot;headerlink&quot; title=&quot;理解LC_*环境变量&quot;&gt;&lt;/a&gt;理解&lt;code&gt;LC_*&lt;/code&gt;环境变量&lt;/h1&gt;&lt;p&gt;在远程服务器上执行下述命令来显示所有Glibc所支持的locales&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;locale -a
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后在本地的Mac主机上执行显示本地环境的命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;printenv
+echo &amp;quot;$LC_CTYPE&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以看到输出显示是&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;UTF-8
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以上命令会显示本地系统的国家和语言名字，以及locale使用的字符集。本地ssh客户端将发送&lt;code&gt;LC_*&lt;/code&gt;环境变量给远程的&lt;code&gt;sshd&lt;/code&gt;服务器。也就是说，SSH将尝试在远程服务器上设置和本地OSX系统一样的&lt;code&gt;LC_*&lt;/code&gt;环境变量。这就导致了&lt;code&gt;ssh&lt;/code&gt;登陆远程Linux服务器出现告警：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;u4FEE_u6B63LC_CTYPE&quot;&gt;&lt;a href=&quot;#u4FEE_u6B63LC_CTYPE&quot; class=&quot;headerlink&quot; title=&quot;修正LC_CTYPE&quot;&gt;&lt;/a&gt;修正&lt;code&gt;LC_CTYPE&lt;/code&gt;&lt;/h1&gt;&lt;h2 id=&quot;u65B9_u6CD5_u4E00_uFF1A_u5728ssh_u5BA2_u6237_u7AEF_u5173_u95ED_u542F_u52A8_u65F6_u8BBE_u7F6E_u672C_u5730_u73AF_u5883_u53D8_u91CF&quot;&gt;&lt;a href=&quot;#u65B9_u6CD5_u4E00_uFF1A_u5728ssh_u5BA2_u6237_u7AEF_u5173_u95ED_u542F_u52A8_u65F6_u8BBE_u7F6E_u672C_u5730_u73AF_u5883_u53D8_u91CF&quot; class=&quot;headerlink&quot; title=&quot;方法一：在ssh客户端关闭启动时设置本地环境变量&quot;&gt;&lt;/a&gt;方法一：在ssh客户端关闭启动时设置本地环境变量&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;这个方法不好，因为会导致终端无法显示本地中文文件名&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果你在OS X系统中使用Terminal app&lt;/p&gt;
+&lt;p&gt;  &lt;code&gt;Terminal &amp;gt; Preferences &amp;gt; 选择中断类型例如Basic (default) &amp;gt; Advanced tab&lt;/code&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/osx/osx-terminal-local-settings.jpg&quot; alt=&quot;设置LC_CTYPE&quot;&gt;&lt;/p&gt;
+&lt;p&gt;确保取消了&lt;code&gt;Set locale environment variables on startup&lt;/code&gt;，然后关闭ssh会话再次启动Terminal程序，然后ssh到远程服务器就不会出现这个错误提示。&lt;/p&gt;
+&lt;h2 id=&quot;u65B9_u6CD5_u4E8C_uFF1A_u7981_u6B62OpenSSH_u5BA2_u6237_u7AEF_u4ECEOS_X/Linux/Unix_u684C_u9762_u53D1_u9001LC_*_u53D8_u91CF&quot;&gt;&lt;a href=&quot;#u65B9_u6CD5_u4E8C_uFF1A_u7981_u6B62OpenSSH_u5BA2_u6237_u7AEF_u4ECEOS_X/Linux/Unix_u684C_u9762_u53D1_u9001LC_*_u53D8_u91CF&quot; class=&quot;headerlink&quot; title=&quot;方法二：禁止OpenSSH客户端从OS X/Linux/Unix桌面发送LC_*变量&quot;&gt;&lt;/a&gt;方法二：禁止OpenSSH客户端从OS X/Linux/Unix桌面发送&lt;code&gt;LC_*&lt;/code&gt;变量&lt;/h2&gt;&lt;p&gt;修改&lt;code&gt;/etc/ssh/ssh_config&lt;/code&gt;或者&lt;code&gt;/etc/ssh/ssh_config&lt;/code&gt;文件，删除掉或者注释掉以下配置内容&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#SendEnv LANG LC_*
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;检查了Mac OS X的&lt;code&gt;/etc/ssh/ssh_config&lt;/code&gt;配置，其中默认有如下配置&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;# Site-wide defaults for some commonly used options.  For a comprehensive
+# list of available options, their meanings and defaults, please see the
+# ssh_config(5) man page.
+
+# Apple:
+ Host *
+   SendEnv LANG LC_*
+#   AskPassGUI yes
+
+
+#   ForwardAgent no
+#   ForwardX11 no
+#   RhostsRSAAuthentication no
+#   RSAAuthentication yes
+#   PasswordAuthentication yes
+#   HostbasedAuthentication no
+#   GSSAPIAuthentication no
+#   GSSAPIDelegateCredentials no
+......
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;采用注释掉 &lt;code&gt;/etc/ssh/ssh_config&lt;/code&gt; 中的 &lt;code&gt;SendEnv LANG LC_*&lt;/code&gt; 配置行&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;这个方法比较合适&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;u65B9_u6CD5_u4E09_uFF1A_u5728_u8FDC_u7A0B_u670D_u52A1_u5668_u4E0A_u5B89_u88C5_u8981_u6C42_u7684locale&quot;&gt;&lt;a href=&quot;#u65B9_u6CD5_u4E09_uFF1A_u5728_u8FDC_u7A0B_u670D_u52A1_u5668_u4E0A_u5B89_u88C5_u8981_u6C42_u7684locale&quot; class=&quot;headerlink&quot; title=&quot;方法三：在远程服务器上安装要求的locale&quot;&gt;&lt;/a&gt;方法三：在远程服务器上安装要求的locale&lt;/h2&gt;&lt;p&gt;可以使用&lt;code&gt;localedef&lt;/code&gt;命令安装需要的locale，或者考虑在&lt;code&gt;本地/远程&lt;/code&gt;系统中选择另外的locale&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;localedef -i en_US -f UTF-8 en_US.UTF-8
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;u53C2_u8003&quot;&gt;&lt;a href=&quot;#u53C2_u8003&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.cyberciti.biz/faq/os-x-terminal-bash-warning-setlocale-lc_ctype-cannot-change-locale/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;OS X Terminal: -bash: warning: setlocale: LC CTYPE: cannot change locale (UTF-8): No such file or directory Fix&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在Mac OS X工作桌面上，ssh登陆到&lt;a href=&quot;http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/&quot;&gt;通过Vagrant创建的centos&lt;/a&gt; 系统中，发现每次都提示&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;我在 &lt;code&gt;centos&lt;/code&gt; 虚拟机的操作系统 &lt;code&gt;/etc/profile&lt;/code&gt; 中添加了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;LC_CTYPE=en_US.UTF-8
+export LC_CTYPE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;但是报错依旧是一样的。奇怪，这个不是远程Liunx操作系统的环境变量么？&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Mac" scheme="http://blog.huatai.me/tags/Mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>请叫我&quot;全栈工程师&quot;（玩笑）</title>
+    <link href="http://blog.huatai.me/2015/11/16/please-call-me-full-stack-engineer-joke/"/>
+    <id>http://blog.huatai.me/2015/11/16/please-call-me-full-stack-engineer-joke/</id>
+    <published>2015-11-15T16:28:30.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;最近几个月，和以往不同：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;持续4个月的跑步健身，体重降低了14公斤 － 保持健康的体型给自己以信心&lt;/li&gt;
+&lt;li&gt;完成了&lt;a href=&quot;http://blog.huatai.me/2015/11/12/18-Til-I-Die/&quot;&gt;人生第一个马拉松&lt;/a&gt; - 明白很多事情想太多没有用，Just Do It!&lt;/li&gt;
+&lt;li&gt;逐渐摆脱“拖延症” － 生活中遇到的事情(维修)，自己动手就做了。倒不是省了多少钱，主要是生活技能get了!&lt;/li&gt;
+&lt;li&gt;周末烧菜更有感觉了 － 最近做饭菜，调味和火候已经渐入佳境，妻子和女儿吃得很香，越发想在厨艺上精益求精&lt;/li&gt;
+&lt;/ul&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;自从干上IT这行，大多数时候，默认自己是干（软件）技术活，虽说不是宅男，但也相差不远。生活中，遇到水电设施等问题，往往找外面小工，”用钱能解决的问题都是小问题”。&lt;/p&gt;
+&lt;p&gt;不过，年岁渐长，渐渐觉得虽然很多事情自己不动手似乎也能过得去，但是总是缺少一些什么，缺少一些自我能力的肯定。近半年，随着持续的跑步健身，体型恢复也带来了自信和对事物亲力亲为的动力。&lt;/p&gt;
+&lt;p&gt;最近几次家庭作业，感觉自己动手完成的手艺活，完全和花钱雇人是不同的收获：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;自己动手维修更换厨房水龙头 － 原先的旧水管破裂，完全没想到经过一下午的折腾，居然自己能够完成陈旧水槽的维修。时光回退几年前，自己还是束手无策找房管所的人更换的，如今自己摸索之后也做到了。&lt;/li&gt;
+&lt;li&gt;自己动手更换保险门的门锁 － 拆装几次，终于搞明白了保险门锁内外锁的原理&lt;/li&gt;
+&lt;li&gt;自己动手更换不锈钢纱门上的纱布 － 旧设施维修不易，特别是锈住滑牙的螺钉（想尽各种方法拆卸），最后装好隐隐觉得手工能力又恢复了不少&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;也许很多事情不值一提，但是自己在做到以前不会想动手去做的事情（嫌麻烦，觉得自己经济能力可以雇人完成等等）、以前觉得自己做不来的事情，反而觉得有一种成就感。这不是简单花几十几百的钱就能得到的，所以，我决定这样持续做下去。&lt;/p&gt;
+&lt;p&gt;我不再仅仅是软件工程师，请叫我“全栈工程师”（full stack engineer）！&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近几个月，和以往不同：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;持续4个月的跑步健身，体重降低了14公斤 － 保持健康的体型给自己以信心&lt;/li&gt;
+&lt;li&gt;完成了&lt;a href=&quot;http://blog.huatai.me/2015/11/12/18-Til-I-Die/&quot;&gt;人生第一个马拉松&lt;/a&gt; - 明白很多事情想太多没有用，Just Do It!&lt;/li&gt;
+&lt;li&gt;逐渐摆脱“拖延症” － 生活中遇到的事情(维修)，自己动手就做了。倒不是省了多少钱，主要是生活技能get了!&lt;/li&gt;
+&lt;li&gt;周末烧菜更有感觉了 － 最近做饭菜，调味和火候已经渐入佳境，妻子和女儿吃得很香，越发想在厨艺上精益求精&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Life" scheme="http://blog.huatai.me/tags/Life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>再次使用hexo撰写博客</title>
+    <link href="http://blog.huatai.me/2015/11/15/reblog-with-hexo/"/>
+    <id>http://blog.huatai.me/2015/11/15/reblog-with-hexo/</id>
+    <published>2015-11-15T15:54:55.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;一年以后的今天，以一场马拉松开始的自己的生日纪念，再次恢复blog撰写。&lt;/p&gt;
+&lt;p&gt;依然采用精简的hexo来实现个人blog，折腾了两天，考虑到自己blog以技术为主，就不折腾太多花哨的theme了，一切以内容为主。&lt;/p&gt;
+&lt;p&gt;恢复blog多少还是折腾了一下，所以随手记个笔记，每一个微小的改进都是不断的积累。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;u5B89_u88C5hexo&quot;&gt;&lt;a href=&quot;#u5B89_u88C5hexo&quot; class=&quot;headerlink&quot; title=&quot;安装hexo&quot;&gt;&lt;/a&gt;安装hexo&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;安装步骤和&lt;a href=&quot;http://blog.huatai.me/2014/10/01/use-hexo-write-blog/&quot;&gt;以前&lt;/a&gt;略有不同。&lt;/p&gt;
+&lt;p&gt;环境：Mac OS X 10.11&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;安装git&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由于系统已经安装了X Code，所以包含了&lt;code&gt;git&lt;/code&gt;工具，不需要再单独安装。否则可以通过&lt;a href=&quot;http://mxcl.github.com/homebrew/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Homebrew&lt;/a&gt;、&lt;a href=&quot;http://www.macports.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MacPorts&lt;/a&gt;或&lt;a href=&quot;http://sourceforge.net/projects/git-osx-installer/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;installer&lt;/a&gt;安装。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安装Node.js&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Node.js有Mac版本的&lt;a href=&quot;http://nodejs.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;installer&lt;/a&gt;可以非常方便地安装（需要root权限）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;目前（2015年11月）应该安装 node.js v4.22 长期支持版本，我测试下来，如果使用最新的v5.0.0版本，在使用hexo的插件&lt;code&gt;hexo-generator-feed&lt;/code&gt;会导致异常，报错如下&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;TypeError: ejs:7
+    5|   &amp;lt;link href=&amp;quot;&amp;lt;%- encodeURI(feed_url) %&amp;gt;&amp;quot; rel=&amp;quot;self&amp;quot;/&amp;gt;
+    6|   &amp;lt;link href=&amp;quot;&amp;lt;%- encodeURI(url) %&amp;gt;&amp;quot;/&amp;gt;
+ &amp;gt;&amp;gt; 7|   &amp;lt;updated&amp;gt;&amp;lt;%= posts.first().updated.toISOString() %&amp;gt;&amp;lt;/updated&amp;gt;
+    8|   &amp;lt;id&amp;gt;&amp;lt;%- url %&amp;gt;&amp;lt;/id&amp;gt;
+    9|   &amp;lt;% if (config.author){ %&amp;gt;
+    10|   &amp;lt;author&amp;gt;
+
+Cannot read property &amp;apos;updated&amp;apos; of undefined
+    at eval (eval at &amp;lt;anonymous&amp;gt; (/Users/huatai/Documents/blog/huataihuang.github.io/node_modules/ejs/lib/ejs.js:242:14), &amp;lt;anonymous&amp;gt;:30:539)
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;安装Hexo&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;上述环境就绪以后，可以通过命令行安装hexo，不过，要切换到root身份&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;chmod 777 /var/root
+sudo npm install -g hexo-cli
+chmod 750 /var/root
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;这里在安装hexo之前执行&lt;code&gt;chmod 777 /var/root&lt;/code&gt;是因为不这样操作，安装过程会提示警告&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;gyp WARN EACCES user &amp;quot;root&amp;quot; does not have permission to access the dev dir &amp;quot;/var/root/.node-gyp/5.0.0&amp;quot;
+gyp WARN EACCES attempting to reinstall using temporary dev dir &amp;quot;/usr/local/lib/node_modules/hexo/node_modules/nunjucks/node_modules/fsevents/.node-gyp&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;初始化blog环境&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这里创建的目录是&lt;code&gt;huataihuang.github.io&lt;/code&gt;，对应的是自己的github个人网站&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hexo init huataihuang.github.io
+cd huataihuang.github.io
+npm install
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;theme&quot;&gt;&lt;a href=&quot;#theme&quot; class=&quot;headerlink&quot; title=&quot;theme&quot;&gt;&lt;/a&gt;theme&lt;/h1&gt;&lt;p&gt;使用比较简洁的&lt;a href=&quot;https://github.com/heroicyang/hexo-theme-modernist&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;modernist&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;折腾了几个theme，还是觉得modernist比较适合技术类型的blog&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/heroicyang/hexo-theme-modernist.git themes/modernist
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;替换google公共库和字体库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由于GFW屏蔽了Google的服务，所以要将 google 的 公共库和字体库替换成 360提供的国内CDN完站，否则会发现页面加载非常缓慢&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;公共库&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;grep -rl &amp;quot;ajax.googleapis.com&amp;quot; .
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出显示&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;./node_modules/hexo/node_modules/hexo-cli/assets/themes/landscape/layout/_partial/after-footer.ejs
+./node_modules/sprintf-js/demo/angular.html
+./node_modules/titlecase/test/index.html
+./themes/landscape/layout/_partial/after-footer.ejs
+./themes/modernist/layout/_partial/after-footer.ejs
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;字体库&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;grep -rl &amp;quot;fonts.googleapis.com&amp;quot; .
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出显示&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;./node_modules/hexo/node_modules/hexo-cli/assets/themes/landscape/layout/_partial/head.ejs
+./themes/landscape/layout/_partial/head.ejs
+./themes/modernist/source/css/_base/variable.styl
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;请分别替换这两个文件中的内容如下:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ajax.googleapis.com 替换成 ajax.useso.com
+fonts.googleapis.com 替换成 fonts.useso.com
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;注意：&lt;code&gt;fonts.useso.com&lt;/code&gt;提供的https证书不正确，所以需要将网站https修改成http&lt;/p&gt;
+&lt;p&gt;但是，意外发现在Mac平台Safari环境中，使用&lt;code&gt;modernist&lt;/code&gt; theme时候，没有加载&lt;code&gt;fonts.useso.com&lt;/code&gt;字体（当时https证书错误）反而中文显示比较优美（应该是Mac默认”苹方”字体），但是正确使用 &lt;a href=&quot;http://fonts.useso.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://fonts.useso.com&lt;/a&gt; 的字体后显示的是仿宋体，不如苹果的字体。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;另外，当前&lt;code&gt;.ejs&lt;/code&gt;还包含了有关&lt;code&gt;google-analytics.com&lt;/code&gt;相关的代码，不配置启用（估计在墙内使用会比较麻烦）&lt;/p&gt;
+&lt;p&gt;修改主题配置文件 &lt;code&gt;themes/modernist/_config.yml&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;theme: modernist
+
+# Header
+menu:
+  Home: /
+  Archives: /archives
+rss: /atom.xml
+
+# Content
+archive_date_format: MMM DD
+fancybox: true
+
+# Comment Plugin
+duoshuo_shortname:
+
+# Miscellaneous
+google_analytics:
+favicon: /favicon.ico
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;上述配置启用了&lt;code&gt;rss&lt;/code&gt;，需要安装插件&lt;code&gt;hexo-generator-feed&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;添加生成RSS和sitemap的插件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm install hexo-generator-feed --save
+npm install hexo-generator-sitemap --save
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;目录下的&lt;code&gt;_config.yml&lt;/code&gt;文件添加以下内容&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
+sitemap:
+    path: sitemap.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样就可以以普通用户身份（我是&lt;code&gt;huatai&lt;/code&gt;）执行以下命令启动服务&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hexo server
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在本机可以使用如下网址访问自己的blog &lt;a href=&quot;http://127.0.0.1:4000&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://127.0.0.1:4000&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;u4F7F_u7528hexo&quot;&gt;&lt;a href=&quot;#u4F7F_u7528hexo&quot; class=&quot;headerlink&quot; title=&quot;使用hexo&quot;&gt;&lt;/a&gt;使用hexo&lt;/h1&gt;&lt;p&gt;在 &lt;a href=&quot;https://github.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;github&lt;/a&gt; 上创建自己的账号，并以自己的&lt;code&gt;账号名字+github.io&lt;/code&gt;作为仓库名（参考&lt;a href=&quot;https://pages.github.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;github pages说明&lt;/a&gt;）。例如，我的github账号是&lt;code&gt;huataihuang&lt;/code&gt;，则创建的仓库名字是&lt;code&gt;huataihuang.github.io&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;发布需要设置自己账号的公钥，即将管理密钥设置为&lt;strong&gt;ssh公钥&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在 &lt;code&gt;_config.yml&lt;/code&gt; 中添加如下配置，表示使用github进行部署&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Deployment
+## Docs: http://hexo.io/docs/deployment.html
+deploy:
+  type: git
+  repo: https://github.com/huataihuang/huataihuang.github.io.git
+  branch: master
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;早期hexo 2.x部署github使用配置类型是&lt;code&gt;type: github&lt;/code&gt;，升级到hexo 3.x后，修改成 &lt;code&gt;type: git&lt;/code&gt; （参考 &lt;a href=&quot;https://github.com/hexojs/hexo/issues/1013&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;升级到hexo 3.0后deploy type: github选项无效&lt;/a&gt;）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;安装git插件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm install hexo-deployer-git --save
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;创建一个新的post，使用如下命令（默认的layout是位于&lt;code&gt;source/_posts&lt;/code&gt;）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hexo new &amp;quot;18 Til I Die&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;此时提示 &lt;code&gt;INFO  Created: ~/Documents/blog/huataihuang.github.io/source/_posts/18-Til-I-Die.md&lt;/code&gt; ，则编辑此文件来撰写blog。&lt;/p&gt;
+&lt;p&gt;撰写新的post之后，使用命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hexo g
+hexo d
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;g&lt;/code&gt; 表示 &lt;code&gt;generate&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;d&lt;/code&gt; 表示 &lt;code&gt;deploy&lt;/code&gt;，即部署到github的页面，然后就可以通过访问 &lt;a href=&quot;http://huataihuang.github.io&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://huataihuang.github.io&lt;/a&gt; 看到自己的页面&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;u8BBE_u7F6E_u57DF_u540D&quot;&gt;&lt;a href=&quot;#u8BBE_u7F6E_u57DF_u540D&quot; class=&quot;headerlink&quot; title=&quot;设置域名&quot;&gt;&lt;/a&gt;设置域名&lt;/h1&gt;&lt;p&gt;我的blog的域名是 &lt;code&gt;blog.huatai.me&lt;/code&gt; ，在反复折腾了几次VPS之后，还是决定专注blog撰写，将维护工作交给github处理。也就是将&lt;code&gt;blog.huatai.me&lt;/code&gt;域名指向&lt;code&gt;huataihuang.github.io&lt;/code&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;参考&lt;a href=&quot;https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Setting up a custom domain with GitHub Pages&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;在hexo的&lt;code&gt;source&lt;/code&gt;目录下存放一个&lt;code&gt;CNAME&lt;/code&gt;文件，内容就是你希望托管的域名。这里我将&lt;code&gt;blog.huatai.me&lt;/code&gt;域名托管，所以这个&lt;code&gt;CNAME&lt;/code&gt;文件内容就是&lt;code&gt;blog.huatai.me&lt;/code&gt; （参考&lt;a href=&quot;http://readorskip.com/2015/06/08/Using-own-domain-with-github-and-hexo/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Using own domain with github and hexo&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在域名服务商（我使用&lt;a href=&quot;https://www.godaddy.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;狗爹&lt;/a&gt;）的域名管理中添加一个&lt;code&gt;CNAME记录&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;blog  CNANME  huataihuang.github.io.
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;域名生效后，访问 &lt;a href=&quot;http://blog.huatai.me&quot;&gt;http://blog.huatai.me&lt;/a&gt; 就会访问 &lt;a href=&quot;http://huataihuang.github.io&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://huataihuang.github.io&lt;/a&gt; 并且看到完全一致的页面&lt;/p&gt;
+&lt;h1 id=&quot;u62A5_u9519_u5904_u7406&quot;&gt;&lt;a href=&quot;#u62A5_u9519_u5904_u7406&quot; class=&quot;headerlink&quot; title=&quot;报错处理&quot;&gt;&lt;/a&gt;报错处理&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;执行 &lt;code&gt;hexo generate&lt;/code&gt; 报错&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;TypeError: Cannot read property &amp;apos;offset&amp;apos; of null
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这是因为需要在 &lt;code&gt;_config.xml&lt;/code&gt;中配置 &lt;code&gt;timezone:&lt;/code&gt; 字段，并且设置为 &lt;code&gt;Asia/Shanghai&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;执行 &lt;code&gt;hexo generate&lt;/code&gt; 报错&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Moment Timezone has no data for zh_CN. See http://momentjs.com/timezone/docs/#/data-loading/.
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这是因为以前老版本的&lt;code&gt;timezone:&lt;/code&gt;字段可以设置成&lt;code&gt;zh_CN&lt;/code&gt;，但现在必须标准化类似&lt;code&gt;Asia/Shanghai&lt;/code&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一年以后的今天，以一场马拉松开始的自己的生日纪念，再次恢复blog撰写。&lt;/p&gt;
+&lt;p&gt;依然采用精简的hexo来实现个人blog，折腾了两天，考虑到自己blog以技术为主，就不折腾太多花哨的theme了，一切以内容为主。&lt;/p&gt;
+&lt;p&gt;恢复blog多少还是折腾了一下，所以随手记个笔记，每一个微小的改进都是不断的积累。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Life" scheme="http://blog.huatai.me/tags/Life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>18 Til I Die</title>
+    <link href="http://blog.huatai.me/2015/11/12/18-Til-I-Die/"/>
+    <id>http://blog.huatai.me/2015/11/12/18-Til-I-Die/</id>
+    <published>2015-11-12T13:59:30.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;strong&gt;谨以此42.195公里、4小时14分23秒，纪念我逝去的青春和即将开始、永不停止的青春。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/life/marathon_2015.jpg&quot; alt=&quot;18 Til I Die&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;每年的今天，都不仅有些感慨：岁月流逝，年齿徒长。因为又过了一个生日！&lt;/p&gt;
+&lt;p&gt;4天前，在上海国际马拉松赛上，忍着膝盖的疼痛，跑完全程。&lt;/p&gt;
+&lt;p&gt;在冲过终点的一刹那，感觉放下了什么。是的，心里的一下子轻松了许多，没有觉得累、也没有疲倦，只有轻松。&lt;/p&gt;
+&lt;p&gt;因为我现在想明白：很多事情，&lt;strong&gt;不要想太多&lt;/strong&gt;。只要去做，即使看似困难，也未必不能达成。&lt;/p&gt;
+&lt;p&gt;村上春树在《&lt;a href=&quot;http://book.douban.com/subject/3369600/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;当我谈跑步时我谈些什么&lt;/a&gt;》说到：“在长跑中，如果说有什么必须战胜的对手，那就是过去的自己”。&lt;/p&gt;
+&lt;p&gt;“&lt;a href=&quot;http://www.56.com/u81/v_OTI0MjUxNTA.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;18 Til I Die&lt;/a&gt;“&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;谨以此42.195公里、4小时14分23秒，纪念我逝去的青春和即将开始、永不停止的青春。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/life/marathon_2015.jpg&quot; alt=&quot;18 Til I Die&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Life" scheme="http://blog.huatai.me/tags/Life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 5.6.21在Mac OS X 10.10上安装</title>
+    <link href="http://blog.huatai.me/2014/11/09/install-mysql-5-6-21-on-mac-os-x-10-10/"/>
+    <id>http://blog.huatai.me/2014/11/09/install-mysql-5-6-21-on-mac-os-x-10-10/</id>
+    <published>2014-11-09T05:59:06.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;升级到最新版本的Mac OS X 10.10 Yosemite版本，安装MySQL 5.6.21（从官方下载 mysql-5.6.21-osx10.9-x86_64.dmg），在最后安装快完成时会遇到报错&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/mysql/mysql_install_yosemite_fail.png&quot; alt=&quot;yosemite安装mysql 5.6.21报错&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;这个问题是因为目前MySQL 5.6.21安装程序的启动设置部分和OS X 10.10 Yosemite不兼容导致失败，所以在安装过程中，要选择 “customize…” 功能，然后去掉选择 “Startup Items”（参考&lt;a href=&quot;http://forums.mysql.com/read.php?11,621815,623210#msg-623210&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MySQL Forums :: Install &amp;amp; Repo :: Yosemite Installer Failure&lt;/a&gt;）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/mysql/mysql_install_yosemite_skip_startup.png&quot; alt=&quot;yosemite安装mysql 5.6.21报错&quot;&gt;&lt;/p&gt;
+&lt;p&gt;不影响MySQL运行和使用，仍然可以在 “System Perferences” 中选择 “MySQL” 进行启动&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/mysql/mysql_startup.png&quot; alt=&quot;yosemite安装mysql 5.6.21报错&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;升级到最新版本的Mac OS X 10.10 Yosemite版本，安装MySQL 5.6.21（从官方下载 mysql-5.6.21-osx10.9-x86_64.dmg），在最后安装快完成时会遇到报错&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/mysql/mysql_install_yosemite_fail.png&quot; alt=&quot;yosemite安装mysql 5.6.21报错&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="mysql" scheme="http://blog.huatai.me/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux irqbalance、中断和进程绑定CPU</title>
+    <link href="http://blog.huatai.me/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/"/>
+    <id>http://blog.huatai.me/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/</id>
+    <published>2014-11-05T13:46:02.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;今天同事问我一个服务器负载在CPU上不均匀的问题和irqbalance。因为以前服务器压力不大，没有太关注这方面设置，所以这次特别查阅了资料来解决这个问题。以下文章是整理汇总相关资料。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;irqbalance_u6982_u8FF0&quot;&gt;&lt;a href=&quot;#irqbalance_u6982_u8FF0&quot; class=&quot;headerlink&quot; title=&quot;irqbalance概述&quot;&gt;&lt;/a&gt;irqbalance概述&lt;/h1&gt;&lt;p&gt;IRQbalance - 将硬件中断分布到多处理器系统的各个处理器以便能够提高性能。&lt;/p&gt;
+&lt;p&gt;IRQbalance避免所有的IRQ请求都由单一的CPU负担。很多4核以上CPU系统缓慢有时是因为都在等待CPU 0处理网络或者存储的IRQ请求。此时CPU 0非常繁忙，而其他CPU则非常空闲。应用缓慢是因为它们在等待从CPU 0返回请求。&lt;/p&gt;
+&lt;p&gt;IRQbalance尝试一种智能方法使中断分布到所有的CPU，如果可能，将IRQ处理和处理器尽可能接近。这可能是相同的内核，和相同缓存共享的内核，或相同NUMA区域的内核。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;除了&lt;/strong&gt;以下情况，你都 &lt;strong&gt;应该使用&lt;/strong&gt; irqbalance：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;由于非常特殊原因需要人工设置应用/IRQ集中到特定内核（例如，更小的延迟，实时请求等）&lt;/li&gt;
+&lt;li&gt;虚拟机：虚拟机不能实际获得性能提高，因为除非你将guest绑定到特定的CPU和IRQ并且隔离网络/存储硬件，否则你看不到任何性能提高。但是你的KVM/RHEV在主机&lt;strong&gt;需要&lt;/strong&gt;使用irqbalance和numa并且调优。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Numad是类似irqbalance的机制并且它将处理器和内存限定在相同的numa区域。在多核系统中，可以看到在重负载下明显降低延迟平滑的可靠的性能。&lt;/p&gt;
+&lt;p&gt;如果维护人员有很好的技术以及经常监控或者具有非常规则的负载，则可能通过人工绑定进程和IRQ到特定处理器。即使这种情况，irqbalance和numad也能达到近似的效果。所以，如果不能确定或者负载不是规律的，还是建议使用irqbalance和numad &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;参考 &lt;a href=&quot;http://serverfault.com/questions/513807/is-there-still-a-use-for-irqbalance-on-modern-hardware&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Is there still a use for irqbalance on modern hardware?&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;u9488_u5BF9_u6D88_u606F_u670D_u52A1_u5668_u7684_u8C03_u4F18_-__u4E2D_u65AD_u548C_u5904_u7406_u8FDB_u7A0B_u7ED1_u5B9A&quot;&gt;&lt;a href=&quot;#u9488_u5BF9_u6D88_u606F_u670D_u52A1_u5668_u7684_u8C03_u4F18_-__u4E2D_u65AD_u548C_u5904_u7406_u8FDB_u7A0B_u7ED1_u5B9A&quot; class=&quot;headerlink&quot; title=&quot;针对消息服务器的调优 - 中断和处理进程绑定&quot;&gt;&lt;/a&gt;针对消息服务器的调优 - 中断和处理进程绑定&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_MRG/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Red Hat Entreprise MRG&lt;/a&gt; 是集成了消息（Messaging），实时（Realtime）和网格（Grid）服务器，其中&lt;a href=&quot;https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_MRG/2/html/Realtime_Tuning_Guide/sect-Realtime_Tuning_Guide-General_System_Tuning-Interrupt_and_Process_Binding.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Interrupt and process binding&lt;/a&gt;对中断和处理进程绑定到不同隔离的CPU以提供更好的实时响应提供了借鉴。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;MRG的Messageing部分是基于&lt;a href=&quot;http://qpid.apache.org&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Apache Qpid开源项目&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;以下是文档摘录翻译：&lt;/p&gt;
+&lt;p&gt;实时环境需要在响应不同的事件时最小化和消除延迟。理想情况下，中断（IRQs）和用户处理进程可以相互隔离在不同的分离的CPU上。&lt;/p&gt;
+&lt;p&gt;中断是常见的在多个CPU之间共享事件。通过写入新数据和指令缓存可以延迟中断处理，并且通常导致和其他进程争夺CPU资源。为了解决这个问题，时间敏感中断和处理进程可以分离到不同CPU或者一组CPU。这样，代码和数据结构需要处理这个具有高可能性位于处理器数据和指令缓存的中断。这个隔离的进程就可以运行得尽可能快速，而其他非时间敏感的进程可以运行在其他剩余的CPU上。这个处理在一些有些内存和总线带宽的涉及速度的环境下非常重要，此时，任何等待内存返回数据到处理器缓存的等待都会影响处理时间。&lt;/p&gt;
+&lt;p&gt;例如，在不同环境下调优程序，优化的方式完全不同。有些环境下，可能需要隔离2到4个CPU用于应用程序；另一些情况，将网络相关的应用程序处理进程绑定到CPU来处理网络驱动中断的优化。极端情况下，优化是通过尝试不同设置来发现适合工作的最优设置。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于多处理器环境，需要了解 &lt;code&gt;CPU mask&lt;/code&gt;如何作用于给定CPU或一系列CPU。&lt;code&gt;CPU mask&lt;/code&gt;通常表述未一个32位的位图（bitmask）。&lt;code&gt;CPU mask&lt;/code&gt;可以表述为10进制或者16进制数字，取决于你使用的命令。例如，CPU &lt;code&gt;0&lt;/code&gt;的&lt;code&gt;CPU mask&lt;/code&gt;的位图表述是&lt;code&gt;00000000000000000000000000000001&lt;/code&gt;，10进制表述就是&lt;code&gt;1&lt;/code&gt;，而16进制表述就是&lt;code&gt;0x00000001&lt;/code&gt;。同时使用CPU &lt;code&gt;0&lt;/code&gt;和&lt;code&gt;1&lt;/code&gt;的位图表述是&lt;code&gt;00000000000000000000000000000011&lt;/code&gt;，10进制表述就是&lt;code&gt;3&lt;/code&gt;，而16进制表述就是&lt;code&gt;0x00000003&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;默认情况下系统会启动 &lt;code&gt;irqbalance&lt;/code&gt; 服务用于周期性处理CPU事件，公平方式。然而在实时环境的部署中，应用程序通常是绑定到特定的CPU上，所以不需要&lt;code&gt;irqbalance&lt;/code&gt;。此时，应该关闭&lt;code&gt;irqbalance&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;service irqbalance stop
+chkconfig irqbalance off
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;另外一种方式是只在使用隔离功能的CPU上禁用&lt;code&gt;irqbalance&lt;/code&gt;，而在其余的CPU上继续使用&lt;code&gt;irqbalance&lt;/code&gt;。这个设置可以通过 &lt;code&gt;/etc/sysconfig/irqbalance&lt;/code&gt;来实现，即编辑 &lt;code&gt;FOLLOW_ISOLCPUS&lt;/code&gt; 部分：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;FOLLOW_ISOLCPUS=yes
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这个设置使 &lt;code&gt;irqbalance&lt;/code&gt; 只在没有设置隔离的CPU上生效。这个设置对于只有两个处理器的主机是没有效果的，但都与双核主机是有效的。&lt;/p&gt;
+&lt;h2 id=&quot;u4EBA_u5DE5_u8BBE_u7F6ECPU_u5173_u8054_u5230_u7279_u5B9AIRQ&quot;&gt;&lt;a href=&quot;#u4EBA_u5DE5_u8BBE_u7F6ECPU_u5173_u8054_u5230_u7279_u5B9AIRQ&quot; class=&quot;headerlink&quot; title=&quot;人工设置CPU关联到特定IRQ&quot;&gt;&lt;/a&gt;人工设置CPU关联到特定IRQ&lt;/h2&gt;&lt;p&gt;查看 &lt;code&gt;/proc/interrupts&lt;/code&gt; 可以看到每个设备使用的中断&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cat /proc/interrupts
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以看到一系列的中断，每行都显示中断编号，每个CPU上发生的中断数量，最后则是中断类型和一个描述&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CPU0             CPU1
+0:   26575949         11         IO-APIC-edge  timer
+1:         14          7         IO-APIC-edge  i8042
+...[output truncated]...
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;要将一个中断只运行到某个处理器上，就是通过 &lt;code&gt;echo&lt;/code&gt; 指定&lt;code&gt;CPU mask&lt;/code&gt;（使用16进制数字）到 &lt;code&gt;/proc/interrupts&lt;/code&gt;，例如，以下命令将中断号&lt;code&gt;142&lt;/code&gt;只运行在CPU &lt;code&gt;0&lt;/code&gt;上：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;echo 1 &amp;gt; /proc/irq/142/smp_affinity
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;以上设置只能一次作用一个中断。要测试以上设置，可以制造一些磁盘活动，然后检查 &lt;code&gt;/proc/interrupts&lt;/code&gt;文件的变化。可以看到指定的CPU的中断数量增加，而其他CPU上的中断数量不变。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;u4F7F_u7528taskset_u5DE5_u5177_u5C06_u8FDB_u7A0B_u7ED1_u5B9A_u5904_u7406_u5668&quot;&gt;&lt;a href=&quot;#u4F7F_u7528taskset_u5DE5_u5177_u5C06_u8FDB_u7A0B_u7ED1_u5B9A_u5904_u7406_u5668&quot; class=&quot;headerlink&quot; title=&quot;使用taskset工具将进程绑定处理器&quot;&gt;&lt;/a&gt;使用&lt;code&gt;taskset&lt;/code&gt;工具将进程绑定处理器&lt;/h2&gt;&lt;p&gt;&lt;code&gt;taskset&lt;/code&gt;工具可以使用进程ID（PID）来查看或设置关联，或者可以用于选择一个CPU关联的方式来运行一个命令。要设置关联，&lt;code&gt;taskset&lt;/code&gt;需要将&lt;code&gt;CPU mask&lt;/code&gt;表述为10进制或者16进制数字。这个mask参数是一个指定哪个CPU内核是合法的被修改的命令或PID。&lt;/p&gt;
+&lt;p&gt;要设置当前没有运行的进程，使用 &lt;code&gt;taskset&lt;/code&gt; 和指定&lt;code&gt;CPU mask&lt;/code&gt;和进程。例如，&lt;code&gt;my_embedded_process&lt;/code&gt;是设置只使用CPU &lt;code&gt;3&lt;/code&gt;：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;taskset 8 /usr/local/bin/my_embedded_process
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以使用位图指定一系列CPU，例如这里指定 &lt;code&gt;4 5 6 7&lt;/code&gt;用于运行 &lt;code&gt;my_embedded_process&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;taskset 0xF0 /usr/local/bin/my_embedded_process
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;也可以对已经运行的进程设置CPU关联，此时需要使用 &lt;code&gt;-p&lt;/code&gt;或者&lt;code&gt;--pid&lt;/code&gt;参数来指定特定PID的进程使用，例如，这里指定PID为7013的进程只运行在CPU &lt;code&gt;0&lt;/code&gt;上：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;taskset -p 1 7013
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt; &lt;code&gt;taskset&lt;/code&gt;工具只能用于没有激活系统NUMA（非统一内存访问）的环境（在NUMA环境中，使用&lt;code&gt;numactl&lt;/code&gt;命令来替代&lt;code&gt;taskset&lt;/code&gt;）&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天同事问我一个服务器负载在CPU上不均匀的问题和irqbalance。因为以前服务器压力不大，没有太关注这方面设置，所以这次特别查阅了资料来解决这个问题。以下文章是整理汇总相关资料。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://blog.huatai.me/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nook Color刷机CyanogenMod</title>
+    <link href="http://blog.huatai.me/2014/11/05/install-cyanogenmod-on-nook-color/"/>
+    <id>http://blog.huatai.me/2014/11/05/install-cyanogenmod-on-nook-color/</id>
+    <published>2014-11-05T03:21:28.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;抽屉里有一个闲置了两年的Nook Color，虽然设备硬件很陈旧，但是由于设备和&lt;a href=&quot;http://www.cyanogenmod.org&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CyanogenMod&lt;/a&gt;兼容较好，所以可以使用比较新的系统。最近有些手痒，又把这个小平板拿出来，刷新成最新的CyanogenMod，体验Android的最新操作系统。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/android/encore.png&quot; alt=&quot;Nook Color&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;CyanogenMod_Installer&quot;&gt;&lt;a href=&quot;#CyanogenMod_Installer&quot; class=&quot;headerlink&quot; title=&quot;CyanogenMod Installer&quot;&gt;&lt;/a&gt;CyanogenMod Installer&lt;/h1&gt;&lt;p&gt;CyanogenMod Installer是为了方便刷机提供的安装程序&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;刷CyanogenMod之前不需要rooted手机&lt;/li&gt;
+&lt;li&gt;bootloader也不需要解锁，CyanogenMod Installer会自动为你解锁&lt;/li&gt;
+&lt;li&gt;如果以前使用了定制的ROM也可以，这时一个全支持配置，是运行一个堆叠ROM&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不过，很不幸，Nook Color 不在支持设备之列  &lt;a href=&quot;http://wiki.cyanogenmod.org/w/CyanogenMod_Installer&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CyanogenMod Installer&lt;/a&gt; &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;Nook_Color__28_u201Cencore_u201D_29&quot;&gt;&lt;a href=&quot;#Nook_Color__28_u201Cencore_u201D_29&quot; class=&quot;headerlink&quot; title=&quot;Nook Color (“encore”)&quot;&gt;&lt;/a&gt;Nook Color (“encore”)&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://wiki.cyanogenmod.org/w/Encore_Info&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CM for Nook Color&lt;/a&gt; 提供了 Nightly 和 Stable 两个版本。&lt;/p&gt;
+&lt;p&gt;下载 &lt;a href=&quot;http://cmw.cmfs.me/encore/root/uNooter.zip&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;uNooter 镜像&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;解压缩 uNooter.zip&lt;/p&gt;
+&lt;p&gt;将 uNooter 镜像写入SD卡 - 以下操作是在Mac OS X中进行，所以第一步是先unmountDisk（因为Mac OS X会自动挂载SD卡）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;diskutil list
+diskutil unmountDisk /dev/&amp;lt;sdcard&amp;gt;
+dd if=uNooter.img of=/dev/&amp;lt;sdcard&amp;gt; bs=1m
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;获取Root访问&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;关闭Nook Color设备，并且和电脑断开连接&lt;/li&gt;
+&lt;li&gt;将安装uNooter SD卡插入Nook Color设备&lt;/li&gt;
+&lt;li&gt;将Nook Color设备连接到电脑，这个动作会触发Nook Color电源启动（屏幕仍然是关闭的）并且允许uNooter来root设备。这个屏幕保持关闭状态将最多有10分钟&lt;/li&gt;
+&lt;li&gt;一旦完成，从电脑断开Nook Color，此时Nook Color可能会重启。如果重启正常，进行下一步。如果没有自动正常重启，则关闭电源，拔出SD卡然后就会恢复正常。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;u5B89_u88C5_u5B9A_u5236_u7684Recovery_Image&quot;&gt;&lt;a href=&quot;#u5B89_u88C5_u5B9A_u5236_u7684Recovery_Image&quot; class=&quot;headerlink&quot; title=&quot;安装定制的Recovery Image&quot;&gt;&lt;/a&gt;安装定制的Recovery Image&lt;/h1&gt;&lt;p&gt;如果希望从电脑来安装需要下载以下两个软件包&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://download.cyanogenmod.org/?device=encore&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CyanogenMod 软件包&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://wiki.cyanogenmod.org/w/Google_Apps&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Google Apps&lt;/a&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;使用 &lt;a href=&quot;http://wiki.cyanogenmod.org/w/Adb&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;adb&lt;/a&gt; 来安装系统&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实际我在Nook Color上刷新CyanogenMod只能安装CM10，CM11安装没有成功&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;安装 Adb 软件&lt;/p&gt;
+&lt;p&gt;下载 &lt;a href=&quot;https://developer.android.com/sdk/index.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SDK Tools&lt;/a&gt; 的 &lt;a href=&quot;http://dl.google.com/android/android-sdk_r23.0.2-macosx.zip&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;android-sdk_r23.0.2-macosx.zip&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这里我们不是作为完整的开发平台，所以没有下载 ADT Bundle （Eclipse ADT bundle包含了所有开发apps），而是下载 “SDK Tools Only”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在Mac平台，解压缩以后是 &lt;code&gt;android-sdk-macosx&lt;/code&gt; 目录。在自己的&lt;code&gt;home&lt;/code&gt;目录创建一个&lt;code&gt;Development&lt;/code&gt;子目录，然后将解压缩的&lt;code&gt;android-sdk-macosx&lt;/code&gt;移动到创建的&lt;code&gt;Development&lt;/code&gt;目录下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir ~/Development
+mv android-sdk-macosx ~/Development/
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后进入&lt;code&gt;android-sdk-macosx&lt;/code&gt;目录执行以下命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/Development/android-sdk-macosx
+tools/android update sdk --no-ui
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;Android SDK工具包初始时候只包含基本的SDK工具，并没有包含任何Android平台或第三方库（其实是没有包含任何开发应用程序的工具）。要启动开发程序，必须使用SDK Manager安装平台工具，或者至少一个Android平台版本。&lt;/p&gt;
+&lt;p&gt;平台工具包括周期更新和支持新Android平台的构建工具，包括&lt;code&gt;adb&lt;/code&gt;，&lt;code&gt;dexdump&lt;/code&gt;等等&lt;/p&gt;
+&lt;p&gt;要安装平台工具，Android平台或其他add-on，需要有Internet链接可以用于下载必要组件。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;运行需要JDK支持&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在景德镇，无法直接通过直接方式访问google的下载服务器( &lt;a href=&quot;https://dl-ssl.google.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://dl-ssl.google.com&lt;/a&gt; )，需要设置代理。如果 &lt;code&gt;tools/android update sdk&lt;/code&gt; 命令没有使用 &lt;code&gt;--no-ui&lt;/code&gt; 则可以通过下载管理器的 &lt;code&gt;Perference&lt;/code&gt; 来设置代理服务器。实际上代理配置是写在 &lt;code&gt;~/.android/androidtool.cfg&lt;/code&gt; 中，内容如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;http.proxyPort=&amp;lt;PROXY_PORT&amp;gt;
+sdkman.enable.previews=false
+http.proxyHost=&amp;lt;PROXY_IP&amp;gt;
+sdkman.ask.adb.restart=false
+sdkman.show.update.only=true
+sdkman.force.http=true
+sdkman.use.dl.cache=true
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;安装完 Android SDK 之后，在 &lt;code&gt;~/bash_profile&lt;/code&gt; 中添加如下内容 （参考&lt;a href=&quot;http://wiki.cyanogenmod.org/w/Adb&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Adb&lt;/a&gt;）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if [ -d &amp;quot;&amp;lt;path-to-sdk&amp;gt;/platform-tools&amp;quot; ] ; then
+  export PATH=&amp;quot;&amp;lt;path-to-sdk&amp;gt;/platform-tools:$PATH&amp;quot;
+fi
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后再执行 &lt;code&gt;. ~/bash_profile&lt;/code&gt; 或者退出登录再次打开Terminal终端使得Android SDK工作路径生效。&lt;/p&gt;
+&lt;p&gt;传输ROM到设备中&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;adb push update.zip /sdcard/
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;这个传输其实和将SD卡放到PC机上，将镜像复制到SD卡是一样的效果。不过现在新型的设备已经取消了SD卡，只能通过这个方法传输。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/sdcard/&lt;/code&gt; 路径是根据设备显示的挂载目录确定的，也可能是其他路径&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;u5237_u65B0_u7684ROM&quot;&gt;&lt;a href=&quot;#u5237_u65B0_u7684ROM&quot; class=&quot;headerlink&quot; title=&quot;刷新的ROM&quot;&gt;&lt;/a&gt;刷新的ROM&lt;/h1&gt;&lt;p&gt;开启Nook Color电源，此时会提示“press any key within 5 seconds to enter boot menu”时按∩键进入“Boot options”,默认是eMMC，也就是从Nook Color启动&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Boot Menu
+-------------
+
+Internal eMMC Normal
+Internal eMMC Recovery
+Internal eMMC Alternate
+SD Card Normal
+SD Card Recovery
+SD Card Alternate
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;只有第一项和第二项可选，通过”音量建”上下选择，选择第二项”Internal eMMC Recovery”。&lt;/p&gt;
+&lt;p&gt;此时进入 “ClockworkMod Recovery” 菜单&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ClockworkMod Recovery v3.2.0.1
+
+- reboot system now
+- apply update from sdcard
+- wipe data/factory reset
+- wipe cache partition
+- install zip from sdcard
+- backup and restore
+- mounts and storage
+- advanced
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;选择 “wipe data/factory reset” 清理掉缓存和数据&lt;/p&gt;
+&lt;p&gt;最后选择 &lt;code&gt;install zip from sdcard&lt;/code&gt; 并选择对应的ROM&lt;/p&gt;
+&lt;p&gt;我在刷机的时候遇到如下报错：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;E:Error in /sdcard/cm-11-20141008-SNAPSHOT-M11-encore.zip
+(Status 0)
+Installation aborted.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这个报错参考 &lt;a href=&quot;http://forum.xda-developers.com/showthread.php?t=1899761&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Status 0 installation aborted?&lt;/a&gt; 是因为下载包损坏或者错误选择设备&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Anyways, It looks like you’ve either got a bad download or a marvlec phone. Status 0 usually pops up when the updater script doesn’t match the actual phone type. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;尝试使用 &lt;code&gt;CM10&lt;/code&gt; 版本 &lt;code&gt;cm-10.2.1-encore.zip&lt;/code&gt; 则顺利完成，没有遇到问题。&lt;/p&gt;
+&lt;p&gt;CM10操作系统安装完成后，安装对应OS版本的 &lt;a href=&quot;http://wiki.cyanogenmod.org/w/Google_Apps&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Google Apps&lt;/a&gt; ，安装方法相同。Google Apps安装后，系统才具有从Google Market安装应用软件的能力。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;抽屉里有一个闲置了两年的Nook Color，虽然设备硬件很陈旧，但是由于设备和&lt;a href=&quot;http://www.cyanogenmod.org&quot;&gt;CyanogenMod&lt;/a&gt;兼容较好，所以可以使用比较新的系统。最近有些手痒，又把这个小平板拿出来，刷新成最新的CyanogenMod，体验Android的最新操作系统。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/android/encore.png&quot; alt=&quot;Nook Color&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="android" scheme="http://blog.huatai.me/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Segate GoFlex Home网络存储运行GlusterFS经验汇总</title>
+    <link href="http://blog.huatai.me/2014/11/02/segate-goflex-home-running-glusterfs-experience/"/>
+    <id>http://blog.huatai.me/2014/11/02/segate-goflex-home-running-glusterfs-experience/</id>
+    <published>2014-11-02T14:24:12.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;在家庭环境运行个人网站，实现个人移动设备备份的双机镜像（TimeMachine）、以及个人网站的备份服务器 – 通过合理组合开源技术 &lt;code&gt;glusterfs&lt;/code&gt; &lt;code&gt;nfs&lt;/code&gt; &lt;code&gt;netatalk&lt;/code&gt; 以及 &lt;code&gt;mysql master/slave&lt;/code&gt; 实时备份，实现个人数据的高可用解决方案。&lt;/p&gt;
+&lt;p&gt;硬件设备：&lt;strong&gt;两台&lt;/strong&gt; Segate GoFlex Home网络存储&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/linux/goflex-home.jpg&quot; alt=&quot;GoFlex Home&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;最终（因为硬件原因），采用两台GoFlex Home存储运行glusterfs服务器，x86硬件的笔记本电脑作为glusterfs客户端输出NetaTalk服务给局域网内苹果系统作为备份设备。即本文的方法二。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;u65B9_u6CD5_u4E00_uFF1A_u4E24_u53F0GoFlex_Home_u540C_u65F6_u8FD0_u884Cglusterfs_u670D_u52A1_u5668+_u5BA2_u6237_u7AEF+NetaTalk_u670D_u52A1_uFF08_u80FD_u8FD0_u884C_u4F46_u4E0D_u7A33_u5B9A_uFF09&quot;&gt;&lt;a href=&quot;#u65B9_u6CD5_u4E00_uFF1A_u4E24_u53F0GoFlex_Home_u540C_u65F6_u8FD0_u884Cglusterfs_u670D_u52A1_u5668+_u5BA2_u6237_u7AEF+NetaTalk_u670D_u52A1_uFF08_u80FD_u8FD0_u884C_u4F46_u4E0D_u7A33_u5B9A_uFF09&quot; class=&quot;headerlink&quot; title=&quot;方法一：两台GoFlex Home同时运行glusterfs服务器+客户端+NetaTalk服务（能运行但不稳定）&quot;&gt;&lt;/a&gt;方法一：两台GoFlex Home同时运行glusterfs服务器+客户端+NetaTalk服务（能运行但不稳定）&lt;/h1&gt;&lt;p&gt;GoFlex Home的内存实在太小了，只有128MB。最初为了能够实现存储文件自动镜像到两台设备上，并且不借助第三方设备，我采用的是在&lt;code&gt;nas1&lt;/code&gt;上面运行glusterfs客户端，通过glusterfs客户端挂载&lt;code&gt;nas1&lt;/code&gt;和&lt;code&gt;nas2&lt;/code&gt;输出的镜像模式glusterfs卷。这样，存储到&lt;code&gt;nas1&lt;/code&gt;所挂载的glusterfs卷上的文件，就自动镜像到两台设备上。&lt;/p&gt;
+&lt;p&gt;同时为了给苹果设备提供TimeMachine存储，又在同一个&lt;code&gt;nas1&lt;/code&gt;节点上运行&lt;code&gt;netatalk&lt;/code&gt;和&lt;code&gt;avahi&lt;/code&gt;服务，这样Mac系统就可以在局域网发现共享磁盘，可以用来作为备份存储。&lt;/p&gt;
+&lt;p&gt;这个方案是比较正规的解决方案，但是对硬件资源要求较高，主要有：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;glusterfs客户端需要占用较大的缓存来加速存储访问，默认是128MB客户端缓存，这个数值甚至超过了GoFlex的全部内存（&lt;a href=&quot;#128M内存Arch Linux ARM使用glusterfs客户端&quot;&gt;128M内存Arch Linux ARM使用glusterfs客户端&lt;/a&gt;），导致无法挂载存储。虽然可以通过设置&lt;code&gt;performance.cache-size&lt;/code&gt;调整到32MB或16MB，但随之带来的是性能的下降。&lt;/li&gt;
+&lt;li&gt;glusterfs客户端需要占用较大的计算资源，在大量复制文件的时候，同时运行glusterfs客户端和服务器端于一身，对GoFlex Home负载较高。&lt;/li&gt;
+&lt;li&gt;内存不足导致大量的磁盘交换，高峰时间cache只有20多兆数据能够缓存，占用超过60M以上swap交换空间，性能存在波动（2~4M/s波动）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;由于Mac OS X不支持glusterfs客户端，导致必须把glusterfs客户端迁移到GoFlex自身运行，实际上已经失去了glusterfs自动切换的功能（但是保留了数据镜像，所以还是可以保证数据安全性）。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;存在问题&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在备份我的笔记本100G以上数据，还是存在异常情况，在备份到30多G的时候，出现过glusterfs卷突然丢失挂载，导致TimeMachine终止备份。（我测试了多次，都发生过异常断开问题，并且断开后很难恢复）&lt;/li&gt;
+&lt;li&gt;glusterfs系统的NFS服务无法正常工作，经常发生core dump，最后因为无法稳定工作，所以关闭了glusterfs的NFS输出（&lt;code&gt;gluster volume set g_backup nfs.disable on&lt;/code&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;实测性能&lt;/p&gt;
+&lt;p&gt;以上在两台GoFlex Home设备上同时混合运行glusterfs客户端和服务器端，同时兼Apple的文件服务NetaTalk，数据写入速度大约是2MB/s到4MB/s。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;u65B9_u6CD5_u4E8C_uFF1A_u4F7F_u7528x86_u4E3B_u673A_u4F5C_u4E3Aglusterfs_u5BA2_u6237_u7AEF_u5171_u4EABnetatalk_u670D_u52A1_uFF08_u6700_u7EC8_u91C7_u7528_uFF09&quot;&gt;&lt;a href=&quot;#u65B9_u6CD5_u4E8C_uFF1A_u4F7F_u7528x86_u4E3B_u673A_u4F5C_u4E3Aglusterfs_u5BA2_u6237_u7AEF_u5171_u4EABnetatalk_u670D_u52A1_uFF08_u6700_u7EC8_u91C7_u7528_uFF09&quot; class=&quot;headerlink&quot; title=&quot;方法二：使用x86主机作为glusterfs客户端共享netatalk服务（最终采用）&quot;&gt;&lt;/a&gt;方法二：使用x86主机作为glusterfs客户端共享netatalk服务（最终采用）&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;GlusterFS的服务器和客户端其实可以分离，分离客户端的同时，相当于把NetaTalk和Avahi服务也分离出来，不再占用GoFlex Home存储设备的资源。这样，存储设备可以专用于数据存储，只运行GlusterFS服务端，在有限的内存和cpu资源下，可以专机专用，发挥存储镜像高可用所长。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;运行GlusterFS客户端和NetaTalk/Avahi的节点，相当于存储设备机头，可以使用树莓派来实现。现在，淘宝上200元可以买到配有512M内存的树莓派主板，配上SD卡、壳子和电源，大致可以在250元实现一个较好性能的GlusterFS存储机头。如果要保障高可用（呃，有点过度设计了，但是对于中小企业有使用价值），可以使用两个树莓派，使用&lt;a href=&quot;http://clusterlabs.org/wiki/Pacemaker&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Pacemaker&lt;/a&gt;来实现高可用的NetaTalk输出。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我同时在家庭网络中使用一台旧笔记电脑运行CentOS 7，用&lt;a href=&quot;#CentOS 7安装docker&quot;&gt;CentOS 7安装docker&lt;/a&gt;来部署各种应用测试，这台CentOS系统，实际也是24小时运行的稳定系统。&lt;/p&gt;
+&lt;p&gt;由于x86平台的内存很高（8G），可以作为分离的GlusterFS客户端来实现高缓存、高性能的TimeMachine服务。在GoFlex服务器端，可以设置glusterfs卷&lt;code&gt;g_backup&lt;/code&gt;如下参数，这样挂载的客户端将提高缓存写入性能：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gluster volume set g_backup performance.cachesize 1GB
+gluster volume set g_backup performance.flush-behind on
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;实测性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;使用TimeMachine通过无线网络备份时，网络速度可以稳定在6~8MB/s，性能大约是直接使用GeFlex Home运行所有服务（glusterfs+netatalk）的3倍左右。&lt;/p&gt;
+&lt;h1 id=&quot;u65B9_u6CD5_u4E09_uFF1A_u4E24_u53F0GoFlex_Home_u8FD0_u884Cglusterfs_u670D_u52A1_u5668+NFS+NetaTalk_uFF08_u6CA1_u6709_u6210_u529F_uFF09&quot;&gt;&lt;a href=&quot;#u65B9_u6CD5_u4E09_uFF1A_u4E24_u53F0GoFlex_Home_u8FD0_u884Cglusterfs_u670D_u52A1_u5668+NFS+NetaTalk_uFF08_u6CA1_u6709_u6210_u529F_uFF09&quot; class=&quot;headerlink&quot; title=&quot;方法三：两台GoFlex Home运行glusterfs服务器+NFS+NetaTalk（没有成功）&quot;&gt;&lt;/a&gt;方法三：两台GoFlex Home运行glusterfs服务器+NFS+NetaTalk（没有成功）&lt;/h1&gt;&lt;p&gt;今天又测试了一下glusterfs自带的NFS服务，意外发现性能好得出奇。大文件备份能够跑满8MB/s到10MB/s，已经接近我测试直接通过无线存储到笔记本共享NFS的性能了。&lt;/p&gt;
+&lt;p&gt;虽然NFS输出没有自动的failover，但是对于家用环境，已经实现了数据镜像存储，同时还兼容Mac OS X的文件备份。如果要运行TimeMachine，就在其中一个节点启动NetaTalk服务，就可以实现镜像的TimeMachine：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;nas1&lt;/code&gt; 使用NFS客户端方式挂载glusterfs输出卷 &lt;code&gt;g_backup&lt;/code&gt; （这样省略了glusterfs客户端的消耗资源），同时运行 &lt;code&gt;netatalk&lt;/code&gt;  和 &lt;code&gt;avahi&lt;/code&gt; 服务提供TimeMachine备份。这样写入到NFS挂载目录的文件可以通过底层的glusterfs卷镜像到两个设备。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nas2&lt;/code&gt; 只输出NFS服务，提供Mac OS X客户端日常的其他文件备份，同时，由于我在独立的&lt;code&gt;vms&lt;/code&gt;服务器（一台笔记本电脑）上运行个人网站，需要做数据备份（文件和数据库备份），所以&lt;code&gt;nas2&lt;/code&gt;上还运行mysql的slave服务器，提供数据库的实时备份。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是，使用 nfs+glusterfs的部署方式遇到一个TimeMachine不能备份的报错：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/glusterfs/glusterfs_nfs_timemachine.png&quot; alt=&quot;nfs glusterfs can not use time machine&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这个问题在采用前述方法二就不存在，并且我对比了方法二正常备份时，本地设备需要3次挂载服务器端输出的卷类似如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;//HuataiHuang@vms._afpovertcp._tcp.local/Time%20Machine  1.7Ti   24Gi  1.7Ti     2%   196321  13911470    1%   /Volumes/Time Machine
+//HuataiHuang@vms._afpovertcp._tcp.local/Time%20Machine  1.7Ti   24Gi  1.7Ti     2%   196321  13911470    1%   /Volumes/Time Machine-1
+/dev/disk3s2                                             1.7Ti   24Gi  1.7Ti     2%  6206580 445158848    1%   /Volumes/Time Machine Backups
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;这个问题没能解决，所以暂时放弃，使用前述方法二完成TimeMachine备份。&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在家庭环境运行个人网站，实现个人移动设备备份的双机镜像（TimeMachine）、以及个人网站的备份服务器 – 通过合理组合开源技术 &lt;code&gt;glusterfs&lt;/code&gt; &lt;code&gt;nfs&lt;/code&gt; &lt;code&gt;netatalk&lt;/code&gt; 以及 &lt;code&gt;mysql master/slave&lt;/code&gt; 实时备份，实现个人数据的高可用解决方案。&lt;/p&gt;
+&lt;p&gt;硬件设备：&lt;strong&gt;两台&lt;/strong&gt; Segate GoFlex Home网络存储&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/linux/goflex-home.jpg&quot; alt=&quot;GoFlex Home&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;最终（因为硬件原因），采用两台GoFlex Home存储运行glusterfs服务器，x86硬件的笔记本电脑作为glusterfs客户端输出NetaTalk服务给局域网内苹果系统作为备份设备。即本文的方法二。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="arm" scheme="http://blog.huatai.me/tags/arm/"/>
+    
+      <category term="glusterfs" scheme="http://blog.huatai.me/tags/glusterfs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在OS X上运行OS X</title>
+    <link href="http://blog.huatai.me/2014/11/01/run-os-x-guest/"/>
+    <id>http://blog.huatai.me/2014/11/01/run-os-x-guest/</id>
+    <published>2014-11-01T14:06:15.000Z</published>
+    <updated>2016-02-09T14:32:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;有没有想过在Mac OS X操作系统中再运行一个OS X系统？&lt;/p&gt;
+&lt;p&gt;例如，在最新的OS X 10.10 Yosemite的虚拟机中再运行一个Yosemite，甚至运行各种OS X版本。也许你觉得没有必要，但是，对于开发和测试来说，需要在不同的操作系统环境中验证程序运行。对于我个人来说，我也希望能够在一个纯粹的环境中运行X Server，来体验一些企业级的管理工具。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/osx/os_x_guest.png&quot; alt=&quot;os x vm&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;u865A_u62DF_u673A_u8F6F_u4EF6&quot;&gt;&lt;a href=&quot;#u865A_u62DF_u673A_u8F6F_u4EF6&quot; class=&quot;headerlink&quot; title=&quot;虚拟机软件&quot;&gt;&lt;/a&gt;虚拟机软件&lt;/h1&gt;&lt;p&gt;我购买的Parallels Desktop 10最新版本终于支持在Yosemite操作系统中运行Yosemite虚拟机（没有升级前虚拟机操作系统会反复进入安装模式无法正常启动）&lt;/p&gt;
+&lt;p&gt;安装主要有以下几种方式（根据回忆记录，可能有差异）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从物理服务器recovery区域启动，然后直接联网下载安装镜像进行安装&lt;/li&gt;
+&lt;li&gt;从物理服务器recovery区域启动，然后使用物理主机的TimeMachine备份进行recovery（可以恢复成和物理主机一模一样的虚拟机）&lt;/li&gt;
+&lt;li&gt;使用OS X的USB安装盘（我是从下载的Yosemite安装包转制出USB安装盘）安装&lt;/li&gt;
+&lt;li&gt;使用Parallels工具，将下载的Yosemite安装包转制成安装iso镜像进行安装&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;整个过程和物理主机安装（或者TimeMachine恢复）没有什么区别，我除了遇到因为Parallels早期版本10不能很好支持Yosemite虚拟机的问题（等待了几天就发布了一个修复版本），其他都比较顺利。&lt;/p&gt;
+&lt;p&gt;在Parallels虚拟机中运行OS X也支持TimeMachine备份，也就是说可以很方便地制作各个阶段虚拟机的在线备份，方便做测试时弄乱环境后及时恢复。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;有没有想过在Mac OS X操作系统中再运行一个OS X系统？&lt;/p&gt;
+&lt;p&gt;例如，在最新的OS X 10.10 Yosemite的虚拟机中再运行一个Yosemite，甚至运行各种OS X版本。也许你觉得没有必要，但是，对于开发和测试来说，需要在不同的操作系统环境中验证程序运行。对于我个人来说，我也希望能够在一个纯粹的环境中运行X Server，来体验一些企业级的管理工具。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/osx/os_x_guest.png&quot; alt=&quot;os x vm&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="mac" scheme="http://blog.huatai.me/tags/mac/"/>
+    
+  </entry>
+  
+</feed>

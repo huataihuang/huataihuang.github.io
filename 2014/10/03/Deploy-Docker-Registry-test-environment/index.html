@@ -1,0 +1,506 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="阿泰的菜园">
+    <title>部署Docker Registry测试环境 - 阿泰的菜园</title>
+    <meta name="author" content="阿泰">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="Docker Registry简介Docker Registry 是将Docker镜像推送到存储和共享的服务，提供给内部服务器部署Docker。任何支持upstart的操作系统都可以部署registry。使用Nginx的SSL加密和HTTP基本认证，作为Docker Regsitry的前端代理服务器。Upstart将管理运行在registry上的gunicorn进程，同时使用LRU缓存来减少后端存">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="部署Docker Registry测试环境">
+<meta property="og:url" content="http://blog.huatai.me/2014/10/03/Deploy-Docker-Registry-test-environment/index.html">
+<meta property="og:site_name" content="阿泰的菜园">
+<meta property="og:description" content="Docker Registry简介Docker Registry 是将Docker镜像推送到存储和共享的服务，提供给内部服务器部署Docker。任何支持upstart的操作系统都可以部署registry。使用Nginx的SSL加密和HTTP基本认证，作为Docker Regsitry的前端代理服务器。Upstart将管理运行在registry上的gunicorn进程，同时使用LRU缓存来减少后端存">
+<meta property="og:updated_time" content="2016-02-09T14:32:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="部署Docker Registry测试环境">
+<meta name="twitter:description" content="Docker Registry简介Docker Registry 是将Docker镜像推送到存储和共享的服务，提供给内部服务器部署Docker。任何支持upstart的操作系统都可以部署registry。使用Nginx的SSL加密和HTTP基本认证，作为Docker Regsitry的前端代理服务器。Upstart将管理运行在registry上的gunicorn进程，同时使用LRU缓存来减少后端存">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">阿泰的菜园</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首頁</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分類</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">標籤</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">所有文章</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜尋</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">關於</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">Atom</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            部署Docker Registry测试环境
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Fri Oct 03 2014 22:56:00 GMT+0800">
+	
+		    10月 03, 2014
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="Docker_Registry_u7B80_u4ECB"><a href="#Docker_Registry_u7B80_u4ECB" class="headerlink" title="Docker Registry简介"></a>Docker Registry简介</h1><p><a href="https://github.com/dotcloud/docker-registry" target="_blank" rel="external">Docker Registry</a> 是将Docker镜像推送到存储和共享的服务，提供给内部服务器部署Docker。任何支持<a href="http://upstart.ubuntu.com/" target="_blank" rel="external">upstart</a>的操作系统都可以部署registry。使用Nginx的SSL加密和HTTP基本认证，作为Docker Regsitry的前端代理服务器。Upstart将管理运行在registry上的gunicorn进程，同时使用LRU缓存来减少后端存储的消耗。缓存使用Redis。</p>
+<blockquote>
+<p>Docker Registry是一个基于Flask的web服务器，需要结合高速缓存和适合大规模使用的Nginx前端服务来实现分布式大负载集群。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Docker_Registry_u5B58_u50A8_u540E_u7AEF"><a href="#Docker_Registry_u5B58_u50A8_u540E_u7AEF" class="headerlink" title="Docker Registry存储后端"></a>Docker Registry存储后端</h1><p>Docker仓库的后端存储可以使用:</p>
+<ul>
+<li>local: 本地文件系统</li>
+<li>s3: 存储在一个Amoazon S3 bucket里面</li>
+<li>swift: 存储在Openstack Swift容器里</li>
+<li>glance: 使用Openstack的Glance</li>
+<li>elliptics: 使用Elliptics key-value存储</li>
+</ul>
+<blockquote>
+<p><strong> <a href="http://www.activestate.com/blog/2014/01/deploying-your-own-private-docker-registry" target="_blank" rel="external">Deploying your own Private Docker Registry </a>案例使用Openstack Swift，我计划在后续的生产环境中也使用类似Openstack架构。不过初次部署的测试环境，采用简化的本地文件系统。</strong></p>
+</blockquote>
+<h1 id="u4F7F_u7528_u5BB9_u5668_u8FD0_u884Cdocker-rgeigstry"><a href="#u4F7F_u7528_u5BB9_u5668_u8FD0_u884Cdocker-rgeigstry" class="headerlink" title="使用容器运行docker-rgeigstry"></a>使用容器运行<code>docker-rgeigstry</code></h1><p>参考 <a href="https://github.com/docker/docker-registry" target="_blank" rel="external">docker-registry</a> 只需要最简单的步骤就可以启动一个docker容器运行的 <code>docker-registry</code></p>
+<pre><code>docker run -p 5000:5000 registry
+</code></pre><blockquote>
+<p>以上运行的 <code>docker-registry</code> 是本机运行的容器，并且映射了 5000 端口可提供外部访问服务。不过，实际我在测试环境运行的 <code>docker-registry</code> 容器是采用 <a href="/2014/10/05/docker-container-static-ip/">配置docker容器静态IP地址</a> 方法，配置静态IP地址，提供容器服务。</p>
+</blockquote>
+<pre><code>docker run -h docker-repo --name=&quot;docker-repo&quot; -t -i --net=none registry /bin/bash
+</code></pre><blockquote>
+<p>然后执行脚本 <code>./docker_addnet.sh docker-repo 192.168.1.31</code> 来添加网络</p>
+</blockquote>
+<h1 id="u4F7F_u7528pip_u5B89_u88C5docker-registry"><a href="#u4F7F_u7528pip_u5B89_u88C5docker-registry" class="headerlink" title="使用pip安装docker-registry"></a>使用<code>pip</code>安装<code>docker-registry</code></h1><ul>
+<li><p>RHEL 和 CentOS 首先安装 <a href="http://fedoraproject.org/wiki/EPEL" target="_blank" rel="external">EPEL软件仓库</a> - <code>python-pip</code> 属于RPEL软件仓库</p>
+<pre><code>rpm -ivh http://mirrors.neusoft.edu.cn/epel/7/x86_64/e/epel-release-7-1.noarch.rpm
+</code></pre></li>
+<li><p>安装 <code>docker-registry</code></p>
+<pre><code>yum install python-devel libevent-devel python-pip gcc xz-devel
+python-pip install docker-registry[bugsnag,newrelic]
+</code></pre></li>
+</ul>
+<blockquote>
+<p>安装 <code>docker-registry</code> 以后，可以通过以下命令全面升级pip安装的python包 [2][2]</p>
+</blockquote>
+<pre><code>pip freeze --local | grep -v &apos;^\-e&apos; | cut -d = -f 1  | xargs pip install -U
+</code></pre><h1 id="u914D_u7F6E_docker-registry"><a href="#u914D_u7F6E_docker-registry" class="headerlink" title="配置 docker-registry"></a>配置 docker-registry</h1><p>上述通过 <code>docker</code> 容器和通过 <code>pip</code> 安装运行 <code>docker-registry</code> 都需要初始化一个 <code>config.yml</code> 配置文件，以便 <code>docker-regsitry</code> 能够启动，其中</p>
+<ul>
+<li><code>docker</code>容器安装运行方式修改 <code>/usr/local/lib/python2.7/dist-packages/config/config.yml</code></li>
+<li><code>pip</code> 安装运行方式修改 <code>/usr/lib/python2.7/site-packages/config/config.yml</code></li>
+</ul>
+<p>修改 config.yml</p>
+<pre><code>common: &amp;common
+    loglevel: info
+    search_backend: &quot;_env:SEARCH_BACKEND:&quot;
+    sqlalchemy_index_database:
+        &quot;_env:SQLALCHEMY_INDEX_DATABASE:sqlite:////tmp/docker-registry.db&quot;
+    standalone: true
+    disable_token_auth: true
+
+prod:
+    &lt;&lt;: *common
+    loglevel: warn
+    storage: s3
+    s3_access_key: _env:AWS_S3_ACCESS_KEY
+    s3_secret_key: _env:AWS_S3_SECRET_KEY
+    s3_bucket: _env:AWS_S3_BUCKET
+    boto_bucket: _env:AWS_S3_BUCKET
+    storage_path: /srv/docker
+    smtp_host: localhost
+    from_addr: docker@myself.com
+    to_addr: my@myself.com
+
+dev:
+    &lt;&lt;: *common
+    loglevel: debug
+    storage: local
+    storage_path: /data/registry
+
+test:
+    &lt;&lt;: *common
+    storage: local
+    storage_path: /tmp/tmpdockertmp
+</code></pre><blockquote>
+<p><code>config.xml</code> 配置文件中有两行非常重要，即需要确保 <code>docker-registry</code> 是以 <code>standalone</code> 模式运行</p>
+</blockquote>
+<pre><code>standalone: true
+disable_token_auth: true
+</code></pre><blockquote>
+<p>否则使用过程中会出现 <code>docker push</code> 报错  <code>405 Method Not Allowed</code> ，参考 <a href="https://github.com/docker/docker-registry/issues/432" target="_blank" rel="external">405 status code #432</a></p>
+<p> 采用回滚 <code>docker-registry</code> 到 <code>0.7</code> 版可避免上述配置问题，（<a href="/2014/10/04/docker-registry-degrade-version-0-7/">Docker-Registry降级到0.7版本</a>），但是检查发现，实际 0.7 版本没有实际使用配置文件，映像实际是存储在 <code>/root/tmp/</code> 目录下（可能和<code>docker-registry</code>启动时候目录有关）。</p>
+</blockquote>
+<p>创建存储目录并设置权限:</p>
+<pre><code>mkdir -p /data/registry
+chmod 777 /data/registry
+</code></pre><p>运行</p>
+<pre><code>docker-registry
+</code></pre><blockquote>
+<p>默认监听端口 5000<br><code>2014-09-15 23:06:07 [4223] [INFO] Listening at: http://0.0.0.0:5000 (4223)</code></p>
+</blockquote>
+<p>有关 <code>docker-registry</code> 的运行参数可以通过 <code>-h</code> 得到帮助</p>
+<p>即设置以下环境变量可以得到相应的运行参数</p>
+<blockquote>
+<p>REGISTRY_HOST: TCP host or ip to bind to; default is 0.0.0.0</p>
+<p>REGISTRY_PORT: TCP port to bind to; default is 5000</p>
+<p>GUNICORN_WORKERS: number of worker processes gunicorn should start</p>
+<p>GUNICORN_GRACEFUL_TIMEOUT: timeout in seconds for graceful worker restart</p>
+<p>GUNICORN_SILENT_TIMEOUT: timeout in seconds for restarting silent workers</p>
+<p>GUNICORN_USER: unix user to downgrade priviledges to</p>
+<p>GUNICORN_GROUP: unix group to downgrade priviledges to</p>
+<p>GUNICORN_ACCESS_LOG_FILE: File to log access to</p>
+<p>GUNICORN_ERROR_LOG_FILE: File to log errors to</p>
+</blockquote>
+<p>为方便使用，设置 <code>/etc/profile</code> 环境变量:</p>
+<pre><code>export REGISTRY_PORT=80
+export SETTINGS_FLAVOR=dev
+</code></pre><p>然后重新登录系统，先 <code>screen</code> 启动后，再执行 <code>docker-registry</code> ，这样服务就可以在80端口提供服务。</p>
+<h1 id="u4E0B_u4E00_u6B65_u64CD_u4F5C"><a href="#u4E0B_u4E00_u6B65_u64CD_u4F5C" class="headerlink" title="下一步操作"></a>下一步操作</h1><p>安装完Docker Registry就具备了存储容器镜像提供IDC批量创建虚拟容器的能力了，接下来需要在各个被管理的Docker节点安装Docker软件，以便能够维护容器 -<a href="/2014/10/02/install-docker-on-centos-7/">CentOS 7安装docker</a></p>
+<p><a href="/2014/10/05/customize-docker-image/">自定义Docker镜像</a>是安装完Docker Registry后第一步需要执行的工作，目的是构建适合自己IDC环境的各种容器镜像，这样就不再需要每个节点从Docker公共仓库下载容器镜像，并且每次要重复安装软件包。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">標籤</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Docker/">Docker</a> <a class="tag tag--primary tag--small t-link" href="/tags/云计算/">云计算</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/04/Deploy-DNSmasq/"  data-tooltip="部署DNSmasq">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/02/Upgrade-to-CentOS-7/" data-tooltip="CentOS 6.5升级到7">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/03/Deploy-Docker-Registry-test-environment/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/03/Deploy-Docker-Registry-test-environment/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/03/Deploy-Docker-Registry-test-environment/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 阿泰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/04/Deploy-DNSmasq/"  data-tooltip="部署DNSmasq">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/02/Upgrade-to-CentOS-7/" data-tooltip="CentOS 6.5升级到7">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/03/Deploy-Docker-Registry-test-environment/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/03/Deploy-Docker-Registry-test-environment/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/03/Deploy-Docker-Registry-test-environment/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/03/Deploy-Docker-Registry-test-environment/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/03/Deploy-Docker-Registry-test-environment/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/03/Deploy-Docker-Registry-test-environment/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">阿泰</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+</html>

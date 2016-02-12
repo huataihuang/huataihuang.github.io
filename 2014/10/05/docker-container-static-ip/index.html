@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="阿泰的菜园">
+    <title>配置docker容器静态IP地址 - 阿泰的菜园</title>
+    <meta name="author" content="阿泰">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="Docker提供了非常方便的根据镜像创建容器的方法，默认从镜像创建的容器都采用连接到 docker0 网桥的NAT模式，也就是如果需要访问虚拟容器提供的服务，需要在物理服务器上使用端口镜像方式，将物理服务器端口映射到虚拟容器的对应端口。
+这样的模式主要有以下限制：
+
+每个虚拟容器的服务需要通过端口映射才能被外部访问 - 对于某些需要直接访问服务器端口（如ssh登录），需要给不同虚拟机映射不同端口（">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="配置docker容器静态IP地址">
+<meta property="og:url" content="http://blog.huatai.me/2014/10/05/docker-container-static-ip/index.html">
+<meta property="og:site_name" content="阿泰的菜园">
+<meta property="og:description" content="Docker提供了非常方便的根据镜像创建容器的方法，默认从镜像创建的容器都采用连接到 docker0 网桥的NAT模式，也就是如果需要访问虚拟容器提供的服务，需要在物理服务器上使用端口镜像方式，将物理服务器端口映射到虚拟容器的对应端口。
+这样的模式主要有以下限制：
+
+每个虚拟容器的服务需要通过端口映射才能被外部访问 - 对于某些需要直接访问服务器端口（如ssh登录），需要给不同虚拟机映射不同端口（">
+<meta property="og:updated_time" content="2016-02-09T14:32:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="配置docker容器静态IP地址">
+<meta name="twitter:description" content="Docker提供了非常方便的根据镜像创建容器的方法，默认从镜像创建的容器都采用连接到 docker0 网桥的NAT模式，也就是如果需要访问虚拟容器提供的服务，需要在物理服务器上使用端口镜像方式，将物理服务器端口映射到虚拟容器的对应端口。
+这样的模式主要有以下限制：
+
+每个虚拟容器的服务需要通过端口映射才能被外部访问 - 对于某些需要直接访问服务器端口（如ssh登录），需要给不同虚拟机映射不同端口（">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">阿泰的菜园</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首頁</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分類</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">標籤</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">所有文章</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜尋</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">關於</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">Atom</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            配置docker容器静态IP地址
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun Oct 05 2014 15:42:42 GMT+0800">
+	
+		    10月 05, 2014
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>Docker提供了非常方便的根据镜像创建容器的方法，默认从镜像创建的容器都采用连接到 <code>docker0</code> 网桥的NAT模式，也就是如果需要访问虚拟容器提供的服务，需要在物理服务器上使用端口镜像方式，将物理服务器端口映射到虚拟容器的对应端口。</p>
+<p>这样的模式主要有以下限制：</p>
+<ul>
+<li>每个虚拟容器的服务需要通过端口映射才能被外部访问 - 对于某些需要直接访问服务器端口（如ssh登录），需要给不同虚拟机映射不同端口（物理服务器端口不能重合），管理有些麻烦</li>
+<li>同一个物理服务器运行相同服务的多个容器，需要创建一个提供负载均衡的虚拟容器，这样才能实现 “物理端口 =&gt; 负载均衡端口 =&gt; 负载均衡到各个虚拟容器端口”</li>
+<li>虚拟容器的IP地址不固定，要解决容器IP地址的动态解析 （<a href="2014/10/04/Deploy-DNSmasq/">dnsmasq服务部署</a>文档中介绍了dnsmasq可以实现的动态IP分配和DNS解析）</li>
+</ul>
+<blockquote>
+<p>采用NAT模式的容器，可以在一个物理服务器上实现一个单元化部署 - 实现 “firewall + loadbalance + web + cache + db” - 如果做好数据库同步和缓存一致性，应该能够实现分布式应用部署（将每个物理服务器视为一个工作单元，内部自给自足，外部模块化水平扩容）</p>
+</blockquote>
+<a id="more"></a>
+<p>参考 <a href="https://docs.docker.com/articles/networking/" target="_blank" rel="external">Docker Network Configuration</a> 可以使用脚本命令方式来实现给虚拟容器分配静态IP地址和路由</p>
+<p>按照前述 <a href="2014/10/02/install-docker-on-centos-7/">CentOS 7安装docker</a> 方式安装和配置好物理服务器 <code>docker0</code> 虚拟交换网络，并制作了 <a href="2014/10/05/customize-docker-image/">自定义Docker镜像</a> ，就可以设置静态IP地址的虚拟容器。以下案例创建一个名字为 <code>plone</code> 的虚拟容器，展示如何通过脚本命令创建虚拟容器的网络。</p>
+<p>使用 <code>--net=none</code> 参数创建虚拟容器:</p>
+<pre><code>docker run -h plone --name=&quot;plone&quot; -t -i --net=none docker-repo.huatai.me/centos:centos7_base_apps /bin/bash
+</code></pre><p>检查运行的容器id</p>
+<pre><code>docker ps
+</code></pre><p>可以看到输出</p>
+<pre><code>eb02f6afb946        docker-repo.huatai.me/centos:centos7_base_apps   &quot;/bin/bash&quot;         5 minutes ago       Up 5 minutes                            plone
+</code></pre><p>获得了该虚拟容器的 Container ID 是 <code>eb02f6afb946</code> ，执行以下命令</p>
+<pre><code>mkdir -p /var/run/netns
+ln -s /proc/$pid/ns/net /var/run/netns/$pid
+
+ip link add A type veth peer name B
+brctl addif docker0 A
+ip link set A up
+ip link set B netns $pid
+ip netns exec $pid ip link set dev B name eth0
+ip netns exec $pid ip link set eth0 up
+ip netns exec $pid ip addr add 192.168.1.41/24 dev eth0
+ip netns exec $pid ip route add default via 192.168.1.1
+</code></pre><p>以上命令完成后在容器中就可以看到 <code>eth0</code> 设备，并且可以通过设备A连接外网。</p>
+<p>汇总以上命令步骤，整理脚本 <code>docker_addnet.sh</code> 如下:</p>
+<pre><code># 使用格式：
+# docker_addnet.sh 容器名字 IP
+# 注意：网桥接口默认为 veth_容器名字
+# 注意：网关地址设置为固定的 192.168.1.1
+
+if [ $# != 2 ]; then
+    echo -e &quot;ERROR! 使用参数如下: docker_addnet.sh 容器名字 IP&quot;
+    exit 1
+fi
+
+container_netmask=24
+container_gw=192.168.1.1
+
+container_name=$1
+bridge_if=veth_`echo ${container_name} | cut -c 1-10`
+container_ip=$2/${container_netmask}
+
+container_id=`docker ps | grep $1 | awk &apos;{print \$1}&apos;`
+
+
+mkdir -p /var/run/netns
+ln -s /proc/$pid/ns/net /var/run/netns/$pid
+
+ip link add A type veth peer name B
+ip link set A name $bridge_if
+brctl addif docker0 $bridge_if
+ip link set $bridge_if up
+ip link set B netns $pid
+ip netns exec $pid ip link set dev B name eth0
+ip netns exec $pid ip link set eth0 up
+ip netns exec $pid ip addr add $container_ip dev eth0
+ip netns exec $pid ip route add default via $container_gw
+</code></pre><p>使用方法:</p>
+<pre><code>./docker_addnet.sh plone 192.168.1.41
+</code></pre><blockquote>
+<p>使用 <code>ip link set X name Y</code> 命令时，设备命名 <code>Y</code> 是有长度限制的，过长的设备命名会报类似错误 <code>Error: argument &quot;veth_docker_repo&quot; is wrong: &quot;name&quot; too long</code> （这里 <code>veth_docker_repo</code> 就是过长的设备命名）。经过验证，设备名字的长度最长可以是 <strong>15</strong> 个字符，所以脚本里面加了 <code>veth_</code> 前缀以后，主机名建议在10个字符，否则就要在脚本中做截取。</p>
+</blockquote>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">標籤</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Cloud/">Cloud</a> <a class="tag tag--primary tag--small t-link" href="/tags/Docker/">Docker</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/05/docker-centos-images-customize/"  data-tooltip="docker环境CentOS镜像定制">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/05/customize-docker-image/" data-tooltip="自定义docker镜像">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/05/docker-container-static-ip/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/05/docker-container-static-ip/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/05/docker-container-static-ip/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 阿泰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/05/docker-centos-images-customize/"  data-tooltip="docker环境CentOS镜像定制">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/05/customize-docker-image/" data-tooltip="自定义docker镜像">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/05/docker-container-static-ip/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/05/docker-container-static-ip/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/05/docker-container-static-ip/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/05/docker-container-static-ip/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/05/docker-container-static-ip/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/05/docker-container-static-ip/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">阿泰</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+</html>

@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="阿泰的菜园">
+    <title>Nook Color刷机CyanogenMod - 阿泰的菜园</title>
+    <meta name="author" content="阿泰">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="抽屉里有一个闲置了两年的Nook Color，虽然设备硬件很陈旧，但是由于设备和CyanogenMod兼容较好，所以可以使用比较新的系统。最近有些手痒，又把这个小平板拿出来，刷新成最新的CyanogenMod，体验Android的最新操作系统。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Nook Color刷机CyanogenMod">
+<meta property="og:url" content="http://blog.huatai.me/2014/11/05/install-cyanogenmod-on-nook-color/index.html">
+<meta property="og:site_name" content="阿泰的菜园">
+<meta property="og:description" content="抽屉里有一个闲置了两年的Nook Color，虽然设备硬件很陈旧，但是由于设备和CyanogenMod兼容较好，所以可以使用比较新的系统。最近有些手痒，又把这个小平板拿出来，刷新成最新的CyanogenMod，体验Android的最新操作系统。">
+<meta property="og:image" content="http://blog.huatai.me/img/android/encore.png">
+<meta property="og:updated_time" content="2016-02-09T14:32:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nook Color刷机CyanogenMod">
+<meta name="twitter:description" content="抽屉里有一个闲置了两年的Nook Color，虽然设备硬件很陈旧，但是由于设备和CyanogenMod兼容较好，所以可以使用比较新的系统。最近有些手痒，又把这个小平板拿出来，刷新成最新的CyanogenMod，体验Android的最新操作系统。">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">阿泰的菜园</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首頁</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分類</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">標籤</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">所有文章</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜尋</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">關於</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">Atom</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Nook Color刷机CyanogenMod
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Wed Nov 05 2014 11:21:28 GMT+0800">
+	
+		    11月 05, 2014
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>抽屉里有一个闲置了两年的Nook Color，虽然设备硬件很陈旧，但是由于设备和<a href="http://www.cyanogenmod.org" target="_blank" rel="external">CyanogenMod</a>兼容较好，所以可以使用比较新的系统。最近有些手痒，又把这个小平板拿出来，刷新成最新的CyanogenMod，体验Android的最新操作系统。</p>
+<p><img src="/img/android/encore.png" alt="Nook Color"></p>
+<a id="more"></a>
+<h1 id="CyanogenMod_Installer"><a href="#CyanogenMod_Installer" class="headerlink" title="CyanogenMod Installer"></a>CyanogenMod Installer</h1><p>CyanogenMod Installer是为了方便刷机提供的安装程序</p>
+<ul>
+<li>刷CyanogenMod之前不需要rooted手机</li>
+<li>bootloader也不需要解锁，CyanogenMod Installer会自动为你解锁</li>
+<li>如果以前使用了定制的ROM也可以，这时一个全支持配置，是运行一个堆叠ROM</li>
+</ul>
+<blockquote>
+<p>不过，很不幸，Nook Color 不在支持设备之列  <a href="http://wiki.cyanogenmod.org/w/CyanogenMod_Installer" target="_blank" rel="external">CyanogenMod Installer</a> </p>
+</blockquote>
+<h1 id="Nook_Color__28_u201Cencore_u201D_29"><a href="#Nook_Color__28_u201Cencore_u201D_29" class="headerlink" title="Nook Color (“encore”)"></a>Nook Color (“encore”)</h1><p><a href="http://wiki.cyanogenmod.org/w/Encore_Info" target="_blank" rel="external">CM for Nook Color</a> 提供了 Nightly 和 Stable 两个版本。</p>
+<p>下载 <a href="http://cmw.cmfs.me/encore/root/uNooter.zip" target="_blank" rel="external">uNooter 镜像</a></p>
+<p>解压缩 uNooter.zip</p>
+<p>将 uNooter 镜像写入SD卡 - 以下操作是在Mac OS X中进行，所以第一步是先unmountDisk（因为Mac OS X会自动挂载SD卡）</p>
+<pre><code>diskutil list
+diskutil unmountDisk /dev/&lt;sdcard&gt;
+dd if=uNooter.img of=/dev/&lt;sdcard&gt; bs=1m
+</code></pre><p>获取Root访问</p>
+<ul>
+<li>关闭Nook Color设备，并且和电脑断开连接</li>
+<li>将安装uNooter SD卡插入Nook Color设备</li>
+<li>将Nook Color设备连接到电脑，这个动作会触发Nook Color电源启动（屏幕仍然是关闭的）并且允许uNooter来root设备。这个屏幕保持关闭状态将最多有10分钟</li>
+<li>一旦完成，从电脑断开Nook Color，此时Nook Color可能会重启。如果重启正常，进行下一步。如果没有自动正常重启，则关闭电源，拔出SD卡然后就会恢复正常。</li>
+</ul>
+<h1 id="u5B89_u88C5_u5B9A_u5236_u7684Recovery_Image"><a href="#u5B89_u88C5_u5B9A_u5236_u7684Recovery_Image" class="headerlink" title="安装定制的Recovery Image"></a>安装定制的Recovery Image</h1><p>如果希望从电脑来安装需要下载以下两个软件包</p>
+<ul>
+<li><a href="http://download.cyanogenmod.org/?device=encore" target="_blank" rel="external">CyanogenMod 软件包</a> </li>
+<li><a href="http://wiki.cyanogenmod.org/w/Google_Apps" target="_blank" rel="external">Google Apps</a> </li>
+</ul>
+<blockquote>
+<p>使用 <a href="http://wiki.cyanogenmod.org/w/Adb" target="_blank" rel="external">adb</a> 来安装系统</p>
+<p><strong>实际我在Nook Color上刷新CyanogenMod只能安装CM10，CM11安装没有成功</strong></p>
+</blockquote>
+<p>安装 Adb 软件</p>
+<p>下载 <a href="https://developer.android.com/sdk/index.html" target="_blank" rel="external">SDK Tools</a> 的 <a href="http://dl.google.com/android/android-sdk_r23.0.2-macosx.zip" target="_blank" rel="external">android-sdk_r23.0.2-macosx.zip</a></p>
+<blockquote>
+<p>这里我们不是作为完整的开发平台，所以没有下载 ADT Bundle （Eclipse ADT bundle包含了所有开发apps），而是下载 “SDK Tools Only”</p>
+</blockquote>
+<p>在Mac平台，解压缩以后是 <code>android-sdk-macosx</code> 目录。在自己的<code>home</code>目录创建一个<code>Development</code>子目录，然后将解压缩的<code>android-sdk-macosx</code>移动到创建的<code>Development</code>目录下</p>
+<pre><code>mkdir ~/Development
+mv android-sdk-macosx ~/Development/
+</code></pre><p>然后进入<code>android-sdk-macosx</code>目录执行以下命令</p>
+<pre><code>cd ~/Development/android-sdk-macosx
+tools/android update sdk --no-ui
+</code></pre><blockquote>
+<p>Android SDK工具包初始时候只包含基本的SDK工具，并没有包含任何Android平台或第三方库（其实是没有包含任何开发应用程序的工具）。要启动开发程序，必须使用SDK Manager安装平台工具，或者至少一个Android平台版本。</p>
+<p>平台工具包括周期更新和支持新Android平台的构建工具，包括<code>adb</code>，<code>dexdump</code>等等</p>
+<p>要安装平台工具，Android平台或其他add-on，需要有Internet链接可以用于下载必要组件。</p>
+<p><strong>运行需要JDK支持</strong></p>
+</blockquote>
+<p>在景德镇，无法直接通过直接方式访问google的下载服务器( <a href="https://dl-ssl.google.com" target="_blank" rel="external">https://dl-ssl.google.com</a> )，需要设置代理。如果 <code>tools/android update sdk</code> 命令没有使用 <code>--no-ui</code> 则可以通过下载管理器的 <code>Perference</code> 来设置代理服务器。实际上代理配置是写在 <code>~/.android/androidtool.cfg</code> 中，内容如下：</p>
+<pre><code>http.proxyPort=&lt;PROXY_PORT&gt;
+sdkman.enable.previews=false
+http.proxyHost=&lt;PROXY_IP&gt;
+sdkman.ask.adb.restart=false
+sdkman.show.update.only=true
+sdkman.force.http=true
+sdkman.use.dl.cache=true
+</code></pre><p>安装完 Android SDK 之后，在 <code>~/bash_profile</code> 中添加如下内容 （参考<a href="http://wiki.cyanogenmod.org/w/Adb" target="_blank" rel="external">Adb</a>）</p>
+<pre><code>if [ -d &quot;&lt;path-to-sdk&gt;/platform-tools&quot; ] ; then
+  export PATH=&quot;&lt;path-to-sdk&gt;/platform-tools:$PATH&quot;
+fi
+</code></pre><p>然后再执行 <code>. ~/bash_profile</code> 或者退出登录再次打开Terminal终端使得Android SDK工作路径生效。</p>
+<p>传输ROM到设备中</p>
+<pre><code>adb push update.zip /sdcard/
+</code></pre><blockquote>
+<p>这个传输其实和将SD卡放到PC机上，将镜像复制到SD卡是一样的效果。不过现在新型的设备已经取消了SD卡，只能通过这个方法传输。</p>
+<p><code>/sdcard/</code> 路径是根据设备显示的挂载目录确定的，也可能是其他路径</p>
+</blockquote>
+<h1 id="u5237_u65B0_u7684ROM"><a href="#u5237_u65B0_u7684ROM" class="headerlink" title="刷新的ROM"></a>刷新的ROM</h1><p>开启Nook Color电源，此时会提示“press any key within 5 seconds to enter boot menu”时按∩键进入“Boot options”,默认是eMMC，也就是从Nook Color启动</p>
+<pre><code>Boot Menu
+-------------
+
+Internal eMMC Normal
+Internal eMMC Recovery
+Internal eMMC Alternate
+SD Card Normal
+SD Card Recovery
+SD Card Alternate
+</code></pre><p>只有第一项和第二项可选，通过”音量建”上下选择，选择第二项”Internal eMMC Recovery”。</p>
+<p>此时进入 “ClockworkMod Recovery” 菜单</p>
+<pre><code>ClockworkMod Recovery v3.2.0.1
+
+- reboot system now
+- apply update from sdcard
+- wipe data/factory reset
+- wipe cache partition
+- install zip from sdcard
+- backup and restore
+- mounts and storage
+- advanced
+</code></pre><p>选择 “wipe data/factory reset” 清理掉缓存和数据</p>
+<p>最后选择 <code>install zip from sdcard</code> 并选择对应的ROM</p>
+<p>我在刷机的时候遇到如下报错：</p>
+<pre><code>E:Error in /sdcard/cm-11-20141008-SNAPSHOT-M11-encore.zip
+(Status 0)
+Installation aborted.
+</code></pre><p>这个报错参考 <a href="http://forum.xda-developers.com/showthread.php?t=1899761" target="_blank" rel="external">Status 0 installation aborted?</a> 是因为下载包损坏或者错误选择设备</p>
+<blockquote>
+<p>Anyways, It looks like you’ve either got a bad download or a marvlec phone. Status 0 usually pops up when the updater script doesn’t match the actual phone type. </p>
+</blockquote>
+<p>尝试使用 <code>CM10</code> 版本 <code>cm-10.2.1-encore.zip</code> 则顺利完成，没有遇到问题。</p>
+<p>CM10操作系统安装完成后，安装对应OS版本的 <a href="http://wiki.cyanogenmod.org/w/Google_Apps" target="_blank" rel="external">Google Apps</a> ，安装方法相同。Google Apps安装后，系统才具有从Google Market安装应用软件的能力。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">標籤</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/android/">android</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/"  data-tooltip="Linux irqbalance、中断和进程绑定CPU">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/02/segate-goflex-home-running-glusterfs-experience/" data-tooltip="Segate GoFlex Home网络存储运行GlusterFS经验汇总">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/11/05/install-cyanogenmod-on-nook-color/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/11/05/install-cyanogenmod-on-nook-color/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/11/05/install-cyanogenmod-on-nook-color/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 阿泰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/"  data-tooltip="Linux irqbalance、中断和进程绑定CPU">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/02/segate-goflex-home-running-glusterfs-experience/" data-tooltip="Segate GoFlex Home网络存储运行GlusterFS经验汇总">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/11/05/install-cyanogenmod-on-nook-color/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/11/05/install-cyanogenmod-on-nook-color/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/11/05/install-cyanogenmod-on-nook-color/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/11/05/install-cyanogenmod-on-nook-color/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/11/05/install-cyanogenmod-on-nook-color/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/11/05/install-cyanogenmod-on-nook-color/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">阿泰</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+</html>

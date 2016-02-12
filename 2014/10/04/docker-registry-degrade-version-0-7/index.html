@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="阿泰的菜园">
+    <title>Docker-Registry降级到0.7版本 - 阿泰的菜园</title>
+    <meta name="author" content="阿泰">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="解决 docker push 报错  405 Method Not Allowed
+实践中发现 0.8.1 版本无法提交镜像（实际是说明文档的配置文件错误，见 部署Docker Registry测试环境）， push 镜像的时候服务器端会返回 Error: Status 405 trying to push repository 和 405 Method Not Allowed
+警告：Docker">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Docker-Registry降级到0.7版本">
+<meta property="og:url" content="http://blog.huatai.me/2014/10/04/docker-registry-degrade-version-0-7/index.html">
+<meta property="og:site_name" content="阿泰的菜园">
+<meta property="og:description" content="解决 docker push 报错  405 Method Not Allowed
+实践中发现 0.8.1 版本无法提交镜像（实际是说明文档的配置文件错误，见 部署Docker Registry测试环境）， push 镜像的时候服务器端会返回 Error: Status 405 trying to push repository 和 405 Method Not Allowed
+警告：Docker">
+<meta property="og:updated_time" content="2016-02-09T14:32:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker-Registry降级到0.7版本">
+<meta name="twitter:description" content="解决 docker push 报错  405 Method Not Allowed
+实践中发现 0.8.1 版本无法提交镜像（实际是说明文档的配置文件错误，见 部署Docker Registry测试环境）， push 镜像的时候服务器端会返回 Error: Status 405 trying to push repository 和 405 Method Not Allowed
+警告：Docker">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">阿泰的菜园</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首頁</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分類</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">標籤</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">所有文章</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜尋</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">關於</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">Atom</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Docker-Registry降级到0.7版本
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sat Oct 04 2014 22:34:48 GMT+0800">
+	
+		    10月 04, 2014
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="u89E3_u51B3_docker_push__u62A5_u9519_405_Method_Not_Allowed"><a href="#u89E3_u51B3_docker_push__u62A5_u9519_405_Method_Not_Allowed" class="headerlink" title="解决 docker push 报错  405 Method Not Allowed"></a>解决 <code>docker push</code> 报错  <code>405 Method Not Allowed</code></h1><blockquote>
+<p>实践中发现 <code>0.8.1</code> 版本无法提交镜像（实际是说明文档的配置文件错误，见 <a href="/2014/10/03/Deploy-Docker-Registry-test-environment/">部署Docker Registry测试环境</a>）， <code>push</code> 镜像的时候服务器端会返回 <code>Error: Status 405 trying to push repository</code> 和 <code>405 Method Not Allowed</code></p>
+<p><strong>警告：Docker-Registry 早期版本存在安全问题，建议尝试 <a href="https://github.com/docker/docker-registry" target="_blank" rel="external">docker-registry</a> 推荐的docker虚拟容器运行最新版本，本文仅作为参考手段。</strong></p>
+</blockquote>
+<a id="more"></a>
+<p>客户端提交测试:</p>
+<pre><code>docker commit -m &quot;first commit&quot; centos5 docker-repo.alipay.net/centos:centos5
+docker push docker-repo.alipay.net/centos:centos5
+</code></pre><p>提交映像文件的时候会出现 <code>405</code> 错误，提示方法不支持 - 以下是在服务器端输入的日志：</p>
+<pre><code>[info] POST /images/docker-repo.alipay.net/centos/centos5/push?tag=
+[02396454] +job push(docker-repo.alipay.net/centos/centos5)
+10.210.185.18 - - [20/Sep/2014:23:32:18] &quot;GET /v1/_ping HTTP/1.1&quot; 200 4 &quot;-&quot; &quot;Go 1.1 package http&quot;
+2014-09-20 23:32:18,866 INFO: 10.210.185.18 - - [20/Sep/2014:23:32:18] &quot;GET /v1/_ping HTTP/1.1&quot; 200 4 &quot;-&quot; &quot;Go 1.1 package http&quot;
+Error: Status 405 trying to push repository centos/centos5: &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 3.2 Final//EN&quot;&gt;
+&lt;title&gt;405 Method Not Allowed&lt;/title&gt;
+&lt;h1&gt;Method Not Allowed&lt;/h1&gt;
+&lt;p&gt;The method is not allowed for the requested URL.&lt;/p&gt;
+
+[02396454] -job push(docker-repo.alipay.net/centos/centos5) = ERR (1)
+10.210.185.18 - - [20/Sep/2014:23:32:18] &quot;PUT /v1/repositories/centos/centos5/ HTTP/1.1&quot; 405 178 &quot;-&quot; &quot;docker/1.2.0 go/go1.3.1 git-commit/fa7b24f kernel/3.10.0-123.6.3.el7.x86_64 os/linux arch/amd64&quot;
+2014-09-20 23:32:18,872 INFO: 10.210.185.18 - - [20/Sep/2014:23:32:18] &quot;PUT /v1/repositories/centos/centos5/ HTTP/1.1&quot; 405 178 &quot;-&quot; &quot;docker/1.2.0 go/go1.3.1 git-commit/fa7b24f kernel/3.10.0-123.6.3.el7.x86_64 os/linux arch/amd64&quot;
+</code></pre><p>参考 <a href="https://github.com/docker/docker-registry/issues/432" target="_blank" rel="external">405 status code</a></p>
+<blockquote>
+<p>+1: still happening in 0.7.3, docker 0.12.0.</p>
+<p>Solved by downgrading to 0.7.0.</p>
+</blockquote>
+<p>我检查了一下当前安装的版本，确实是最新release 0.8.1 </p>
+<pre><code>pip list | grep dock
+</code></pre><p>输出显示</p>
+<pre><code>docker-registry (0.8.1)
+docker-registry-core (2.0.1)
+</code></pre><p>如何把版本降低到 <code>0.7.0</code> ？</p>
+<p>参考 <a href="http://generics7.blogspot.com/2013/05/downgrade-pip-installed-package.html" target="_blank" rel="external">Downgrade the pip installed package </a></p>
+<p>如果要安装特定版本，可以使用类似</p>
+<pre><code>pip install docker-registry==0.7.0
+</code></pre><p>来完成。但是我尝试了，已经安装了 <code>0.8.1</code> 之后，使用命令</p>
+<pre><code>pip uninstall docker-registry
+pip install docker-registry==0.7.0
+</code></pre><p>但是安装完成之后，发现还是 <code>0.8.1</code> ，仔细看了一下安装输出信息有</p>
+<pre><code>Requested docker-registry==0.7.0, but installing version 0.8.1
+</code></pre><p>解决的方法参考 <a href="http://stackoverflow.com/questions/5226311/installing-specific-package-versions-with-pip" target="_blank" rel="external">Installing specific package versions with Pip</a></p>
+<p>也就是先卸载，然后通过 pip 直接下载指定url的 tar.gz 文件包进行安装</p>
+<pre><code>pip uninstall docker-registry
+pip install -Iv https://pypi.python.org/packages/source/d/docker-registry/docker-registry-0.7.0.tar.gz
+pip uninstall docker-registry-core
+pip install -Iv https://pypi.python.org/packages/source/d/docker-registry-core/docker-registry-core-1.0.6.tar.gz
+pip uninstall bugsnag
+pip install -Iv https://pypi.python.org/packages/source/b/bugsnag/bugsnag-2.0.1.tar.gz
+pip uninstall gunicorn
+pip install -Iv https://pypi.python.org/packages/source/g/gunicorn/gunicorn-18.0.tar.gz
+pip uninstall boto
+pip install -Iv https://pypi.python.org/packages/source/b/boto/boto-2.27.0.tar.gz
+</code></pre><blockquote>
+<p>根据你安装环境的软件包组合，可能会有不同的python模块需要重新安装，方法类似。</p>
+</blockquote>
+<p><strong>以上降级工作完成后，再次启动 <code>docker-registry</code> ，再次测试提交映像成功!</strong></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">標籤</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Cloud/">Cloud</a> <a class="tag tag--primary tag--small t-link" href="/tags/Docker/">Docker</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/05/customize-docker-image/"  data-tooltip="自定义docker镜像">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/04/Deploy-DNSmasq/" data-tooltip="部署DNSmasq">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/04/docker-registry-degrade-version-0-7/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/04/docker-registry-degrade-version-0-7/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/04/docker-registry-degrade-version-0-7/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 阿泰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/05/customize-docker-image/"  data-tooltip="自定义docker镜像">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/04/Deploy-DNSmasq/" data-tooltip="部署DNSmasq">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/04/docker-registry-degrade-version-0-7/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/04/docker-registry-degrade-version-0-7/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/04/docker-registry-degrade-version-0-7/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/04/docker-registry-degrade-version-0-7/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/04/docker-registry-degrade-version-0-7/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/04/docker-registry-degrade-version-0-7/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">阿泰</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+</html>

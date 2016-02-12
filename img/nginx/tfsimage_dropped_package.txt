@@ -1,0 +1,1818 @@
+[admin@payadmin-60-2  zue.alipay.com /home/admin/huatai.huang/bin/tfs/tfsimage]
+$ pgm -b -p 100 -f hostlist.cfg "ifconfig"
+[1] 08:31:54 [SUCCESS] tfsimage-60-16
+bond0     Link encap:Ethernet  HWaddr 40:A8:F0:25:96:08
+          inet addr:10.190.69.190  Bcast:10.190.71.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13982923996 errors:0 dropped:97499 overruns:0 frame:527
+          TX packets:9152794346 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:12805058115766 (11.6 TiB)  TX bytes:8434895710641 (7.6 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 40:A8:F0:25:96:08
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:7010930499 errors:0 dropped:47944 overruns:0 frame:254
+          TX packets:4578438482 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6404672311959 (5.8 TiB)  TX bytes:4218351655608 (3.8 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr 40:A8:F0:25:96:08
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6971993497 errors:0 dropped:49555 overruns:0 frame:273
+          TX packets:4574355864 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6400385803807 (5.8 TiB)  TX bytes:4216544055033 (3.8 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17628196 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17628196 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3761800475 (3.5 GiB)  TX bytes:3761800475 (3.5 GiB)
+
+
+[2] 08:31:54 [SUCCESS] tfsimage-60-17
+bond0     Link encap:Ethernet  HWaddr 40:A8:F0:23:31:EC
+          inet addr:10.190.69.188  Bcast:10.190.71.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13975475016 errors:0 dropped:110728 overruns:0 frame:557
+          TX packets:9151091588 errors:0 dropped:1 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:12792964308410 (11.6 TiB)  TX bytes:8437762431773 (7.6 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 40:A8:F0:23:31:EC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6962156212 errors:0 dropped:55729 overruns:0 frame:270
+          TX packets:4574178314 errors:0 dropped:1 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6392128375021 (5.8 TiB)  TX bytes:4217371810930 (3.8 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr 40:A8:F0:23:31:EC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:7013318804 errors:0 dropped:54999 overruns:0 frame:287
+          TX packets:4576913274 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6400835933389 (5.8 TiB)  TX bytes:4220390620843 (3.8 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17628252 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17628252 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3761661274 (3.5 GiB)  TX bytes:3761661274 (3.5 GiB)
+
+
+[3] 08:31:54 [SUCCESS] tfsimage-70-10
+bond0     Link encap:Ethernet  HWaddr EC:F4:BB:C0:60:44
+          inet addr:10.217.168.123  Bcast:10.217.171.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:17637712332 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11370341271 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16306078015937 (14.8 TiB)  TX bytes:11352367481614 (10.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr EC:F4:BB:C0:60:44
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8827352640 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5687411671 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8166433890165 (7.4 TiB)  TX bytes:5682766972421 (5.1 TiB)
+
+eth1      Link encap:Ethernet  HWaddr EC:F4:BB:C0:60:44
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8810359692 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5682929600 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8139644125772 (7.4 TiB)  TX bytes:5669600509193 (5.1 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17921939 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17921939 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3789961986 (3.5 GiB)  TX bytes:3789961986 (3.5 GiB)
+
+
+[4] 08:31:54 [SUCCESS] tfsimage-60-1
+bond0     Link encap:Ethernet  HWaddr 40:A8:F0:23:2B:DC
+          inet addr:10.190.68.37  Bcast:10.190.71.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13980422587 errors:0 dropped:109938 overruns:0 frame:706
+          TX packets:9152549501 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:12787079185367 (11.6 TiB)  TX bytes:8438005765205 (7.6 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 40:A8:F0:23:2B:DC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:7013908050 errors:0 dropped:55576 overruns:0 frame:390
+          TX packets:4574198155 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6393894270599 (5.8 TiB)  TX bytes:4216759431594 (3.8 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr 40:A8:F0:23:2B:DC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6966514537 errors:0 dropped:54362 overruns:0 frame:316
+          TX packets:4578351346 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6393184914768 (5.8 TiB)  TX bytes:4221246333611 (3.8 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17628741 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17628741 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3764823647 (3.5 GiB)  TX bytes:3764823647 (3.5 GiB)
+
+
+[5] 08:31:54 [SUCCESS] tfsimage-70-23
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:9F:6C
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:138853749605 errors:0 dropped:5177 overruns:0 frame:148
+          TX packets:121648521025 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:123366425556358 (112.2 TiB)  TX bytes:103900046537279 (94.4 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:9F:6C
+          inet addr:10.215.28.22  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:138449102049 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:121651708238 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:120275810401252 (109.3 TiB)  TX bytes:102924992568777 (93.6 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:9F:6C
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:69325229649 errors:0 dropped:1895 overruns:0 frame:82
+          TX packets:60855893202 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:61628864426291 (56.0 TiB)  TX bytes:51964199520519 (47.2 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:9F:6C
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:69528519956 errors:0 dropped:3282 overruns:0 frame:66
+          TX packets:60792627823 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:61737561130067 (56.1 TiB)  TX bytes:51935847016760 (47.2 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:44652023 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:44652023 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:9212495713 (8.5 GiB)  TX bytes:9212495713 (8.5 GiB)
+
+
+[6] 08:31:54 [SUCCESS] tfsimage-60-6
+bond0     Link encap:Ethernet  HWaddr 10:51:72:21:90:66
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:18202243663 errors:0 dropped:0 overruns:1 frame:0
+          TX packets:11987688586 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16778026220769 (15.2 TiB)  TX bytes:11513978559707 (10.4 TiB)
+
+bond0.500 Link encap:Ethernet  HWaddr 10:51:72:21:90:66
+          inet addr:10.228.188.205  Bcast:10.228.191.255  Mask:255.255.240.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:10046624495 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6023517940 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16064228609059 (14.6 TiB)  TX bytes:11191865757914 (10.1 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 10:51:72:21:90:66
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9106543436 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5997629775 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8386176998231 (7.6 TiB)  TX bytes:5761364985477 (5.2 TiB)
+
+eth1      Link encap:Ethernet  HWaddr 10:51:72:21:90:66
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9095700227 errors:0 dropped:0 overruns:1 frame:0
+          TX packets:5990058811 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8391849222538 (7.6 TiB)  TX bytes:5752613574230 (5.2 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18711116 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18711116 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3979826900 (3.7 GiB)  TX bytes:3979826900 (3.7 GiB)
+
+
+[7] 08:31:54 [SUCCESS] tfsimage-60-8
+bond0     Link encap:Ethernet  HWaddr 10:51:72:21:91:D6
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:18202681335 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11988738080 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16776600267430 (15.2 TiB)  TX bytes:11514711469633 (10.4 TiB)
+
+bond0.500 Link encap:Ethernet  HWaddr 10:51:72:21:91:D6
+          inet addr:10.228.188.203  Bcast:10.228.191.255  Mask:255.255.240.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:10047995474 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6023136651 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16062857385145 (14.6 TiB)  TX bytes:11192521236626 (10.1 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 10:51:72:21:91:D6
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9102551216 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6001132579 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8382799790593 (7.6 TiB)  TX bytes:5763198581135 (5.2 TiB)
+
+eth1      Link encap:Ethernet  HWaddr 10:51:72:21:91:D6
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9100130129 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5987605502 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8393800491977 (7.6 TiB)  TX bytes:5751512888564 (5.2 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18528871 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18528871 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3937395448 (3.6 GiB)  TX bytes:3937395448 (3.6 GiB)
+
+
+[8] 08:31:55 [SUCCESS] tfsimage-60-12
+bond0     Link encap:Ethernet  HWaddr 10:51:72:21:8F:BE
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:18231941633 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:12005470811 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16807666546162 (15.2 TiB)  TX bytes:11525765478638 (10.4 TiB)
+
+bond0.500 Link encap:Ethernet  HWaddr 10:51:72:21:8F:BE
+          inet addr:10.228.188.204  Bcast:10.228.191.255  Mask:255.255.240.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:10060983767 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6035357251 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16092627651716 (14.6 TiB)  TX bytes:11203332176169 (10.1 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 10:51:72:21:8F:BE
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9114670273 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6000787433 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8398717697356 (7.6 TiB)  TX bytes:5758221298673 (5.2 TiB)
+
+eth1      Link encap:Ethernet  HWaddr 10:51:72:21:8F:BE
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9117271360 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6004683378 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8408948848806 (7.6 TiB)  TX bytes:5767544179965 (5.2 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:19263071 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:19263071 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:4112298311 (3.8 GiB)  TX bytes:4112298311 (3.8 GiB)
+
+
+[9] 08:31:55 [SUCCESS] tfsimage-70-26
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:EE:D0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13505698770 errors:0 dropped:4285 overruns:0 frame:125
+          TX packets:11515202944 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11831388033691 (10.7 TiB)  TX bytes:8129606751423 (7.3 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:EE:D0
+          inet addr:10.215.28.36  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13101057316 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11513425096 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11498432891610 (10.4 TiB)  TX bytes:8036224703088 (7.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:EE:D0
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6654360768 errors:0 dropped:2069 overruns:0 frame:61
+          TX packets:5772294007 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5905170025886 (5.3 TiB)  TX bytes:4079728825905 (3.7 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:EE:D0
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6851338002 errors:0 dropped:2216 overruns:0 frame:64
+          TX packets:5742908937 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5926218007805 (5.3 TiB)  TX bytes:4049877925518 (3.6 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18089002 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18089002 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3878062369 (3.6 GiB)  TX bytes:3878062369 (3.6 GiB)
+
+
+[10] 08:31:55 [SUCCESS] tfsimage-70-4
+bond0     Link encap:Ethernet  HWaddr EC:F4:BB:BF:03:70
+          inet addr:10.217.165.195  Bcast:10.217.167.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:17644915906 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11376153649 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16317214980899 (14.8 TiB)  TX bytes:11353827243347 (10.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr EC:F4:BB:BF:03:70
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8828526800 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5686789158 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8166184227256 (7.4 TiB)  TX bytes:5676528839386 (5.1 TiB)
+
+eth1      Link encap:Ethernet  HWaddr EC:F4:BB:BF:03:70
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8816389106 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5689364491 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8151030753643 (7.4 TiB)  TX bytes:5677298403961 (5.1 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17921658 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17921658 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3789426337 (3.5 GiB)  TX bytes:3789426337 (3.5 GiB)
+
+
+[11] 08:31:55 [SUCCESS] tfsimage-70-8
+bond0     Link encap:Ethernet  HWaddr EC:F4:BB:C0:7B:D8
+          inet addr:10.217.168.124  Bcast:10.217.171.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:17622596575 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11357525405 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16290464774752 (14.8 TiB)  TX bytes:11335482655116 (10.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr EC:F4:BB:C0:7B:D8
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8807657394 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5679949321 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8141029931378 (7.4 TiB)  TX bytes:5671001899680 (5.1 TiB)
+
+eth1      Link encap:Ethernet  HWaddr EC:F4:BB:C0:7B:D8
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8814939181 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5677576084 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8149434843374 (7.4 TiB)  TX bytes:5664480755436 (5.1 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17922162 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17922162 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3790074200 (3.5 GiB)  TX bytes:3790074200 (3.5 GiB)
+
+
+[12] 08:31:55 [SUCCESS] tfsimage-70-25
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:9F:88
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13538017215 errors:0 dropped:383 overruns:0 frame:96
+          TX packets:11580436082 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11845925873100 (10.7 TiB)  TX bytes:8190799764736 (7.4 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:9F:88
+          inet addr:10.215.28.35  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13133374397 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11578657377 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11512259160965 (10.4 TiB)  TX bytes:8096895221847 (7.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:9F:88
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6651637090 errors:0 dropped:383 overruns:0 frame:57
+          TX packets:5821625442 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5898103359565 (5.3 TiB)  TX bytes:4123695775644 (3.7 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:9F:88
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6886380125 errors:0 dropped:0 overruns:0 frame:39
+          TX packets:5758810640 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5947822513535 (5.4 TiB)  TX bytes:4067103989092 (3.6 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18088268 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18088268 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3879598312 (3.6 GiB)  TX bytes:3879598312 (3.6 GiB)
+
+
+[13] 08:31:55 [SUCCESS] tfsimage-60-5
+bond0     Link encap:Ethernet  HWaddr 10:51:72:21:92:12
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:18186454442 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11974367743 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16764872342829 (15.2 TiB)  TX bytes:11499207410271 (10.4 TiB)
+
+bond0.500 Link encap:Ethernet  HWaddr 10:51:72:21:92:12
+          inet addr:10.228.188.202  Bcast:10.228.191.255  Mask:255.255.240.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:10037550984 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6017609628 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16051684063364 (14.5 TiB)  TX bytes:11177494647338 (10.1 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 10:51:72:21:92:12
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9093667601 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5985414039 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8376443263954 (7.6 TiB)  TX bytes:5748714913406 (5.2 TiB)
+
+eth1      Link encap:Ethernet  HWaddr 10:51:72:21:92:12
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9092786841 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5988953704 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8388429078875 (7.6 TiB)  TX bytes:5750492496865 (5.2 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17925939 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17925939 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3792540796 (3.5 GiB)  TX bytes:3792540796 (3.5 GiB)
+
+
+[14] 08:31:55 [SUCCESS] tfsimage-70-5
+bond0     Link encap:Ethernet  HWaddr EC:F4:BB:C0:5B:E8
+          inet addr:10.217.168.125  Bcast:10.217.171.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:17651190223 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11376150042 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16325575032013 (14.8 TiB)  TX bytes:11361411167184 (10.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr EC:F4:BB:C0:5B:E8
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8822514800 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5689839374 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8158919819520 (7.4 TiB)  TX bytes:5681805805004 (5.1 TiB)
+
+eth1      Link encap:Ethernet  HWaddr EC:F4:BB:C0:5B:E8
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8828675423 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5686310668 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8166655212493 (7.4 TiB)  TX bytes:5679605362180 (5.1 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17922052 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17922052 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3789740628 (3.5 GiB)  TX bytes:3789740628 (3.5 GiB)
+
+
+[15] 08:31:55 [SUCCESS] tfsimage-70-7
+bond0     Link encap:Ethernet  HWaddr EC:F4:BB:C0:5B:C8
+          inet addr:10.217.172.122  Bcast:10.217.175.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:17643952608 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11371762059 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16313681579228 (14.8 TiB)  TX bytes:11350278437408 (10.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr EC:F4:BB:C0:5B:C8
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8829904185 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5685908024 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8169743844983 (7.4 TiB)  TX bytes:5675358045141 (5.1 TiB)
+
+eth1      Link encap:Ethernet  HWaddr EC:F4:BB:C0:5B:C8
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8814048423 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5685854035 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8143937734245 (7.4 TiB)  TX bytes:5674920392267 (5.1 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17922471 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17922471 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3789941990 (3.5 GiB)  TX bytes:3789941990 (3.5 GiB)
+
+
+[16] 08:31:55 [SUCCESS] tfsimage-70-15
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:E8:EC
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13541081086 errors:0 dropped:2375 overruns:0 frame:65
+          TX packets:11573581977 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11850950902127 (10.7 TiB)  TX bytes:8187552020079 (7.4 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:E8:EC
+          inet addr:10.215.28.27  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13136436926 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11571807803 errors:0 dropped:7 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11517214465910 (10.4 TiB)  TX bytes:8093708355450 (7.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:E8:EC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6678448119 errors:0 dropped:582 overruns:0 frame:34
+          TX packets:5822433515 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5913023533621 (5.3 TiB)  TX bytes:4128162066228 (3.7 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:E8:EC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6862632967 errors:0 dropped:1793 overruns:0 frame:31
+          TX packets:5751148462 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5937927368506 (5.4 TiB)  TX bytes:4059389953851 (3.6 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18088398 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18088398 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3878168502 (3.6 GiB)  TX bytes:3878168502 (3.6 GiB)
+
+
+[17] 08:31:55 [SUCCESS] tfsimage-60-7
+bond0     Link encap:Ethernet  HWaddr 10:51:72:21:90:0E
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:18193749228 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11981950654 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16771155906552 (15.2 TiB)  TX bytes:11509289602653 (10.4 TiB)
+
+bond0.500 Link encap:Ethernet  HWaddr 10:51:72:21:90:0E
+          inet addr:10.228.188.92  Bcast:10.228.191.255  Mask:255.255.240.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:10041899539 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6019061512 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16057685443336 (14.6 TiB)  TX bytes:11187246049704 (10.1 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 10:51:72:21:90:0E
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9097428226 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5991701256 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8387723656473 (7.6 TiB)  TX bytes:5756069134860 (5.2 TiB)
+
+eth1      Link encap:Ethernet  HWaddr 10:51:72:21:90:0E
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9096321002 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5990249398 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8383432250079 (7.6 TiB)  TX bytes:5753220467793 (5.2 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:19263714 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:19263714 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:4110100925 (3.8 GiB)  TX bytes:4110100925 (3.8 GiB)
+
+
+[18] 08:31:55 [SUCCESS] tfsimage-60-20
+bond0     Link encap:Ethernet  HWaddr EC:F4:BB:BF:0C:74
+          inet addr:10.190.13.199  Bcast:10.190.15.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13816907315 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:8943579191 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:12713054846227 (11.5 TiB)  TX bytes:8376802204060 (7.6 TiB)
+
+eth0      Link encap:Ethernet  HWaddr EC:F4:BB:BF:0C:74
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6917344797 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:4471317006 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6365244272397 (5.7 TiB)  TX bytes:4187417431250 (3.8 TiB)
+
+eth1      Link encap:Ethernet  HWaddr EC:F4:BB:BF:0C:74
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6899562518 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:4472262185 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6347810573830 (5.7 TiB)  TX bytes:4189384772810 (3.8 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17626907 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17626907 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3761176155 (3.5 GiB)  TX bytes:3761176155 (3.5 GiB)
+
+
+[19] 08:31:55 [SUCCESS] tfsimage-70-1
+bond0     Link encap:Ethernet  HWaddr 40:A8:F0:25:12:C8
+          inet addr:10.217.172.22  Bcast:10.217.175.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:12662559487 errors:0 dropped:153948 overruns:0 frame:421
+          TX packets:8390088141 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11671217163240 (10.6 TiB)  TX bytes:7769991720091 (7.0 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 40:A8:F0:25:12:C8
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6320293222 errors:0 dropped:78161 overruns:0 frame:204
+          TX packets:4193327511 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5829692366283 (5.3 TiB)  TX bytes:3882943834575 (3.5 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr 40:A8:F0:25:12:C8
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6342266265 errors:0 dropped:75787 overruns:0 frame:217
+          TX packets:4196760630 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5841524796957 (5.3 TiB)  TX bytes:3887047885516 (3.5 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17628286 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17628286 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3770458766 (3.5 GiB)  TX bytes:3770458766 (3.5 GiB)
+
+
+[20] 08:31:55 [SUCCESS] tfsimage-70-28
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:FB:58
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:9210764632 errors:0 dropped:0 overruns:0 frame:3
+          TX packets:7957023197 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:8187436545324 (7.4 TiB)  TX bytes:5495992131645 (4.9 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:FB:58
+          inet addr:10.215.28.38  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:9112916201 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:7956585957 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:7980143133732 (7.2 TiB)  TX bytes:5431544026442 (4.9 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:FB:58
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:4587205007 errors:0 dropped:0 overruns:0 frame:3
+          TX packets:3977503828 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:4094271928010 (3.7 TiB)  TX bytes:2748649073986 (2.4 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:FB:58
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:4623559625 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:3979519369 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:4093164617314 (3.7 TiB)  TX bytes:2747343057659 (2.4 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:14043468 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:14043468 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3007773710 (2.8 GiB)  TX bytes:3007773710 (2.8 GiB)
+
+
+[21] 08:31:55 [SUCCESS] tfsimage-70-11
+bond0     Link encap:Ethernet  HWaddr EC:F4:BB:C0:7B:CC
+          inet addr:10.217.168.127  Bcast:10.217.171.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:17629664114 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11361841825 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16304666929579 (14.8 TiB)  TX bytes:11345970903467 (10.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr EC:F4:BB:C0:7B:CC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8811458159 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5682349516 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8147375793466 (7.4 TiB)  TX bytes:5675269430249 (5.1 TiB)
+
+eth1      Link encap:Ethernet  HWaddr EC:F4:BB:C0:7B:CC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8818205955 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5679492309 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8157291136113 (7.4 TiB)  TX bytes:5670701473218 (5.1 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17922433 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17922433 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3789671249 (3.5 GiB)  TX bytes:3789671249 (3.5 GiB)
+
+
+[22] 08:31:55 [SUCCESS] tfsimage-60-10
+bond0     Link encap:Ethernet  HWaddr 10:51:72:21:91:04
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:18205903844 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11988965336 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16781858839847 (15.2 TiB)  TX bytes:11515257259444 (10.4 TiB)
+
+bond0.500 Link encap:Ethernet  HWaddr 10:51:72:21:91:04
+          inet addr:10.228.188.94  Bcast:10.228.191.255  Mask:255.255.240.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:10048332931 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6022720475 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16067925815502 (14.6 TiB)  TX bytes:11193032430313 (10.1 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 10:51:72:21:91:04
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9107235090 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5993211772 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8397255383991 (7.6 TiB)  TX bytes:5758007389574 (5.2 TiB)
+
+eth1      Link encap:Ethernet  HWaddr 10:51:72:21:91:04
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9098668754 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5995753564 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8384603455856 (7.6 TiB)  TX bytes:5757249869870 (5.2 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17925875 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17925875 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3789266466 (3.5 GiB)  TX bytes:3789266466 (3.5 GiB)
+
+
+[23] 08:31:55 [SUCCESS] tfsimage-70-12
+bond0     Link encap:Ethernet  HWaddr EC:F4:BB:C0:61:2C
+          inet addr:10.217.168.121  Bcast:10.217.171.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:17628233325 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11360909766 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16298308811473 (14.8 TiB)  TX bytes:11341887077122 (10.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr EC:F4:BB:C0:61:2C
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8816258223 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5682219161 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8151364345879 (7.4 TiB)  TX bytes:5673450820582 (5.1 TiB)
+
+eth1      Link encap:Ethernet  HWaddr EC:F4:BB:C0:61:2C
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8811975102 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5678690605 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8146944465594 (7.4 TiB)  TX bytes:5668436256540 (5.1 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17921864 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17921864 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3790145041 (3.5 GiB)  TX bytes:3790145041 (3.5 GiB)
+
+
+[24] 08:31:55 [SUCCESS] tfsimage-60-11
+bond0     Link encap:Ethernet  HWaddr 10:51:72:21:91:70
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:18203474456 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11987130592 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16781734345087 (15.2 TiB)  TX bytes:11515280409059 (10.4 TiB)
+
+bond0.500 Link encap:Ethernet  HWaddr 10:51:72:21:91:70
+          inet addr:10.228.188.201  Bcast:10.228.191.255  Mask:255.255.240.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:10045352302 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6020596764 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16067799449176 (14.6 TiB)  TX bytes:11193039797501 (10.1 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 10:51:72:21:91:70
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9103501173 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5996821394 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8388356091678 (7.6 TiB)  TX bytes:5763169281762 (5.2 TiB)
+
+eth1      Link encap:Ethernet  HWaddr 10:51:72:21:91:70
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9099973283 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5990309198 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8393378253409 (7.6 TiB)  TX bytes:5752111127297 (5.2 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18711203 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18711203 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3982334631 (3.7 GiB)  TX bytes:3982334631 (3.7 GiB)
+
+
+[25] 08:31:55 [SUCCESS] tfsimage-60-4
+bond0     Link encap:Ethernet  HWaddr 10:51:72:21:90:68
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:18202912579 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11988488387 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16778057315205 (15.2 TiB)  TX bytes:11515735330676 (10.4 TiB)
+
+bond0.500 Link encap:Ethernet  HWaddr 10:51:72:21:90:68
+          inet addr:10.228.188.206  Bcast:10.228.191.255  Mask:255.255.240.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:10046931137 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6022382954 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16064242220318 (14.6 TiB)  TX bytes:11193517893413 (10.1 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 10:51:72:21:90:68
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9111835071 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5995664948 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8395729596154 (7.6 TiB)  TX bytes:5760874662536 (5.2 TiB)
+
+eth1      Link encap:Ethernet  HWaddr 10:51:72:21:90:68
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9091077508 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5992823439 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8382327719051 (7.6 TiB)  TX bytes:5754860668140 (5.2 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18075035 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18075035 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3829907413 (3.5 GiB)  TX bytes:3829907413 (3.5 GiB)
+
+
+[26] 08:31:55 [SUCCESS] tfsimage-70-9
+bond0     Link encap:Ethernet  HWaddr EC:F4:BB:C0:77:20
+          inet addr:10.217.168.126  Bcast:10.217.171.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:17628636533 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11362597496 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16296421373268 (14.8 TiB)  TX bytes:11346257965668 (10.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr EC:F4:BB:C0:77:20
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8823897495 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5680912447 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8157569752773 (7.4 TiB)  TX bytes:5672479954496 (5.1 TiB)
+
+eth1      Link encap:Ethernet  HWaddr EC:F4:BB:C0:77:20
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8804739038 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5681685049 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8138851620495 (7.4 TiB)  TX bytes:5673778011172 (5.1 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17922572 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17922572 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3790311446 (3.5 GiB)  TX bytes:3790311446 (3.5 GiB)
+
+
+[27] 08:31:55 [SUCCESS] tfsimage-60-2
+bond0     Link encap:Ethernet  HWaddr 10:51:72:21:8E:9E
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:18209296229 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11990157796 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16784244807701 (15.2 TiB)  TX bytes:11508263591755 (10.4 TiB)
+
+bond0.500 Link encap:Ethernet  HWaddr 10:51:72:21:8E:9E
+          inet addr:10.228.188.91  Bcast:10.228.191.255  Mask:255.255.240.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:10051464856 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6031179924 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16070239667035 (14.6 TiB)  TX bytes:11186431181063 (10.1 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 10:51:72:21:8E:9E
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9102652446 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6000797101 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8390035959106 (7.6 TiB)  TX bytes:5760365610145 (5.2 TiB)
+
+eth1      Link encap:Ethernet  HWaddr 10:51:72:21:8E:9E
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9106643783 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5989360695 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8394208848595 (7.6 TiB)  TX bytes:5747897981610 (5.2 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18710981 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18710981 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3976579099 (3.7 GiB)  TX bytes:3976579099 (3.7 GiB)
+
+
+[28] 08:31:55 [SUCCESS] tfsimage-70-14
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:E7:BC
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13508596814 errors:0 dropped:2323 overruns:0 frame:77
+          TX packets:11518561128 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11828017219277 (10.7 TiB)  TX bytes:8136352600892 (7.3 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:E7:BC
+          inet addr:10.215.28.26  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13103957765 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11516783872 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11494997090913 (10.4 TiB)  TX bytes:8042944287522 (7.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:E7:BC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6650426325 errors:0 dropped:219 overruns:0 frame:41
+          TX packets:5769816655 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5896265577140 (5.3 TiB)  TX bytes:4079065963888 (3.7 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:E7:BC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6858170489 errors:0 dropped:2104 overruns:0 frame:36
+          TX packets:5748744473 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5931751642137 (5.3 TiB)  TX bytes:4057286637004 (3.6 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18088660 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18088660 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3878822608 (3.6 GiB)  TX bytes:3878822608 (3.6 GiB)
+
+
+[29] 08:31:55 [SUCCESS] tfsimage-60-14
+bond0     Link encap:Ethernet  HWaddr 40:A8:F0:24:D0:20
+          inet addr:10.190.69.192  Bcast:10.190.71.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13977612694 errors:0 dropped:82086 overruns:0 frame:412
+          TX packets:9154608471 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:12795539477781 (11.6 TiB)  TX bytes:8441265153499 (7.6 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 40:A8:F0:24:D0:20
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:7005403226 errors:0 dropped:42675 overruns:0 frame:220
+          TX packets:4579624605 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6399342600175 (5.8 TiB)  TX bytes:4222449293159 (3.8 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr 40:A8:F0:24:D0:20
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6972209468 errors:0 dropped:39411 overruns:0 frame:192
+          TX packets:4574983866 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6396196877606 (5.8 TiB)  TX bytes:4218815860340 (3.8 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17628252 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17628252 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3760860929 (3.5 GiB)  TX bytes:3760860929 (3.5 GiB)
+
+
+[30] 08:31:55 [SUCCESS] tfsimage-60-15
+bond0     Link encap:Ethernet  HWaddr 40:A8:F0:25:1D:D0
+          inet addr:10.190.69.191  Bcast:10.190.71.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13975033516 errors:0 dropped:110032 overruns:0 frame:705
+          TX packets:9149735572 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:12792744849972 (11.6 TiB)  TX bytes:8435433013146 (7.6 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 40:A8:F0:25:1D:D0
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:7006501272 errors:0 dropped:55002 overruns:0 frame:339
+          TX packets:4575377392 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6399957752752 (5.8 TiB)  TX bytes:4217291726430 (3.8 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr 40:A8:F0:25:1D:D0
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6968532244 errors:0 dropped:55030 overruns:0 frame:366
+          TX packets:4574358180 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6392787097220 (5.8 TiB)  TX bytes:4218141286716 (3.8 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17628278 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17628278 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3760808342 (3.5 GiB)  TX bytes:3760808342 (3.5 GiB)
+
+
+[31] 08:31:55 [SUCCESS] tfsimage-60-19
+bond0     Link encap:Ethernet  HWaddr EC:F4:BB:BF:00:A4
+          inet addr:10.190.13.198  Bcast:10.190.15.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13844848538 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:8962266521 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:12742924841348 (11.5 TiB)  TX bytes:8401434783318 (7.6 TiB)
+
+eth0      Link encap:Ethernet  HWaddr EC:F4:BB:BF:00:A4
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6928957055 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:4482040335 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6374292296906 (5.7 TiB)  TX bytes:4202210834945 (3.8 TiB)
+
+eth1      Link encap:Ethernet  HWaddr EC:F4:BB:BF:00:A4
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6915891483 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:4480226186 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6368632544442 (5.7 TiB)  TX bytes:4199223948373 (3.8 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17627150 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17627150 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3760883036 (3.5 GiB)  TX bytes:3760883036 (3.5 GiB)
+
+
+[32] 08:31:55 [SUCCESS] tfsimage-60-13
+bond0     Link encap:Ethernet  HWaddr 40:A8:F0:24:D1:A4
+          inet addr:10.190.69.193  Bcast:10.190.71.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13987857714 errors:0 dropped:78491 overruns:0 frame:475
+          TX packets:9163077378 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:12807772139559 (11.6 TiB)  TX bytes:8452381230809 (7.6 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 40:A8:F0:24:D1:A4
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:7009762813 errors:0 dropped:38898 overruns:0 frame:233
+          TX packets:4582804087 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6406236935262 (5.8 TiB)  TX bytes:4228470305365 (3.8 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr 40:A8:F0:24:D1:A4
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6978094901 errors:0 dropped:39593 overruns:0 frame:242
+          TX packets:4580273291 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6401535204297 (5.8 TiB)  TX bytes:4223910925444 (3.8 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17628485 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17628485 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3760856700 (3.5 GiB)  TX bytes:3760856700 (3.5 GiB)
+
+
+[33] 08:31:55 [SUCCESS] tfsimage-70-2
+bond0     Link encap:Ethernet  HWaddr 40:A8:F0:24:8B:14
+          inet addr:10.217.172.50  Bcast:10.217.175.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:12681479041 errors:0 dropped:79844 overruns:0 frame:301
+          TX packets:8404359438 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11688078129153 (10.6 TiB)  TX bytes:7786190227905 (7.0 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 40:A8:F0:24:8B:14
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6331394982 errors:0 dropped:38957 overruns:0 frame:150
+          TX packets:4209263099 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5840025727897 (5.3 TiB)  TX bytes:3904522429258 (3.5 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr 40:A8:F0:24:8B:14
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6350084059 errors:0 dropped:40887 overruns:0 frame:151
+          TX packets:4195096339 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5848052401256 (5.3 TiB)  TX bytes:3881667798647 (3.5 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17628513 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17628513 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3770479591 (3.5 GiB)  TX bytes:3770479591 (3.5 GiB)
+
+
+[34] 08:31:55 [SUCCESS] tfsimage-70-22
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:FD:58
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:138796754817 errors:0 dropped:5108 overruns:0 frame:90
+          TX packets:121602990508 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:123283378234148 (112.1 TiB)  TX bytes:103835660405912 (94.4 TiB)
+
+bond0.23  Link encap:Ethernet  HWaddr A0:D3:C1:F1:FD:58
+          inet addr:10.215.26.43  Bcast:10.215.27.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:138395778680 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:121606081786 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:120194181001938 (109.3 TiB)  TX bytes:102860825959600 (93.5 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:FD:58
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:69355248318 errors:0 dropped:1934 overruns:0 frame:44
+          TX packets:60809747187 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:61696835070101 (56.1 TiB)  TX bytes:51914510404697 (47.2 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:FD:58
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:69441506499 errors:0 dropped:3174 overruns:0 frame:46
+          TX packets:60793243321 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:61586543164047 (56.0 TiB)  TX bytes:51921150001215 (47.2 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:44648893 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:44648893 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:9212144957 (8.5 GiB)  TX bytes:9212144957 (8.5 GiB)
+
+
+[35] 08:31:55 [SUCCESS] tfsimage-70-29
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:FB:78
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13226042879 errors:0 dropped:2535 overruns:0 frame:97
+          TX packets:11485628378 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11778094246236 (10.7 TiB)  TX bytes:8109952788494 (7.3 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:FB:78
+          inet addr:10.215.28.39  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13085341815 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11484986344 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11480407407064 (10.4 TiB)  TX bytes:8016949127019 (7.2 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:FB:78
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6577527328 errors:0 dropped:1369 overruns:0 frame:54
+          TX packets:5735088670 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5886061631893 (5.3 TiB)  TX bytes:4045048836490 (3.6 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:FB:78
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6648515551 errors:0 dropped:1166 overruns:0 frame:43
+          TX packets:5750539708 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5892032614343 (5.3 TiB)  TX bytes:4064903952004 (3.6 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18088675 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18088675 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3876996844 (3.6 GiB)  TX bytes:3876996844 (3.6 GiB)
+
+
+[36] 08:31:55 [SUCCESS] tfsimage-70-27
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:D0:44
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13477984230 errors:0 dropped:775 overruns:0 frame:98
+          TX packets:11492476594 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11802787148462 (10.7 TiB)  TX bytes:8110616880370 (7.3 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:D0:44
+          inet addr:10.215.28.37  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13073346292 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11490704177 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11470441988314 (10.4 TiB)  TX bytes:8017424657300 (7.2 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:D0:44
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6628210175 errors:0 dropped:272 overruns:0 frame:54
+          TX packets:5745946557 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5878620187154 (5.3 TiB)  TX bytes:4053786220865 (3.6 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:D0:44
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6849774055 errors:0 dropped:503 overruns:0 frame:44
+          TX packets:5746530037 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5924166961308 (5.3 TiB)  TX bytes:4056830659505 (3.6 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18088029 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18088029 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3878729791 (3.6 GiB)  TX bytes:3878729791 (3.6 GiB)
+
+
+[37] 08:31:55 [SUCCESS] tfsimage-70-17
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:86:20
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13532038000 errors:0 dropped:4744 overruns:0 frame:121
+          TX packets:11578072455 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11836766136517 (10.7 TiB)  TX bytes:8189127957543 (7.4 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:86:20
+          inet addr:10.215.28.30  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13127391433 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11576302459 errors:0 dropped:7 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11503228252595 (10.4 TiB)  TX bytes:8095252085823 (7.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:86:20
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6666764879 errors:0 dropped:1471 overruns:0 frame:45
+          TX packets:5732482992 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5906271771196 (5.3 TiB)  TX bytes:4041317929419 (3.6 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:86:20
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6865273121 errors:0 dropped:3273 overruns:0 frame:76
+          TX packets:5845589463 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5930494365321 (5.3 TiB)  TX bytes:4147810028124 (3.7 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18088286 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18088286 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3877585562 (3.6 GiB)  TX bytes:3877585562 (3.6 GiB)
+
+
+[38] 08:31:55 [SUCCESS] tfsimage-60-18
+bond0     Link encap:Ethernet  HWaddr 40:A8:F0:23:38:64
+          inet addr:10.190.72.83  Bcast:10.190.75.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13896751252 errors:0 dropped:94974 overruns:0 frame:402
+          TX packets:9162189815 errors:0 dropped:1 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:12794592083342 (11.6 TiB)  TX bytes:8442424327813 (7.6 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 40:A8:F0:23:38:64
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6961261777 errors:0 dropped:46954 overruns:0 frame:220
+          TX packets:4582121642 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6395736342137 (5.8 TiB)  TX bytes:4222115181765 (3.8 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr 40:A8:F0:23:38:64
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6935489475 errors:0 dropped:48020 overruns:0 frame:182
+          TX packets:4580068173 errors:0 dropped:1 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6398855741205 (5.8 TiB)  TX bytes:4220309146048 (3.8 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17627880 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17627880 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3757271105 (3.4 GiB)  TX bytes:3757271105 (3.4 GiB)
+
+
+[39] 08:31:55 [SUCCESS] tfsimage-70-3
+bond0     Link encap:Ethernet  HWaddr EC:F4:BB:BF:06:20
+          inet addr:10.217.165.155  Bcast:10.217.167.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:17648273549 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11378675278 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16321191024040 (14.8 TiB)  TX bytes:11356335831706 (10.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr EC:F4:BB:BF:06:20
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8820198656 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5687252509 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8148650858800 (7.4 TiB)  TX bytes:5676369691884 (5.1 TiB)
+
+eth1      Link encap:Ethernet  HWaddr EC:F4:BB:BF:06:20
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8828074893 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5691422769 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8172540165240 (7.4 TiB)  TX bytes:5679966139822 (5.1 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17922166 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17922166 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3789600605 (3.5 GiB)  TX bytes:3789600605 (3.5 GiB)
+
+
+[40] 08:31:55 [SUCCESS] tfsimage-70-19
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:DD:04
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13524995978 errors:0 dropped:11391 overruns:0 frame:127
+          TX packets:11562675788 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11831111810569 (10.7 TiB)  TX bytes:8182036388263 (7.4 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:DD:04
+          inet addr:10.215.28.32  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13120342139 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11560899971 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11497722905156 (10.4 TiB)  TX bytes:8088279239914 (7.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:DD:04
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6671106511 errors:0 dropped:5735 overruns:0 frame:69
+          TX packets:5779577824 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5905688168669 (5.3 TiB)  TX bytes:4087927873808 (3.7 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:DD:04
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6853889467 errors:0 dropped:5656 overruns:0 frame:58
+          TX packets:5783097964 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5925423641900 (5.3 TiB)  TX bytes:4094108514455 (3.7 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18082359 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18082359 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3876233616 (3.6 GiB)  TX bytes:3876233616 (3.6 GiB)
+
+
+[41] 08:31:55 [SUCCESS] tfsimage-70-16
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:EE:80
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13479077796 errors:0 dropped:1191 overruns:0 frame:1
+          TX packets:11493395776 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11799558690768 (10.7 TiB)  TX bytes:8111185195438 (7.3 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:EE:80
+          inet addr:10.215.28.29  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13074434055 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11491622593 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11467187033127 (10.4 TiB)  TX bytes:8017984065970 (7.2 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:EE:80
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6651046942 errors:0 dropped:1191 overruns:0 frame:1
+          TX packets:5735919434 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5887097395477 (5.3 TiB)  TX bytes:4043769071271 (3.6 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:EE:80
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6828030854 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5757476342 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5912461295291 (5.3 TiB)  TX bytes:4067416124167 (3.6 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:19095839 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:19095839 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3927886590 (3.6 GiB)  TX bytes:3927886590 (3.6 GiB)
+
+
+[42] 08:31:55 [SUCCESS] tfsimage-70-13
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:FD:A0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13535534954 errors:0 dropped:6829 overruns:0 frame:227
+          TX packets:11575968297 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11845636851489 (10.7 TiB)  TX bytes:8186966310847 (7.4 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:FD:A0
+          inet addr:10.215.28.25  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13130886126 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11574191667 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11512020911452 (10.4 TiB)  TX bytes:8093100015090 (7.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:FD:A0
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6660369052 errors:0 dropped:3107 overruns:0 frame:129
+          TX packets:5737103749 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5900159248857 (5.3 TiB)  TX bytes:4045373194142 (3.6 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:FD:A0
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6875165902 errors:0 dropped:3722 overruns:0 frame:98
+          TX packets:5838864548 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5945477602632 (5.4 TiB)  TX bytes:4141593116705 (3.7 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18088809 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18088809 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3879237345 (3.6 GiB)  TX bytes:3879237345 (3.6 GiB)
+
+
+[43] 08:31:55 [SUCCESS] tfsimage-60-9
+bond0     Link encap:Ethernet  HWaddr 10:51:72:21:91:72
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:18184036546 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11975630076 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16759007255895 (15.2 TiB)  TX bytes:11498878156846 (10.4 TiB)
+
+bond0.500 Link encap:Ethernet  HWaddr 10:51:72:21:91:72
+          inet addr:10.228.188.95  Bcast:10.228.191.255  Mask:255.255.240.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:10037283060 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6018996487 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16045966183717 (14.5 TiB)  TX bytes:11177172088511 (10.1 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 10:51:72:21:91:72
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9092150621 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5986675905 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8381413776529 (7.6 TiB)  TX bytes:5746079998690 (5.2 TiB)
+
+eth1      Link encap:Ethernet  HWaddr 10:51:72:21:91:72
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9091885925 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5988954171 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8377593479366 (7.6 TiB)  TX bytes:5752798158156 (5.2 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17926335 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17926335 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3789547762 (3.5 GiB)  TX bytes:3789547762 (3.5 GiB)
+
+
+[44] 08:31:55 [SUCCESS] tfsimage-70-6
+bond0     Link encap:Ethernet  HWaddr EC:F4:BB:C0:5A:BC
+          inet addr:10.217.168.122  Bcast:10.217.171.255  Mask:255.255.252.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:17641840152 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11371044333 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16309145254122 (14.8 TiB)  TX bytes:11351933770513 (10.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr EC:F4:BB:C0:5A:BC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8812246136 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5691603001 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8143749719525 (7.4 TiB)  TX bytes:5686003466238 (5.1 TiB)
+
+eth1      Link encap:Ethernet  HWaddr EC:F4:BB:C0:5A:BC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:8829594016 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5679441332 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8165395534597 (7.4 TiB)  TX bytes:5665930304275 (5.1 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:17921874 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17921874 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3789564254 (3.5 GiB)  TX bytes:3789564254 (3.5 GiB)
+
+
+[45] 08:31:55 [SUCCESS] tfsimage-70-20
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:D2:98
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13521338506 errors:0 dropped:1205 overruns:0 frame:96
+          TX packets:11555879660 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11831015053083 (10.7 TiB)  TX bytes:8169031838497 (7.4 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:D2:98
+          inet addr:10.215.28.34  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13116695182 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11554106388 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11497715504857 (10.4 TiB)  TX bytes:8075331512366 (7.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:D2:98
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6647379809 errors:0 dropped:1039 overruns:0 frame:53
+          TX packets:5727775567 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5889341579304 (5.3 TiB)  TX bytes:4038819589852 (3.6 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:D2:98
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6873958697 errors:0 dropped:166 overruns:0 frame:43
+          TX packets:5828104093 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5941673473779 (5.4 TiB)  TX bytes:4130212248645 (3.7 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18089236 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18089236 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3878093351 (3.6 GiB)  TX bytes:3878093351 (3.6 GiB)
+
+
+[46] 08:31:55 [SUCCESS] tfsimage-60-3
+bond0     Link encap:Ethernet  HWaddr 10:51:72:21:90:9C
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:18217650755 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11995611213 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16793753824997 (15.2 TiB)  TX bytes:11518789940457 (10.4 TiB)
+
+bond0.500 Link encap:Ethernet  HWaddr 10:51:72:21:90:9C
+          inet addr:10.228.188.93  Bcast:10.228.191.255  Mask:255.255.240.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:10053898916 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6028833449 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:16079320874781 (14.6 TiB)  TX bytes:11196536279722 (10.1 TiB)
+
+eth0      Link encap:Ethernet  HWaddr 10:51:72:21:90:9C
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9100585410 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5999126256 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8383401980171 (7.6 TiB)  TX bytes:5761511213140 (5.2 TiB)
+
+eth1      Link encap:Ethernet  HWaddr 10:51:72:21:90:9C
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:9117065345 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:5996484957 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:8410351844826 (7.6 TiB)  TX bytes:5757278727317 (5.2 TiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18528656 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18528656 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3935745319 (3.6 GiB)  TX bytes:3935745319 (3.6 GiB)
+
+
+[47] 08:31:55 [SUCCESS] tfsimage-70-18
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:FA:FC
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13460898880 errors:0 dropped:0 overruns:0 frame:7
+          TX packets:11516789944 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11776721852059 (10.7 TiB)  TX bytes:8150498229944 (7.4 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:FA:FC
+          inet addr:10.215.28.31  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:13056257145 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11515017877 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:11444752003437 (10.4 TiB)  TX bytes:8057119415946 (7.3 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:FA:FC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6625095559 errors:0 dropped:0 overruns:0 frame:6
+          TX packets:5730843665 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5869294287693 (5.3 TiB)  TX bytes:4048273496045 (3.6 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:FA:FC
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6835803321 errors:0 dropped:0 overruns:0 frame:1
+          TX packets:5785946279 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5907427564366 (5.3 TiB)  TX bytes:4102224733899 (3.7 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:18077864 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18077864 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3876238304 (3.6 GiB)  TX bytes:3876238304 (3.6 GiB)
+
+
+[48] 08:31:55 [SUCCESS] tfsimage-70-24
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:9F:F0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:138813605373 errors:0 dropped:3762 overruns:0 frame:203
+          TX packets:121572254090 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:123304939984246 (112.1 TiB)  TX bytes:103853709335787 (94.4 TiB)
+
+bond0.24  Link encap:Ethernet  HWaddr A0:D3:C1:F1:9F:F0
+          inet addr:10.215.28.21  Bcast:10.215.29.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:138408959662 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:121575435517 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:120215209983727 (109.3 TiB)  TX bytes:102879260259715 (93.5 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:9F:F0
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:69322949568 errors:0 dropped:1445 overruns:0 frame:114
+          TX packets:60776696846 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:61642491475737 (56.0 TiB)  TX bytes:51889892728680 (47.1 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:9F:F0
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:69490655805 errors:0 dropped:2317 overruns:0 frame:89
+          TX packets:60795557244 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:61662448508509 (56.0 TiB)  TX bytes:51963816607107 (47.2 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:44650043 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:44650043 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:9210997393 (8.5 GiB)  TX bytes:9210997393 (8.5 GiB)
+
+
+[49] 08:31:55 [SUCCESS] tfsimage-70-21
+bond0     Link encap:Ethernet  HWaddr A0:D3:C1:F1:D0:30
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:138837118253 errors:0 dropped:5528 overruns:0 frame:152
+          TX packets:121590869405 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:123312773099724 (112.1 TiB)  TX bytes:103857399614017 (94.4 TiB)
+
+bond0.23  Link encap:Ethernet  HWaddr A0:D3:C1:F1:D0:30
+          inet addr:10.215.26.42  Bcast:10.215.27.255  Mask:255.255.254.0
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:138436141636 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:121594021253 errors:0 dropped:3 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:120222689257572 (109.3 TiB)  TX bytes:102882754147189 (93.5 TiB)
+
+eth0      Link encap:Ethernet  HWaddr A0:D3:C1:F1:D0:30
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:69353277901 errors:0 dropped:1774 overruns:0 frame:50
+          TX packets:60786159587 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:61717587701631 (56.1 TiB)  TX bytes:51906330295947 (47.2 TiB)
+          Interrupt:32
+
+eth1      Link encap:Ethernet  HWaddr A0:D3:C1:F1:D0:30
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:69483840352 errors:0 dropped:3754 overruns:0 frame:102
+          TX packets:60804709818 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:61595185398093 (56.0 TiB)  TX bytes:51951069318070 (47.2 TiB)
+          Interrupt:36
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:44650851 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:44650851 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:9212338613 (8.5 GiB)  TX bytes:9212338613 (8.5 GiB)
+
+

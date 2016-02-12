@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="阿泰的菜园">
+    <title>使用Vagrant部署开发测试环境 - 阿泰的菜园</title>
+    <meta name="author" content="阿泰">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="Vagrant基于工业标准化技术至上提供了易于配置，可重复部署以及可移植的工作环境，并且通过一个简单的一致性的工作流提供控制来帮助你和你的团队最大化生产力和可伸缩性。
+为了实现这个奇迹，Vagrant站在了巨人的肩膀之上。主机由VirtualBox，VMware，AWS或其他provider提供。然后，工业标准化的供给工具，例如shell脚本，Chef或Puppet，可以提供自动化安装和配置主机中">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="使用Vagrant部署开发测试环境">
+<meta property="og:url" content="http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/index.html">
+<meta property="og:site_name" content="阿泰的菜园">
+<meta property="og:description" content="Vagrant基于工业标准化技术至上提供了易于配置，可重复部署以及可移植的工作环境，并且通过一个简单的一致性的工作流提供控制来帮助你和你的团队最大化生产力和可伸缩性。
+为了实现这个奇迹，Vagrant站在了巨人的肩膀之上。主机由VirtualBox，VMware，AWS或其他provider提供。然后，工业标准化的供给工具，例如shell脚本，Chef或Puppet，可以提供自动化安装和配置主机中">
+<meta property="og:updated_time" content="2016-02-09T14:32:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Vagrant部署开发测试环境">
+<meta name="twitter:description" content="Vagrant基于工业标准化技术至上提供了易于配置，可重复部署以及可移植的工作环境，并且通过一个简单的一致性的工作流提供控制来帮助你和你的团队最大化生产力和可伸缩性。
+为了实现这个奇迹，Vagrant站在了巨人的肩膀之上。主机由VirtualBox，VMware，AWS或其他provider提供。然后，工业标准化的供给工具，例如shell脚本，Chef或Puppet，可以提供自动化安装和配置主机中">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">阿泰的菜园</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首頁</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分類</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">標籤</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">所有文章</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜尋</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">關於</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">Atom</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            使用Vagrant部署开发测试环境
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Thu Dec 03 2015 11:50:56 GMT+0800">
+	
+		    12月 03, 2015
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p><a href="https://www.vagrantup.com/" target="_blank" rel="external">Vagrant</a>基于工业标准化技术至上提供了易于配置，可重复部署以及可移植的工作环境，并且通过一个简单的一致性的工作流提供控制来帮助你和你的团队最大化生产力和可伸缩性。</p>
+<p>为了实现这个奇迹，Vagrant站在了巨人的肩膀之上。主机由VirtualBox，VMware，AWS或<a href="http://docs.vagrantup.com/v2/providers/" target="_blank" rel="external">其他provider</a>提供。然后，工业标准化的供给工具，例如shell脚本，Chef或Puppet，可以提供自动化安装和配置主机中的软件。</p>
+<a id="more"></a>
+<blockquote>
+<p>个人感觉Vagrant和Docker类似，通过组合底层开源技术加上自己开发的程序/脚本以及良好定义的规则，实现了标准化的快速部署虚拟系统的架构。所不同的是，Docker采用的是轻量级的容器技术，Vagrant则使用kvm/virtualbox等重量级的全/半虚拟化平台。</p>
+<p>Vagrant实现的是根据模版快速提供虚拟系统，大规模生产虚拟系统，需要结合进一步定制的管理控制平台来实现PaaS。</p>
+<p>Vagrant更适合部署完全虚拟化集群，可以实现更为复杂的系统模拟，在特定的需要安全性隔离环境以及需要实现完整的操作系统功能的虚拟系统。</p>
+</blockquote>
+<h1 id="Vagrant_u4F18_u52BF"><a href="#Vagrant_u4F18_u52BF" class="headerlink" title="Vagrant优势"></a>Vagrant优势</h1><ul>
+<li>对于<code>开发者</code></li>
+</ul>
+<p>Vagrant隔离了依赖和它们的配置到一个单一的一次性的，一致性的环境，不需要担忧任何使用的工具。一旦你或者其他人创建了一个<a href="http://docs.vagrantup.com/v2/vagrantfile/" target="_blank" rel="external">Vagrant文件</a>，你只需要使用 <code>vagrant up</code> 然后，所有软件被安装和配置。其他团队成员也适用相同的配置文件创建他们的环境，无论你们是工作在Linux， Mac OS X或Windows 。所有团队成员在相同环境中运行代码，基于相同的依赖。</p>
+<ul>
+<li>对于<code>操作工程师</code></li>
+</ul>
+<p>Vagrant给予操作工程师一个一次性环境并且一致性的工作流用于开发和测试基础架构管理脚本。你可以快速地像shell脚本一样测试。Chef cookbooks， Puppet modules和使用本地虚拟化技术，诸如Virtualbo或VMware。然后，使用相同的配置，你可以在云平台，例如AWS或者RackSpace（两者使用相同的工作流）上测试这些脚本。放弃你自己定制的脚本来重启EC2绘画，停止针对不同主机调试SSH prompts，使用Vagrant可以给你的生活带来有序。</p>
+<ul>
+<li>对于<code>设计师</code></li>
+</ul>
+<p>Vagrant自动化所有需要用于web app的环境，以便设计师专注于自己擅长的设计。对于开发提供的环境，只需要用相同的vagrant配置，使用命令 <code>vagrant up</code> 就可以开始设计。</p>
+<h1 id="u5B89_u88C5"><a href="#u5B89_u88C5" class="headerlink" title="安装"></a>安装</h1><ul>
+<li>首先从<a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="external">VirtualBox官方下载</a>安装VirtualBox</li>
+<li>访问<a href="https://www.vagrantup.com/downloads.html" target="_blank" rel="external">Vargant官方下载</a>安装Vargant</li>
+</ul>
+<p>安装程序将自动添加<code>vagrant</code>到你的系统路径，这样就可以在终端中直接使用。如果你通过<a href="http://en.wikipedia.org/wiki/RubyGems" target="_blank" rel="external">RubyGems</a>安装了旧版本Vagrant 1.0.x，请删除掉重新安装最新版本。</p>
+<blockquote>
+<p>当前版本已经不支持通过RubyGem安装</p>
+</blockquote>
+<h1 id="u5F00_u59CB_u4F7F_u7528"><a href="#u5F00_u59CB_u4F7F_u7528" class="headerlink" title="开始使用"></a>开始使用</h1><blockquote>
+<p>更为详细的OReilly书籍<a href="http://www.amazon.com/gp/product/1449335837/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1449335837&amp;linkCode=as2&amp;tag=vagrant-20" target="_blank" rel="external">Vagrant: Up and Running</a></p>
+</blockquote>
+<pre><code>vagrant init hashicorp/precise32
+vagrant up
+</code></pre><p>上述命令创建运行 Ubuntu 12.04 LTS 32-bit的虚拟机，就可以通过 <code>vagrant ssh</code> 登录这个虚拟机</p>
+<h1 id="u9879_u76EE_u8BBE_u7F6E"><a href="#u9879_u76EE_u8BBE_u7F6E" class="headerlink" title="项目设置"></a>项目设置</h1><p>配置任何Vagrant项目的第一步是创建一个<a href="http://docs.vagrantup.com/v2/vagrantfile/" target="_blank" rel="external">Vagrantfile</a>。这Vagrantfileyou两个目的：</p>
+<ul>
+<li>标记项目的根目录，一些Vagrant配置归属到这个根目录中</li>
+<li>描述主机类型和需要运行项目的资源，例如软件安装以及如何访问它</li>
+</ul>
+<p>Vagrant有一个内建命令来初始化目录 <code>vagrant init</code> 。这个命令将<code>Vagrantfile</code>放到当前目录，可以查看这个文件（包含了很多注释和例子）。也可以在已经存在的目录执行 <code>vagrant init</code> 来设置Vagrant。</p>
+<h1 id="Boxes"><a href="#Boxes" class="headerlink" title="Boxes"></a>Boxes</h1><p>Vagrant使用一个基础镜像来clone虚拟机，这个基础镜像称为boxes，并且在 <a href="https://atlas.hashicorp.com/boxes/search" target="_blank" rel="external">HashiCorp’s Atlas box catalog</a> 可以找到各种可用的镜像</p>
+<p>以下以安装<code>vagrant init bento/centos-7.1</code>为例</p>
+<pre><code>mkdir centos-7.1
+cd centos-7.1
+vagrant init bento/centos-7.1
+</code></pre><p>立即提示</p>
+<pre><code>A `Vagrantfile` has been placed in this directory. You are now
+ready to `vagrant up` your first virtual environment! Please read
+the comments in the Vagrantfile as well as documentation on
+`vagrantup.com` for more information on using Vagrant.
+</code></pre><p>在这个目录下执行</p>
+<pre><code>vagrant up
+</code></pre><p>则开始下载镜像并启动</p>
+<p>再增加一个<code>bento/centos-6.7</code></p>
+<pre><code>mkdir centos-6.7
+cd centos-6.7
+vagrant init bento/centos-6.7
+vagrant up
+</code></pre><blockquote>
+<p><a href="#vagrant up下载镜像失败无法断点续传处理">vagrant up下载镜像失败无法断点续传处理</a></p>
+</blockquote>
+<p><strong>如果你已经运行了<code>vagrant init</code>创建了box，则不再需要下面这个<code>vagrant box add</code>。</strong> 这个操作是存储box到一个特殊的名字，这样多个Vagrant环境可以重用它。</p>
+<p>通过多个项目，可以重用被添加的box。每个项目使用一个box来作为初始镜像来clone，并且永远不会更改这个基础镜像。这也意味着，如果有两个项目都是用前述的 <code>bento/centos-6.7</code>，添加文件到其中的一个guest主机，将不会影响另外一个主机。</p>
+<h1 id="up__u548C_ssh"><a href="#up__u548C_ssh" class="headerlink" title="up 和 ssh"></a>up 和 ssh</h1><p>启动Vagrant环境</p>
+<p>   vagrant up</p>
+<p>完成启动后，执行命令</p>
+<pre><code>vagrant ssh
+</code></pre><p>这个<code>vagrant ssh</code>命令将登录到SSH环境。注意，不要使用 <code>rm -rf /</code> ，因为 Vagrant 共享了一个 <code>/vagrant</code> 实际是那个包含了 Vagrantfile 的物理服务器目录（但是这个目录由于可以从虚拟机中访问，所以要注意不要误删除）。</p>
+<p>如果你不再需要这个虚拟机，则运行 <code>vagrant destroy</code> 来销毁虚拟机。</p>
+<h1 id="SYNCED_FOLDERS"><a href="#SYNCED_FOLDERS" class="headerlink" title="SYNCED FOLDERS"></a>SYNCED FOLDERS</h1><blockquote>
+<p>这里我遇到一个问题，就是在虚拟机执行<code>df</code>命令，输出中显示一个错误</p>
+</blockquote>
+<pre><code>df: `/vagrant&apos;: No such file or directory
+</code></pre><p>原因是升级过虚拟机中的Linux内核，需要<a href="#升级虚拟机中CentOS内核后重新编译VirtualBox扩展包的内核模块">升级虚拟机中CentOS内核后重新编译VirtualBox扩展包的内核模块</a></p>
+<h2 id="u4FEE_u6539_synced__u76EE_u5F55"><a href="#u4FEE_u6539_synced__u76EE_u5F55" class="headerlink" title="修改 synced 目录"></a>修改 synced 目录</h2><p>可以通过修改 <code>Vagrantfile</code> 配置来实现对默认共享目录位置的修改，例如</p>
+<pre><code>config.vm.synced_folder &quot;/Users/huatai/Documents/Vagrant/sharedata&quot;, &quot;/sharedata&quot;
+</code></pre><blockquote>
+<p>可以用来在不同的虚拟机之间使用共享目录，这样方便部署一个简单的共享集群。即，在物理服务器上构建一个共享给多个虚拟机使用的网络存储（不需要单独部署NFS或者CIFS），方便构建测试集群。</p>
+</blockquote>
+<h1 id="u5907_u4EFD"><a href="#u5907_u4EFD" class="headerlink" title="备份"></a>备份</h1><ul>
+<li><code>package</code> - <a href="http://blog.huatai.me/2015/12/03/use-vagrant-package-VirtualBox-environment/">使用vagrant package打包VirtualBox环境</a></li>
+</ul>
+<h1 id="u5FEB_u7167"><a href="#u5FEB_u7167" class="headerlink" title="快照"></a>快照</h1><ul>
+<li><code>snapshot插件</code> - <a href="http://blog.huatai.me/2015/12/03/use-vagrant-snapshot-create-backup/">使用vagrant snapshot创建快照备份</a></li>
+</ul>
+<h1 id="u53C2_u8003"><a href="#u53C2_u8003" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://docs.vagrantup.com/" target="_blank" rel="external">Vagrant Docs</a></li>
+</ul>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">標籤</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Vagrant/">Vagrant</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/03/vagrant-up-download-image-resume-error/"  data-tooltip="vagrant up下载镜像失败无法断点续传问题的处理方法">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/03/Mac-OS-X-ssh-to-Linux-prompt-setlocale-LC-CTYPE-cannot-change-locale-UTF-8/" data-tooltip="Mac OS X ssh登陆Linux是终端提示cannot change locale (UTF-8)">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 阿泰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/03/vagrant-up-download-image-resume-error/"  data-tooltip="vagrant up下载镜像失败无法断点续传问题的处理方法">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/03/Mac-OS-X-ssh-to-Linux-prompt-setlocale-LC-CTYPE-cannot-change-locale-UTF-8/" data-tooltip="Mac OS X ssh登陆Linux是终端提示cannot change locale (UTF-8)">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2015/12/03/Using-Vagrant-deploy-test-and-develop-enviorment/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">阿泰</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+</html>

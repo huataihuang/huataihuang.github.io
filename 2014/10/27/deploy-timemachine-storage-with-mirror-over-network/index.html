@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="阿泰的菜园">
+    <title>部署跨网络镜像的TimeMachine存储 - 阿泰的菜园</title>
+    <meta name="author" content="阿泰">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="为了能够可靠且自动化备份数据（主要针对苹果设备），经过几天的努力，结合了多项开源技术，在家用网络环境中实现一个高可用性的分布式存储，并且能够支持苹果设备的TimeMachine备份。
+费用只有苹果设备的一半，但是使用开源技术打造的分布式存储，不仅支持基于网络的TimeMachine备份，而且还实现底层数据透明镜像，自动在两台存储设备保持两个副本。这样，即使出现磁盘故障，也不会丢失备份数据。
+使用到">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="部署跨网络镜像的TimeMachine存储">
+<meta property="og:url" content="http://blog.huatai.me/2014/10/27/deploy-timemachine-storage-with-mirror-over-network/index.html">
+<meta property="og:site_name" content="阿泰的菜园">
+<meta property="og:description" content="为了能够可靠且自动化备份数据（主要针对苹果设备），经过几天的努力，结合了多项开源技术，在家用网络环境中实现一个高可用性的分布式存储，并且能够支持苹果设备的TimeMachine备份。
+费用只有苹果设备的一半，但是使用开源技术打造的分布式存储，不仅支持基于网络的TimeMachine备份，而且还实现底层数据透明镜像，自动在两台存储设备保持两个副本。这样，即使出现磁盘故障，也不会丢失备份数据。
+使用到">
+<meta property="og:image" content="http://blog.huatai.me/img/mac/timemachine_remotedisk.png">
+<meta property="og:updated_time" content="2016-02-09T14:32:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="部署跨网络镜像的TimeMachine存储">
+<meta name="twitter:description" content="为了能够可靠且自动化备份数据（主要针对苹果设备），经过几天的努力，结合了多项开源技术，在家用网络环境中实现一个高可用性的分布式存储，并且能够支持苹果设备的TimeMachine备份。
+费用只有苹果设备的一半，但是使用开源技术打造的分布式存储，不仅支持基于网络的TimeMachine备份，而且还实现底层数据透明镜像，自动在两台存储设备保持两个副本。这样，即使出现磁盘故障，也不会丢失备份数据。
+使用到">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">阿泰的菜园</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首頁</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分類</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">標籤</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">所有文章</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜尋</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">關於</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">Atom</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            部署跨网络镜像的TimeMachine存储
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Mon Oct 27 2014 02:05:47 GMT+0800">
+	
+		    10月 27, 2014
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>为了能够可靠且自动化备份数据（主要针对苹果设备），经过几天的努力，结合了多项开源技术，在家用网络环境中实现一个高可用性的分布式存储，并且能够支持苹果设备的TimeMachine备份。</p>
+<p>费用只有苹果设备的一半，但是使用开源技术打造的分布式存储，不仅支持基于网络的TimeMachine备份，而且还实现底层数据透明镜像，自动在两台存储设备保持两个副本。这样，即使出现磁盘故障，也不会丢失备份数据。</p>
+<p>使用到的开源技术主要有：</p>
+<ul>
+<li>Arch Linux ARM - 安装在希捷GoFlex Home NAS设备上，实现标准的Linux部署 （<a href="/2014/10/18/seagate-goflex-home-nas-install-arch-linux-arm/">Seagate GoFlex Home网络存储安装Arch Linux ARM</a>）</li>
+<li>GlusterFS - 开源的分布式文件系统，支持多种镜像、条带化、文件分布，是存储高可靠、高性能的保障 （<a href="/2014/10/20/use-two-goflex-deploy-glusterfs/">使用两台Seagate GoFlex Home网络存储部署glusterfs分布式文件系统</a></li>
+</ul>
+<blockquote>
+<p>在内存有限的ARM环境使用glusterfs存储需要注意缓存配置 <a href="/2014/10/27/using-glusterfs-in-arch-linux-arm-only-128M-memory/">128M内存Arch Linux ARM使用glusterfs客户端</a></p>
+</blockquote>
+<ul>
+<li>netatalk 和 avahi - 实现零配置(zeroconfig，由Avahi实现)的苹果文件协议（Apple Filing Protocol，由netatalk实现），使得苹果设备能够通过网络实现TimeMachine备份</li>
+</ul>
+<a id="more"></a>
+<p>安装netatalk</p>
+<pre><code>pacman -S netatalk
+</code></pre><p>激活netatalk在启动时启动</p>
+<pre><code>systemctl enable netatalk.service
+</code></pre><p>配置 <code>/ect/afp.conf</code></p>
+<pre><code>[Global]
+hosts allow = 192.168.1.0/16
+log file = /var/log/netatalk.log
+log level = default:debug
+
+[Time Machine]
+path = /g_data/g_backup/timemachine
+valid users = timemachine
+time machine = yes
+</code></pre><blockquote>
+<p>这里<code>timemachine</code>帐号需要先在服务器上开设，并且设置好密码</p>
+<p>Mac客户端连接TimeMachine的设备会提示帐号密码，认证通过后才能访问磁盘</p>
+</blockquote>
+<p>启动 netatalk</p>
+<pre><code>systemctl start netatalk.service
+</code></pre><p>然后在Mac客户端，使用<code>finder</code>尝试连接服务器，输入以下连接</p>
+<pre><code>afp://ip-of-pogoplug-or-archlinux
+</code></pre><p>此时会提示帐号密码，认证通过后就可以看到挂载成一个远程磁盘。</p>
+<blockquote>
+<p><a href="http://blog.jinpark.net/post/64275124814/setting-up-time-machine-netatalk-afp-on-arch-linux-arm" target="_blank" rel="external">Setting up time machine/netatalk/afp on arch linux arm (pogoplug)</a>验证下来还是有问题的。虽然上述步骤可以将磁盘挂载好，但是使用 TimeMachine 选择磁盘的时候却看不到这个挂载磁盘。原因是TimeMachine需要使用使用zeroconf来发现设备，这个zeroconf在Linux上的实现称为 Avahi</p>
+<p>Avahi是一个自由软件的”零配置网络”实现（Zero-configuration networking, zeroconf），包括了多播DNS/DNS-SD服务发现系统。允许程序发布和发现位于一个局域网内的服务而不需要做任何配置。例如，你可以加入一个网络并立即找到打印机进行打印，或者查看文件以及和其他用户通讯。（<a href="http://en.wikipedia.org/wiki/Avahi_(software" target="_blank" rel="external">Avahi(software)</a>)）</p>
+</blockquote>
+<p>参考 <a href="https://wiki.archlinux.org/index.php/Avahi" target="_blank" rel="external">Arch Linux Avahi</a> 启动 Avahi （似乎不需要配置）</p>
+<pre><code>systemctl start avahi-daemon.service
+</code></pre><p>此时再次打开 Time Machine 面板，并且 “Select Disk…” 就会立即看到可以使用的 Time Machine 远程挂载磁盘</p>
+<p><img src="/img/mac/timemachine_remotedisk.png" alt="Time Machine远程磁盘"></p>
+<blockquote>
+<p>如果前面没有使用Finder挂载 <code>afp://ip-of-pogoplug-or-archlinux</code> ，此时也会提示你访问帐号和密码</p>
+</blockquote>
+<p>最后，同样别忘记将 <code>avahi-daemon.service</code> 设置为操作系统启动时启动</p>
+<pre><code>systemctl enable avahi-daemon.service
+</code></pre><h1 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h1><p>我们使用了两台性价比较高的希捷NAS存储以以下步骤实现了一个企业级的并且支持苹果设备TimeMachine备份的分布式存储。</p>
+<p>完整的技术部署设备总体费用不超过3000元（在淘宝上1500元可以购买到一台4TB的希捷家用NAS存储）。而同样的费用只能购买到一台苹果的AirPort Time Capsule 3TB设备。最重要的是，所有的备份都是双份镜像，实现了数据的高可靠性。一切都是通过开源软件，通过合理的技术组合来实现的。</p>
+<blockquote>
+<p>唯一的遗憾是设备造型没有苹果的漂亮，不过，你却拥有了两台在房间角落里默默无声地为你可靠备份数据的存储设备。</p>
+</blockquote>
+<h1 id="u53C2_u8003"><a href="#u53C2_u8003" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://blog.jinpark.net/post/64275124814/setting-up-time-machine-netatalk-afp-on-arch-linux-arm" target="_blank" rel="external">Setting up time machine/netatalk/afp on arch linux arm (pogoplug)</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/Avahi" target="_blank" rel="external">Arch Linux Avahi</a></li>
+</ul>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">標籤</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/glusterfs/">glusterfs</a> <a class="tag tag--primary tag--small t-link" href="/tags/mac/">mac</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/28/deploy-netatalk-on-centos-7/"  data-tooltip="CentOS 7部署NetaTalk服务(提供苹果电脑TimeMachine备份)">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/27/using-glusterfs-in-arch-linux-arm-only-128M-memory/" data-tooltip="128M内存Arch Linux ARM使用glusterfs客户端">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/27/deploy-timemachine-storage-with-mirror-over-network/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/27/deploy-timemachine-storage-with-mirror-over-network/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/27/deploy-timemachine-storage-with-mirror-over-network/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 阿泰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/28/deploy-netatalk-on-centos-7/"  data-tooltip="CentOS 7部署NetaTalk服务(提供苹果电脑TimeMachine备份)">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/27/using-glusterfs-in-arch-linux-arm-only-128M-memory/" data-tooltip="128M内存Arch Linux ARM使用glusterfs客户端">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/27/deploy-timemachine-storage-with-mirror-over-network/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/27/deploy-timemachine-storage-with-mirror-over-network/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/27/deploy-timemachine-storage-with-mirror-over-network/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/27/deploy-timemachine-storage-with-mirror-over-network/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/27/deploy-timemachine-storage-with-mirror-over-network/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/27/deploy-timemachine-storage-with-mirror-over-network/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">阿泰</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+</html>

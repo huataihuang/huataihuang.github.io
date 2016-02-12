@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="阿泰的菜园">
+    <title>在Mac上安装Docker - 阿泰的菜园</title>
+    <meta name="author" content="阿泰">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="Mac OS X上可以通过virtualbox虚拟机来运行一个Docker环境，也就是通过 Boot2Docker 这个轻量级Linux发行版本来运行 Docker（24M大小）。通过 Boot2Docker 可以实现:
+
+支持AUFS的内核3.16.1，Docker v1.2.0 - 使用 libcontainer
+容器通过磁盘自动挂载到 /var/lib/docker
+通过磁盘自动挂载来持久化">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="在Mac上安装Docker">
+<meta property="og:url" content="http://blog.huatai.me/2014/10/02/install-Docker-on-Mac/index.html">
+<meta property="og:site_name" content="阿泰的菜园">
+<meta property="og:description" content="Mac OS X上可以通过virtualbox虚拟机来运行一个Docker环境，也就是通过 Boot2Docker 这个轻量级Linux发行版本来运行 Docker（24M大小）。通过 Boot2Docker 可以实现:
+
+支持AUFS的内核3.16.1，Docker v1.2.0 - 使用 libcontainer
+容器通过磁盘自动挂载到 /var/lib/docker
+通过磁盘自动挂载来持久化">
+<meta property="og:image" content="http://blog.huatai.me/!--￼0-->/img/docker/boot2docker-1.png">
+<meta property="og:updated_time" content="2016-02-09T14:32:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在Mac上安装Docker">
+<meta name="twitter:description" content="Mac OS X上可以通过virtualbox虚拟机来运行一个Docker环境，也就是通过 Boot2Docker 这个轻量级Linux发行版本来运行 Docker（24M大小）。通过 Boot2Docker 可以实现:
+
+支持AUFS的内核3.16.1，Docker v1.2.0 - 使用 libcontainer
+容器通过磁盘自动挂载到 /var/lib/docker
+通过磁盘自动挂载来持久化">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">阿泰的菜园</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首頁</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分類</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">標籤</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">所有文章</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜尋</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">關於</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">Atom</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            在Mac上安装Docker
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Thu Oct 02 2014 14:06:12 GMT+0800">
+	
+		    10月 02, 2014
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>Mac OS X上可以通过virtualbox虚拟机来运行一个Docker环境，也就是通过 <a href="https://github.com/boot2docker/boot2docker" target="_blank" rel="external">Boot2Docker</a> 这个轻量级Linux发行版本来运行 <a href="https://www.docker.io/" target="_blank" rel="external">Docker</a>（24M大小）。通过 Boot2Docker 可以实现:</p>
+<ul>
+<li>支持AUFS的内核3.16.1，Docker v1.2.0 - 使用 libcontainer</li>
+<li>容器通过磁盘自动挂载到 <code>/var/lib/docker</code></li>
+<li>通过磁盘自动挂载来持久化SSH key</li>
+</ul>
+<a id="more"></a>
+<blockquote>
+<p>Boot2Docker发行版是基于 <a href="http://tinycorelinux.net" target="_blank" rel="external">Tiny Core Linux</a> 来制作的</p>
+</blockquote>
+<p>如果系统中没有安装过VirtualBox，也可以直接下载完整打包的 <a href="https://github.com/boot2docker/osx-installer/releases" target="_blank" rel="external">Docker for OS X Installer</a>  ，包含了以下组件:</p>
+<ul>
+<li>Docker v1.2.0</li>
+<li>Boot2Docker.iso v1.2.0</li>
+<li>Boot2Docker manage tool v1.2.0</li>
+<li>VirtualBox 4.3.14</li>
+</ul>
+<h1 id="u5B89_u88C5boot2docker_manage_tool"><a href="#u5B89_u88C5boot2docker_manage_tool" class="headerlink" title="安装boot2docker manage tool"></a>安装boot2docker manage tool</h1><p>在我的Mac OS X环境中已经安装过VirtualBox，所以我不再下载完整的 <a href="https://github.com/boot2docker/osx-installer/releases" target="_blank" rel="external">Docker for OS X Installer</a> ，而采用下载安装 <a href="https://github.com/boot2docker/boot2docker-cli/releases" target="_blank" rel="external">boot2docker management release</a> 并使用它来下载 <a href="https://github.com/boot2docker/boot2docker/releases" target="_blank" rel="external">boot2docker.iso</a></p>
+<p>Boot@Docker首先会尝试挂载一个命名为 <code>boot2docker-data</code> 的分区，如果该分区不存在，就选择通过 <code>blkid</code> 命令列出的第一个 <code>ext4</code> 分区。</p>
+<p>初始化:</p>
+<pre><code>boot2docker init
+</code></pre><p>此时提示:</p>
+<pre><code>Downloading boot2docker ISO image...
+Latest release is v1.2.0
+以及创建ssh密钥对信息
+</code></pre><blockquote>
+<p>我下载的是针对Mac版本的 <a href="https://github.com/boot2docker/boot2docker-cli/releases/download/v1.2.0/boot2docker-v1.2.0-darwin-amd64" target="_blank" rel="external">boot2docker-v1.2.0-darwin-amd64</a> 下载之后修改属性并复制到可执行路径中</p>
+</blockquote>
+<pre><code>chmod 755 boot2docker-v1.2.0-darwin-amd64
+sudo cp boot2docker-v1.2.0-darwin-amd64 /usr/local/bin/boot2docker
+</code></pre><p>启动虚拟机</p>
+<pre><code>boot2docker up
+</code></pre><p>提示显示</p>
+<pre><code>Waiting for VM and Docker daemon to start...
+...........................................
+Started.
+
+To connect the Docker client to the Docker daemon, please set:
+    export DOCKER_HOST=tcp://192.168.59.103:2375
+</code></pre><p>使用VirtualBox Manager也可以看到后台已经启动了 <code>boot2docker-vm</code> 这个虚拟机，且已经配置了NAT和hostonly两个网络</p>
+<p><img src="!--￼0--&gt;/img/docker/boot2docker-1.png" alt="boot2docker"></p>
+<p>登录虚拟机</p>
+<pre><code>boot2docker ssh
+</code></pre><blockquote>
+<p>从VirtualBox的配置来看，是访问 127.0.0.1 端口 2022 映射到NAT的虚拟机的22端口访问，本地帐号已经创建好ssh密钥对，所以可以无密码登录。</p>
+</blockquote>
+<p>如果是手工创建vm，则默认密码是</p>
+<pre><code>user: docker
+pass: tcuser
+</code></pre><h1 id="u6301_u4E45_u5316_u6570_u636E"><a href="#u6301_u4E45_u5316_u6570_u636E" class="headerlink" title="持久化数据"></a>持久化数据</h1><p>当使用 <code>boot2docker init</code> 时， <code>boot2docker</code> 工具自动创建了一个自动挂载的磁盘，挂载在 <code>/var/lib/docker</code> 和 <code>/var/lib/boot2docker</code> 。</p>
+<p>如果你不使用 <code>boot2docker</code> 这个VirtualBox管理工具，可以使用带有 <code>boot2docker-data</code> 标记的 <code>ext4</code> 或者 <code>btrfs</code> 格式的分区（使用命令 <code>mkfs.ext4 -L boot2docker-data /dev/sdX5</code> 创建），这样 <code>boot2docker</code> 将自动它到 <code>/mnt/sdX</code> 然后软链接 <code>/mnt/sdX/var/lib/docker</code> 到 <code>/var/lib/docker</code></p>
+<h1 id="docker_u5BA2_u6237_u7AEF_u8FDE_u63A5"><a href="#docker_u5BA2_u6237_u7AEF_u8FDE_u63A5" class="headerlink" title="docker客户端连接"></a>docker客户端连接</h1><p>要连接docker client到Docker daemon，使用以下命令</p>
+<pre><code>export DOCKER_HOST=tcp://192.168.59.103:2375
+</code></pre><p>然后本地的docker 客户端就可以操作</p>
+<h1 id="u5347_u7EA7docker"><a href="#u5347_u7EA7docker" class="headerlink" title="升级docker"></a>升级docker</h1><p>升级需要停止虚拟机</p>
+<pre><code>boot2docker stop
+boot2docker download
+boot2docker start
+</code></pre><h1 id="u4F7F_u7528osx-installer_u5B89_u88C5docker"><a href="#u4F7F_u7528osx-installer_u5B89_u88C5docker" class="headerlink" title="使用osx-installer安装docker"></a>使用osx-installer安装docker</h1><p>上述手工安装 boot2docker 工具的方法，我没有找到mac平台本地的docker工具，所以还是采用下载 <a href="https://github.com/boot2docker/osx-installer/releases" target="_blank" rel="external">boot2docker/osx-installer</a> 工具重新安装了一遍。</p>
+<p>从Mac OS X的Applications上启动 <code>Boot2Docker</code> 应用程序将自动初始化和启动虚拟机，也就是相当于手工执行了如下命令</p>
+<pre><code>boot2docker init
+boot2docker start
+export DOCKER_HOST=tcp://$(boot2docker ip 2&gt;/dev/null):2375
+</code></pre><h1 id="u8FD0_u884CDocker"><a href="#u8FD0_u884CDocker" class="headerlink" title="运行Docker"></a>运行Docker</h1><p>从终端测试一个 <code>hello-world</code> 案例镜像</p>
+<pre><code>docker run hello-world
+</code></pre><p>以上命令下载了一个非常小的 <code>hello-world</code> 镜像，是一个小的容器执行了输出 <code>Hello from docker.</code> 消息。</p>
+<p>注意， <code>docker ps</code> 命令默认只能输出正在运行的容器，所以上述容器运行输出后退出，只能用 <code>docker ps -a</code> 查看到::</p>
+<pre><code>docker ps -a
+CONTAINER ID        IMAGE                COMMAND             CREATED             STATUS                      PORTS               NAMES
+d859768aff36        hello-world:latest   &quot;/hello&quot;            39 minutes ago      Exited (0) 39 minutes ago
+</code></pre><p>进一步请参考我的后续实践记录</p>
+<h1 id="u5236_u4F5C_u81EA_u5DF1_u7684boot2docker-iso"><a href="#u5236_u4F5C_u81EA_u5DF1_u7684boot2docker-iso" class="headerlink" title="制作自己的boot2docker.iso"></a>制作自己的boot2docker.iso</h1><p><a href="https://github.com/boot2docker/boot2docker/blob/master/doc/BUILD.md" target="_blank" rel="external">How to build boot2docker.iso locally</a> 提供了制作自己的boot2docker.iso的方法。</p>
+<p>待续……</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">標籤</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/docker/">docker</a> <a class="tag tag--primary tag--small t-link" href="/tags/mac/">mac</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/02/install-docker-on-centos-7/"  data-tooltip="CentOS 7安装docker">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/02/Understanding-docker/" data-tooltip="理解docker">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/02/install-Docker-on-Mac/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/02/install-Docker-on-Mac/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/02/install-Docker-on-Mac/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 阿泰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/02/install-docker-on-centos-7/"  data-tooltip="CentOS 7安装docker">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/02/Understanding-docker/" data-tooltip="理解docker">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/02/install-Docker-on-Mac/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/02/install-Docker-on-Mac/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/02/install-Docker-on-Mac/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/02/install-Docker-on-Mac/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/02/install-Docker-on-Mac/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/02/install-Docker-on-Mac/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">阿泰</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+</html>

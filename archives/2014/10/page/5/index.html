@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="阿泰的菜园">
+    <title>所有文章: 2014/10 - 阿泰的菜园</title>
+    <meta name="author" content="阿泰">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="阿泰的菜园">
+<meta property="og:url" content="http://blog.huatai.me/archives/2014/10/page/5/index.html">
+<meta property="og:site_name" content="阿泰的菜园">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="阿泰的菜园">
+<meta name="twitter:description">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="2">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">阿泰的菜园</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="2">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首頁</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分類</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">標籤</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">所有文章</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜尋</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">關於</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">Atom</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="2"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+    
+
+<section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2014/10/05/docker-container-static-ip/">
+                            配置docker容器静态IP地址
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sun Oct 05 2014 15:42:42 GMT+0800">
+	
+		    10月 05, 2014
+    	
+    </time>
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>Docker提供了非常方便的根据镜像创建容器的方法，默认从镜像创建的容器都采用连接到 <code>docker0</code> 网桥的NAT模式，也就是如果需要访问虚拟容器提供的服务，需要在物理服务器上使用端口镜像方式，将物理服务器端口映射到虚拟容器的对应端口。</p>
+<p>这样的模式主要有以下限制：</p>
+<ul>
+<li>每个虚拟容器的服务需要通过端口映射才能被外部访问 - 对于某些需要直接访问服务器端口（如ssh登录），需要给不同虚拟机映射不同端口（物理服务器端口不能重合），管理有些麻烦</li>
+<li>同一个物理服务器运行相同服务的多个容器，需要创建一个提供负载均衡的虚拟容器，这样才能实现 “物理端口 =&gt; 负载均衡端口 =&gt; 负载均衡到各个虚拟容器端口”</li>
+<li>虚拟容器的IP地址不固定，要解决容器IP地址的动态解析 （<a href="2014/10/04/Deploy-DNSmasq/">dnsmasq服务部署</a>文档中介绍了dnsmasq可以实现的动态IP分配和DNS解析）</li>
+</ul>
+<blockquote>
+<p>采用NAT模式的容器，可以在一个物理服务器上实现一个单元化部署 - 实现 “firewall + loadbalance + web + cache + db” - 如果做好数据库同步和缓存一致性，应该能够实现分布式应用部署（将每个物理服务器视为一个工作单元，内部自给自足，外部模块化水平扩容）</p>
+</blockquote>
+                    
+                        <a href="/2014/10/05/docker-container-static-ip/" class="postShorten-excerpt_link link">
+                            繼續閱讀
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2014/10/05/customize-docker-image/">
+                            自定义docker镜像
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sun Oct 05 2014 15:31:44 GMT+0800">
+	
+		    10月 05, 2014
+    	
+    </time>
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>Docker的公共仓库提供了大量的容器模板，但是实际生产环境，需要根据需要定制各种安装容器模板，并且结合<a href="/2014/10/03/Deploy-Docker-Registry-test-environment/">私有Docker Registry</a>大规模按需部署OS环境。</p>
+<p>Docker的模板镜像可以从公共仓库下载最基本的OS容器模板，按需安装软件，然后以类似<code>git</code>这样的命令提交到Docker Regsitry中，提供后续部署。</p>
+                    
+                        <a href="/2014/10/05/customize-docker-image/" class="postShorten-excerpt_link link">
+                            繼續閱讀
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2014/10/04/docker-registry-degrade-version-0-7/">
+                            Docker-Registry降级到0.7版本
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sat Oct 04 2014 22:34:48 GMT+0800">
+	
+		    10月 04, 2014
+    	
+    </time>
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <h1 id="u89E3_u51B3_docker_push__u62A5_u9519_405_Method_Not_Allowed"><a href="#u89E3_u51B3_docker_push__u62A5_u9519_405_Method_Not_Allowed" class="headerlink" title="解决 docker push 报错  405 Method Not Allowed"></a>解决 <code>docker push</code> 报错  <code>405 Method Not Allowed</code></h1><blockquote>
+<p>实践中发现 <code>0.8.1</code> 版本无法提交镜像（实际是说明文档的配置文件错误，见 <a href="/2014/10/03/Deploy-Docker-Registry-test-environment/">部署Docker Registry测试环境</a>）， <code>push</code> 镜像的时候服务器端会返回 <code>Error: Status 405 trying to push repository</code> 和 <code>405 Method Not Allowed</code></p>
+<p><strong>警告：Docker-Registry 早期版本存在安全问题，建议尝试 <a href="https://github.com/docker/docker-registry">docker-registry</a> 推荐的docker虚拟容器运行最新版本，本文仅作为参考手段。</strong></p>
+</blockquote>
+                    
+                        <a href="/2014/10/04/docker-registry-degrade-version-0-7/" class="postShorten-excerpt_link link">
+                            繼續閱讀
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2014/10/04/Deploy-DNSmasq/">
+                            部署DNSmasq
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sat Oct 04 2014 19:38:21 GMT+0800">
+	
+		    10月 04, 2014
+    	
+    </time>
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p><a href="http://www.thekelleys.org.uk/dnsmasq/doc.html">dnsmasq</a>是一个适合小型网络的集成了DNS,DHCP，路由公告和网络启动的应用程序。它设计成轻量级和体量微小，适合资源有限的路由器和防火墙。它被广泛用于移动电话和热点以及虚拟网络。dnsmasq的DNS部分提供本地网络的DNS服务，同时将所有查询转发给上级DNS并缓存公共的记录。</p>
+<p>这次部署Docker的网络环境，在测试环境中，为了能够解析主机，部署了dnsmasq来完成DNS功能。</p>
+                    
+                        <a href="/2014/10/04/Deploy-DNSmasq/" class="postShorten-excerpt_link link">
+                            繼續閱讀
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2014/10/03/Deploy-Docker-Registry-test-environment/">
+                            部署Docker Registry测试环境
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Fri Oct 03 2014 22:56:00 GMT+0800">
+	
+		    10月 03, 2014
+    	
+    </time>
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <h1 id="Docker_Registry_u7B80_u4ECB"><a href="#Docker_Registry_u7B80_u4ECB" class="headerlink" title="Docker Registry简介"></a>Docker Registry简介</h1><p><a href="https://github.com/dotcloud/docker-registry">Docker Registry</a> 是将Docker镜像推送到存储和共享的服务，提供给内部服务器部署Docker。任何支持<a href="http://upstart.ubuntu.com/">upstart</a>的操作系统都可以部署registry。使用Nginx的SSL加密和HTTP基本认证，作为Docker Regsitry的前端代理服务器。Upstart将管理运行在registry上的gunicorn进程，同时使用LRU缓存来减少后端存储的消耗。缓存使用Redis。</p>
+<blockquote>
+<p>Docker Registry是一个基于Flask的web服务器，需要结合高速缓存和适合大规模使用的Nginx前端服务来实现分布式大负载集群。</p>
+</blockquote>
+                    
+                        <a href="/2014/10/03/Deploy-Docker-Registry-test-environment/" class="postShorten-excerpt_link link">
+                            繼續閱讀
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    <div class="pagination-bar">
+    <ul class="pagination">
+        
+        <li class="pagination-prev">
+            
+                <a class="btn btn--default btn--small" href="/archives/2014/10/page/4/">
+            
+                <i class="fa fa-angle-left text-base icon-mr"></i>
+                    <span>上一頁</span>
+            </a>
+        </li>
+        
+        
+        <li class="pagination-next">
+            <a class="btn btn--default btn--small" href="/archives/2014/10/page/6/">
+                    <span>下一頁</span>
+                <i class="fa fa-angle-right text-base icon-ml"></i>
+            </a>
+        </li>
+        
+        <li class="pagination-number">第 5 頁 共 7 頁</li>
+    </ul>
+</div>
+
+</section>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 阿泰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">阿泰</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>

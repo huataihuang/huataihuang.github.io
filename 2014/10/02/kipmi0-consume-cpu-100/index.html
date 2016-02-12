@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="阿泰的菜园">
+    <title>kipmi0占用单个cpu的100%资源 - 阿泰的菜园</title>
+    <meta name="author" content="阿泰">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="发现kipmi0消耗单核资源今天在处理一个报警的时候，意外发现集群中有一个服务器节点有一个 kipmi0 进程占用了单个cpu的100%资源
+top - 05:33:19 up 38 days,  5:30,  1 user,  load average: 1.02, 1.10, 1.22
+Tasks: 528 total,   2 running, 526 sleeping,   0 stopp">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="kipmi0占用单个cpu的100%资源">
+<meta property="og:url" content="http://blog.huatai.me/2014/10/02/kipmi0-consume-cpu-100/index.html">
+<meta property="og:site_name" content="阿泰的菜园">
+<meta property="og:description" content="发现kipmi0消耗单核资源今天在处理一个报警的时候，意外发现集群中有一个服务器节点有一个 kipmi0 进程占用了单个cpu的100%资源
+top - 05:33:19 up 38 days,  5:30,  1 user,  load average: 1.02, 1.10, 1.22
+Tasks: 528 total,   2 running, 526 sleeping,   0 stopp">
+<meta property="og:updated_time" content="2016-02-09T14:32:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kipmi0占用单个cpu的100%资源">
+<meta name="twitter:description" content="发现kipmi0消耗单核资源今天在处理一个报警的时候，意外发现集群中有一个服务器节点有一个 kipmi0 进程占用了单个cpu的100%资源
+top - 05:33:19 up 38 days,  5:30,  1 user,  load average: 1.02, 1.10, 1.22
+Tasks: 528 total,   2 running, 526 sleeping,   0 stopp">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">阿泰的菜园</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首頁</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分類</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">標籤</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">所有文章</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜尋</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">關於</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">Atom</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            kipmi0占用单个cpu的100%资源
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Thu Oct 02 2014 06:44:46 GMT+0800">
+	
+		    10月 02, 2014
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="u53D1_u73B0kipmi0_u6D88_u8017_u5355_u6838_u8D44_u6E90"><a href="#u53D1_u73B0kipmi0_u6D88_u8017_u5355_u6838_u8D44_u6E90" class="headerlink" title="发现kipmi0消耗单核资源"></a>发现kipmi0消耗单核资源</h1><p>今天在处理一个报警的时候，意外发现集群中有一个服务器节点有一个 <code>kipmi0</code> 进程占用了单个cpu的100%资源</p>
+<pre><code>top - 05:33:19 up 38 days,  5:30,  1 user,  load average: 1.02, 1.10, 1.22
+Tasks: 528 total,   2 running, 526 sleeping,   0 stopped,   0 zombie
+Cpu(s):  1.0%us,  4.8%sy,  0.0%ni, 94.2%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:  99036100k total, 97638304k used,  1397796k free,   215656k buffers
+Swap:  1999864k total,   141984k used,  1857880k free, 91091652k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+  338 root      39  19     0    0    0 R 100.0  0.0  14902:34 kipmi0
+ 4468 root      20   0 1739m  66m 2660 S 36.0  0.1  28670:33 glusterfsd
+ 7920 root      20   0 15404 1600  948 R  1.9  0.0   0:00.06 top
+    1 root      20   0 19360 1160  964 S  0.0  0.0   0:02.33 init
+</code></pre><p>查看 <code>/var/log/messages</code> 日志并没有发现硬件异常。</p>
+<a id="more"></a>
+<h1 id="kipmi0_u8FDB_u7A0B"><a href="#kipmi0_u8FDB_u7A0B" class="headerlink" title="kipmi0进程"></a>kipmi0进程</h1><p><code>kimpi0</code> 进程是用于监控硬件感应器，通过Linux驱动来执行硬件感应器监控。</p>
+<h1 id="u68C0_u67E5"><a href="#u68C0_u67E5" class="headerlink" title="检查"></a>检查</h1><p>由于集群中部分节点出现上述 <code>kimpi0</code> 进程占用一个cpu内核的情况，检查 <code>ipmi</code> 相关进程可以看到:</p>
+<pre><code>ps -ef | grep ipmi | grep -v grep
+</code></pre><p>导致 <code>cpu</code> 资源消耗出现问题的节点都执行了 <code>ipmitool</code> 命令，并且命令执行已经超过10天:</p>
+<pre><code>root       380     1  0 Aug30 ?        00:00:00 /usr/bin/sudo /usr/bin/ipmitool mc info
+root       382   380  0 Aug30 ?        00:00:00 /usr/bin/ipmitool mc info
+root       404     1  0 Aug30 ?        00:00:00 /usr/bin/sudo /usr/bin/ipmitool sel elist
+root       405   404  0 Aug30 ?        00:00:00 /usr/bin/ipmitool sel elist
+</code></pre><p>以上指令是监控系统搜集服务器硬件信息和日志的脚本中的命令，其中 <code>ipmitool</code> 参数含义如下:</p>
+<blockquote>
+<p>mc            Management Controller status and global enables</p>
+<p>sel           Print System Event Log (SEL)</p>
+</blockquote>
+<p>不过，杀死上述进程并没有使得 <code>kipmi0</code> 消耗的cpu资源下降下来。</p>
+<p>在正常节点上执行上述脚本，例如 <code>/usr/bin/ipmitool sel elist</code> 可以正常输出硬件系统事件日志，但是异常节点会卡住没有输出信息。</p>
+<p>尝试重启带外管理控制器（Management Controller）</p>
+<pre><code>ipmitool mc reset cold
+</code></pre><p>同样出现卡住现象，没有能够reset成功。</p>
+<p>检查当前Linux加载的ipmi模块:</p>
+<pre><code>lsmod | grep ipmi
+</code></pre><p>显示操作系统只加载了 <code>ipmi_devintf</code> 模块 （Linux device interface for the IPMI message handler）</p>
+<p>但是尝试卸载 <code>ipmi_devintf</code> 模块失败:</p>
+<pre><code>#rmmod ipmi_devintf
+ERROR: Module ipmi_devintf is in use
+</code></pre><p>此外， <code>kipmi0</code> 进程也无法杀死，无法降低cpu消耗</p>
+<p>服务器集群 <code>dmdecode</code> 输出信息里面厂商的信息是 <code>Inspur</code> （原来是国产品牌”浪潮”） 。</p>
+<h1 id="ipmi_u76F8_u5173_u7CFB_u7EDF_u670D_u52A1_u811A_u672C"><a href="#ipmi_u76F8_u5173_u7CFB_u7EDF_u670D_u52A1_u811A_u672C" class="headerlink" title="ipmi相关系统服务脚本"></a>ipmi相关系统服务脚本</h1><p>在 <code>/etc/init.d</code> 目录下有两个和ipmi有关的服务脚本:</p>
+<ul>
+<li>ipmi - 加载ipmi的内核模块，默认启动</li>
+<li>ipmievd - 将ipmi事件发送给syslog服务，默认这个服务不启动</li>
+</ul>
+<p>上述两个服务脚本启动的相关参数见 <code>/etc/sysconfig</code> 目录下的配置文件 <code>ipmi</code> 和 <code>ipmievd</code> ，其中</p>
+<ul>
+<li><p><code>/etc/sysconfig/ipmi</code> 配置中:</p>
+<p>  IPMI_SI=yes   #激活标准硬件接口（KCS, BT, SMIC）<br>  DEV_IPMI=yes    #激活 /dev/ipmi0 接口，用于 ipmitool, ipmicmd</p>
+</li>
+<li><p><code>/etc/sysconfig/ipmievd</code> 配置:</p>
+<p>  IPMIEVD_OPTIONS=”sel pidfile=/var/run/ipmievd.pid”</p>
+</li>
+</ul>
+<p>启动 <code>/etc/init.d/ipmievd start</code> 可以看到系统 <code>/var/log/messages</code> 中输出了硬件平台日志。</p>
+<h1 id="u5904_u7406kipmi0_u95EE_u9898"><a href="#u5904_u7406kipmi0_u95EE_u9898" class="headerlink" title="处理kipmi0问题"></a>处理kipmi0问题</h1><p><code>kimpi0</code> 进程在IPMI (Intelligent Platform Management Interface, 智能平台管理接口) 设备，例如BMC（Baseboard Management Controller，主板管理控制器）或IMM（集成管理控制器）繁忙时或者没有响应时会消耗cpu资源到100%（单核）。 无需修复，因为这个CPU资源占用不影响系统的实际响应。( <a href="http://www-01.ibm.com/support/docview.wss?uid=nas7d580df3d15874988862575fa0050f604" target="_blank" rel="external">Kipmi0 May Show Increased CPU Utilization on Linux</a> ) </p>
+<p>修复的方法是，如果使用IPMI设备，则 reset BMC或者重启系统。如果不使用IPMI设备，则使用命令 <code>service ipmi stop</code> 停止IPMI服务。</p>
+<ul>
+<li>解决记录：</li>
+</ul>
+<p>我尝试了ssh登录操作系统执行 <code>ipmitool mc reset cold</code> 但是没有响应返回</p>
+<p>然后尝试从网络通过 <code>-I lanplus</code> 方式访问，意外发现能够查询出主机电源状态：</p>
+<pre><code>ipmitool -C 3 -I lanplus -H 带外管理IP -U 登录名 -P 登录密码 power status
+</code></pre><p>显示输出: <code>Chassis Power is on</code></p>
+<p>这样，我感觉从网络访问，仍然存在操作的可能。所以通过网络向控制器发出 <code>mc reset cold</code> 指令:</p>
+<pre><code>ipmitool -C 3 -I lanplus -H 带外管理IP -U 登录名 -P 登录密码 mc reset cold
+</code></pre><p>提示 <code>Sent cold reset command to MC</code></p>
+<p>又尝试连接带外终端：</p>
+<pre><code>ipmitool -C 3 -I lanplus -H 带外管理IP -U 登录名 -P 登录密码 sol activate
+</code></pre><p>仍然返回失败信息:</p>
+<pre><code>Error: Unable to establish IPMI v2 / RMCP+ session
+</code></pre><p>不过，后来发现，实际上是BMC重启导致的连接失败。</p>
+<p>意外发现，操作系统 <code>top</code> 显示的 <code>kipmi0</code> 已经不再占用CPU资源了。</p>
+<h1 id="kipmi_u8BE6_u7EC6_u7684_u8BF4_u660E"><a href="#kipmi_u8BE6_u7EC6_u7684_u8BF4_u660E" class="headerlink" title="kipmi详细的说明"></a>kipmi详细的说明</h1><p>kipmi导致的CPU使用增长是很常见的。这个硬件设备接口不是中断设备，所以驱动必须轮询设备的状态和消息。这个轮询显示成一个繁忙的CPU。kipmi内核线程的优先级非常低，所以不会影响系统中的其他进程。甚至当轮询进入死循环（通常是它认为BMC有活跃事件需要它处理），它仍然会在任何进程需要CPU资源时放弃占用资源。</p>
+<p>CPU通常视 <code>kipmi0</code> 内核线程为IDLE时间。kipmi0在没有其他任务运行时运行，并且是系统最低优先级的进程。</p>
+<p>可以通过以下方法使得 <code>kipmi0</code> 只使用 10% 的CPU: ( <a href="http://www.serveradminblog.com/2011/02/kipmi0-problem/" target="_blank" rel="external">kipmi0 problem</a> )</p>
+<pre><code>echo 100 &gt; /sys/module/ipmi_si/parameters/kipmid_max_busy_us
+</code></pre><p>我验证了一下，这个命令确实可以限制 <code>kipmi0</code> 只使用 <code>10%</code> 的CPU资源。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">標籤</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/linux/">linux</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/02/Docker-technology/"  data-tooltip="Docker技术概览">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/01/use-hexo-write-blog/" data-tooltip="使用hexo撰写博客">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/02/kipmi0-consume-cpu-100/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/02/kipmi0-consume-cpu-100/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/02/kipmi0-consume-cpu-100/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 阿泰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/02/Docker-technology/"  data-tooltip="Docker技术概览">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/10/01/use-hexo-write-blog/" data-tooltip="使用hexo撰写博客">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/02/kipmi0-consume-cpu-100/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/02/kipmi0-consume-cpu-100/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/02/kipmi0-consume-cpu-100/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/10/02/kipmi0-consume-cpu-100/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/10/02/kipmi0-consume-cpu-100/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/10/02/kipmi0-consume-cpu-100/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">阿泰</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+</html>

@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="阿泰的菜园">
+    <title>Linux irqbalance、中断和进程绑定CPU - 阿泰的菜园</title>
+    <meta name="author" content="阿泰">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="今天同事问我一个服务器负载在CPU上不均匀的问题和irqbalance。因为以前服务器压力不大，没有太关注这方面设置，所以这次特别查阅了资料来解决这个问题。以下文章是整理汇总相关资料。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Linux irqbalance、中断和进程绑定CPU">
+<meta property="og:url" content="http://blog.huatai.me/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/index.html">
+<meta property="og:site_name" content="阿泰的菜园">
+<meta property="og:description" content="今天同事问我一个服务器负载在CPU上不均匀的问题和irqbalance。因为以前服务器压力不大，没有太关注这方面设置，所以这次特别查阅了资料来解决这个问题。以下文章是整理汇总相关资料。">
+<meta property="og:updated_time" content="2016-02-09T14:32:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux irqbalance、中断和进程绑定CPU">
+<meta name="twitter:description" content="今天同事问我一个服务器负载在CPU上不均匀的问题和irqbalance。因为以前服务器压力不大，没有太关注这方面设置，所以这次特别查阅了资料来解决这个问题。以下文章是整理汇总相关资料。">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">阿泰的菜园</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首頁</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分類</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">標籤</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">所有文章</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜尋</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">關於</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">Atom</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Linux irqbalance、中断和进程绑定CPU
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Wed Nov 05 2014 21:46:02 GMT+0800">
+	
+		    11月 05, 2014
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>今天同事问我一个服务器负载在CPU上不均匀的问题和irqbalance。因为以前服务器压力不大，没有太关注这方面设置，所以这次特别查阅了资料来解决这个问题。以下文章是整理汇总相关资料。</p>
+<a id="more"></a>
+<h1 id="irqbalance_u6982_u8FF0"><a href="#irqbalance_u6982_u8FF0" class="headerlink" title="irqbalance概述"></a>irqbalance概述</h1><p>IRQbalance - 将硬件中断分布到多处理器系统的各个处理器以便能够提高性能。</p>
+<p>IRQbalance避免所有的IRQ请求都由单一的CPU负担。很多4核以上CPU系统缓慢有时是因为都在等待CPU 0处理网络或者存储的IRQ请求。此时CPU 0非常繁忙，而其他CPU则非常空闲。应用缓慢是因为它们在等待从CPU 0返回请求。</p>
+<p>IRQbalance尝试一种智能方法使中断分布到所有的CPU，如果可能，将IRQ处理和处理器尽可能接近。这可能是相同的内核，和相同缓存共享的内核，或相同NUMA区域的内核。</p>
+<p><strong>除了</strong>以下情况，你都 <strong>应该使用</strong> irqbalance：</p>
+<ul>
+<li>由于非常特殊原因需要人工设置应用/IRQ集中到特定内核（例如，更小的延迟，实时请求等）</li>
+<li>虚拟机：虚拟机不能实际获得性能提高，因为除非你将guest绑定到特定的CPU和IRQ并且隔离网络/存储硬件，否则你看不到任何性能提高。但是你的KVM/RHEV在主机<strong>需要</strong>使用irqbalance和numa并且调优。</li>
+</ul>
+<p>Numad是类似irqbalance的机制并且它将处理器和内存限定在相同的numa区域。在多核系统中，可以看到在重负载下明显降低延迟平滑的可靠的性能。</p>
+<p>如果维护人员有很好的技术以及经常监控或者具有非常规则的负载，则可能通过人工绑定进程和IRQ到特定处理器。即使这种情况，irqbalance和numad也能达到近似的效果。所以，如果不能确定或者负载不是规律的，还是建议使用irqbalance和numad </p>
+<blockquote>
+<p>参考 <a href="http://serverfault.com/questions/513807/is-there-still-a-use-for-irqbalance-on-modern-hardware" target="_blank" rel="external">Is there still a use for irqbalance on modern hardware?</a></p>
+</blockquote>
+<h1 id="u9488_u5BF9_u6D88_u606F_u670D_u52A1_u5668_u7684_u8C03_u4F18_-__u4E2D_u65AD_u548C_u5904_u7406_u8FDB_u7A0B_u7ED1_u5B9A"><a href="#u9488_u5BF9_u6D88_u606F_u670D_u52A1_u5668_u7684_u8C03_u4F18_-__u4E2D_u65AD_u548C_u5904_u7406_u8FDB_u7A0B_u7ED1_u5B9A" class="headerlink" title="针对消息服务器的调优 - 中断和处理进程绑定"></a>针对消息服务器的调优 - 中断和处理进程绑定</h1><p><a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_MRG/" target="_blank" rel="external">Red Hat Entreprise MRG</a> 是集成了消息（Messaging），实时（Realtime）和网格（Grid）服务器，其中<a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_MRG/2/html/Realtime_Tuning_Guide/sect-Realtime_Tuning_Guide-General_System_Tuning-Interrupt_and_Process_Binding.html" target="_blank" rel="external">Interrupt and process binding</a>对中断和处理进程绑定到不同隔离的CPU以提供更好的实时响应提供了借鉴。</p>
+<blockquote>
+<p>MRG的Messageing部分是基于<a href="http://qpid.apache.org" target="_blank" rel="external">Apache Qpid开源项目</a></p>
+</blockquote>
+<p>以下是文档摘录翻译：</p>
+<p>实时环境需要在响应不同的事件时最小化和消除延迟。理想情况下，中断（IRQs）和用户处理进程可以相互隔离在不同的分离的CPU上。</p>
+<p>中断是常见的在多个CPU之间共享事件。通过写入新数据和指令缓存可以延迟中断处理，并且通常导致和其他进程争夺CPU资源。为了解决这个问题，时间敏感中断和处理进程可以分离到不同CPU或者一组CPU。这样，代码和数据结构需要处理这个具有高可能性位于处理器数据和指令缓存的中断。这个隔离的进程就可以运行得尽可能快速，而其他非时间敏感的进程可以运行在其他剩余的CPU上。这个处理在一些有些内存和总线带宽的涉及速度的环境下非常重要，此时，任何等待内存返回数据到处理器缓存的等待都会影响处理时间。</p>
+<p>例如，在不同环境下调优程序，优化的方式完全不同。有些环境下，可能需要隔离2到4个CPU用于应用程序；另一些情况，将网络相关的应用程序处理进程绑定到CPU来处理网络驱动中断的优化。极端情况下，优化是通过尝试不同设置来发现适合工作的最优设置。</p>
+<blockquote>
+<p>对于多处理器环境，需要了解 <code>CPU mask</code>如何作用于给定CPU或一系列CPU。<code>CPU mask</code>通常表述未一个32位的位图（bitmask）。<code>CPU mask</code>可以表述为10进制或者16进制数字，取决于你使用的命令。例如，CPU <code>0</code>的<code>CPU mask</code>的位图表述是<code>00000000000000000000000000000001</code>，10进制表述就是<code>1</code>，而16进制表述就是<code>0x00000001</code>。同时使用CPU <code>0</code>和<code>1</code>的位图表述是<code>00000000000000000000000000000011</code>，10进制表述就是<code>3</code>，而16进制表述就是<code>0x00000003</code>。</p>
+</blockquote>
+<p>默认情况下系统会启动 <code>irqbalance</code> 服务用于周期性处理CPU事件，公平方式。然而在实时环境的部署中，应用程序通常是绑定到特定的CPU上，所以不需要<code>irqbalance</code>。此时，应该关闭<code>irqbalance</code></p>
+<pre><code>service irqbalance stop
+chkconfig irqbalance off
+</code></pre><p>另外一种方式是只在使用隔离功能的CPU上禁用<code>irqbalance</code>，而在其余的CPU上继续使用<code>irqbalance</code>。这个设置可以通过 <code>/etc/sysconfig/irqbalance</code>来实现，即编辑 <code>FOLLOW_ISOLCPUS</code> 部分：</p>
+<pre><code>FOLLOW_ISOLCPUS=yes
+</code></pre><p>这个设置使 <code>irqbalance</code> 只在没有设置隔离的CPU上生效。这个设置对于只有两个处理器的主机是没有效果的，但都与双核主机是有效的。</p>
+<h2 id="u4EBA_u5DE5_u8BBE_u7F6ECPU_u5173_u8054_u5230_u7279_u5B9AIRQ"><a href="#u4EBA_u5DE5_u8BBE_u7F6ECPU_u5173_u8054_u5230_u7279_u5B9AIRQ" class="headerlink" title="人工设置CPU关联到特定IRQ"></a>人工设置CPU关联到特定IRQ</h2><p>查看 <code>/proc/interrupts</code> 可以看到每个设备使用的中断</p>
+<pre><code>cat /proc/interrupts
+</code></pre><p>可以看到一系列的中断，每行都显示中断编号，每个CPU上发生的中断数量，最后则是中断类型和一个描述</p>
+<pre><code>CPU0             CPU1
+0:   26575949         11         IO-APIC-edge  timer
+1:         14          7         IO-APIC-edge  i8042
+...[output truncated]...
+</code></pre><p>要将一个中断只运行到某个处理器上，就是通过 <code>echo</code> 指定<code>CPU mask</code>（使用16进制数字）到 <code>/proc/interrupts</code>，例如，以下命令将中断号<code>142</code>只运行在CPU <code>0</code>上：</p>
+<pre><code>echo 1 &gt; /proc/irq/142/smp_affinity
+</code></pre><blockquote>
+<p>以上设置只能一次作用一个中断。要测试以上设置，可以制造一些磁盘活动，然后检查 <code>/proc/interrupts</code>文件的变化。可以看到指定的CPU的中断数量增加，而其他CPU上的中断数量不变。</p>
+</blockquote>
+<h2 id="u4F7F_u7528taskset_u5DE5_u5177_u5C06_u8FDB_u7A0B_u7ED1_u5B9A_u5904_u7406_u5668"><a href="#u4F7F_u7528taskset_u5DE5_u5177_u5C06_u8FDB_u7A0B_u7ED1_u5B9A_u5904_u7406_u5668" class="headerlink" title="使用taskset工具将进程绑定处理器"></a>使用<code>taskset</code>工具将进程绑定处理器</h2><p><code>taskset</code>工具可以使用进程ID（PID）来查看或设置关联，或者可以用于选择一个CPU关联的方式来运行一个命令。要设置关联，<code>taskset</code>需要将<code>CPU mask</code>表述为10进制或者16进制数字。这个mask参数是一个指定哪个CPU内核是合法的被修改的命令或PID。</p>
+<p>要设置当前没有运行的进程，使用 <code>taskset</code> 和指定<code>CPU mask</code>和进程。例如，<code>my_embedded_process</code>是设置只使用CPU <code>3</code>：</p>
+<pre><code>taskset 8 /usr/local/bin/my_embedded_process
+</code></pre><p>可以使用位图指定一系列CPU，例如这里指定 <code>4 5 6 7</code>用于运行 <code>my_embedded_process</code></p>
+<pre><code>taskset 0xF0 /usr/local/bin/my_embedded_process
+</code></pre><p>也可以对已经运行的进程设置CPU关联，此时需要使用 <code>-p</code>或者<code>--pid</code>参数来指定特定PID的进程使用，例如，这里指定PID为7013的进程只运行在CPU <code>0</code>上：</p>
+<pre><code>taskset -p 1 7013
+</code></pre><blockquote>
+<p><strong>注意</strong> <code>taskset</code>工具只能用于没有激活系统NUMA（非统一内存访问）的环境（在NUMA环境中，使用<code>numactl</code>命令来替代<code>taskset</code>）</p>
+</blockquote>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">標籤</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/linux/">linux</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/09/install-mysql-5-6-21-on-mac-os-x-10-10/"  data-tooltip="MySQL 5.6.21在Mac OS X 10.10上安装">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/05/install-cyanogenmod-on-nook-color/" data-tooltip="Nook Color刷机CyanogenMod">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 阿泰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/09/install-mysql-5-6-21-on-mac-os-x-10-10/"  data-tooltip="MySQL 5.6.21在Mac OS X 10.10上安装">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/05/install-cyanogenmod-on-nook-color/" data-tooltip="Nook Color刷机CyanogenMod">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2014/11/05/linux-irqbalance-irq-and-cpu-affinity/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">阿泰</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+</html>

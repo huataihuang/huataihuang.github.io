@@ -1,0 +1,890 @@
+#!/bin/bash
+#Gather the debug information for Ethernet adapters
+#2012-12-26 version-1.2 updated by Michael Jin
+#2013-01-05 version-1.3 updated by Michael Jin
+#2014-11-03 version-1.5 updated by Michael Jin
+
+declare -a dev_id
+dev_id=(\
+#i40e
+#i40evf
+I40E_SFP_XL710		       0x1572 \
+I40E_QEMU		           0x1574 \
+I40E_KX_A		           0x157F \
+I40E_KX_B		           0x1580 \
+I40E_KX_C		           0x1581 \
+I40E_QSFP_A		           0x1583 \
+I40E_QSFP_B		           0x1584 \
+I40E_QSFP_C		           0x1585 \
+I40E_VF			           0x154C \
+I40E_VF_HV		           0x1571 \
+#ixgbe
+#
+82598			    0x10B6 \
+82598_BX			0x1508 \
+82598AF_DUAL_PORT	0x10C6 \
+82598AF_SINGLE_PORT	0x10C7 \
+82598AT			    0x10C8 \
+82598AT2			0x150B \
+82598EB_SFP_LOM		0x10DB \
+82598EB_CX4		    0x10DD \
+82598_CX4_DUAL_PORT	0x10EC \
+82598_DA_DUAL_PORT		0x10F1 \
+82598_SR_DUAL_PORT_EM	0x10E1 \
+82598EB_XF_LR		0x10F4 \
+82599_KX4			0x10F7 \
+82599_KX4_MEZZ		0x1514 \
+82599_KR			0x1517 \
+82599_COMBO_BACKPLANE	0x10F8 \
+82599_KX4_KR_MEZZ	0x000C \
+82599_CX4			0x10F9 \
+82599_SFP			0x10FB \
+82599_SFP		    0x11A9 \
+82599_SFP_WOL0		0x1071 \
+82599_RNDC		    0x1F72 \
+82599_560FLR		0x17D0 \
+82599_ECNA_DP		0x0470 \
+82599_SP_560FLR		0x211B \
+82599_LOM_SFP		0x8976 \
+82599_LOM_SNAP6		0x2159 \
+82599_SFP_1OCP		0x000D \
+82599_SFP_2OCP		0x0008 \
+82599_BACKPLANE_FCOE	0x152A \
+82599_SFP_FCOE		0x1529 \
+82599_SFP_EM		0x1507 \
+82599_SFP_SF2		0x154D \
+82599_SFP_SF_QP		0x154A \
+82599_QSFP_SF_QP	0x1558 \
+82599EN_SFP		    0x1557 \
+82599EN_SFP_OCP1	0x0001 \
+82599_XAUI_LOM		0x10FC \
+82599_T3_LOM		0x151C \
+82599_LS			0x154F \
+X540T			    0x1528 \
+X540T1			    0x1560 \
+#
+#ixgbevf
+82599_VF                   0x10ED \
+X540_VF                    0x1515 \
+#
+#igb
+82576                      0x10C9 \
+82576_FIBER                0x10E6 \
+82576_SERDES               0x10E7 \
+82576_QUAD_COPPER          0x10E8 \
+82576_QUAD_COPPER_ET2      0x1526 \
+82576_NS                   0x150A \
+82576_NS_SERDES            0x1518 \
+82576_SERDES_QUAD          0x150D \
+82575EB_COPPER             0x10A7 \
+82575EB_FIBER_SERDES       0x10A9 \
+82575GB_QUAD_COPPER        0x10D6 \
+82580_COPPER               0x150E \
+82580_FIBER                0x150F \
+82580_SERDES               0x1510 \
+82580_SGMII                0x1511 \
+82580_COPPER_DUAL          0x1516 \
+82580_QUAD_FIBER           0x1527 \
+I350_COPPER                0x1521 \
+I350_FIBER                 0x1522 \
+I350_SERDES                0x1523 \
+I350_SGMII                 0x1524 \
+I350_DA4                   0x1546 \
+I210_COPPER				   0x1533 \
+I210_COPPER_OEM1		   0x1534 \
+I210_COPPER_IT		       0x1535 \
+I210_FIBER			       0x1536 \
+I210_SERDES		           0x1537 \
+I210_SGMII			       0x1538 \
+I210_COPPER_FLASHLESS	   0x157B \
+I210_SERDES_FLASHLESS	   0x157C \
+I211_COPPER		           0x1539 \
+I354_BACKPLANE_1GBPS	   0x1F40 \
+I354_SGMII			       0x1F41 \
+I354_BACKPLANE_2_5GBPS	   0x1F45 \
+DH89XXCC_SGMII             0x0438 \
+DH89XXCC_SERDES            0x043A \
+DH89XXCC_BACKPLANE         0x043C \
+DH89XXCC_SFP               0x0440 \
+#
+#igbvf
+82576_VF                   0x10CA \
+I350_VF                    0x1520 \
+#
+#e1000e
+82571EB_COPPER             0x105E \
+82571EB_FIBER              0x105F \
+82571EB_SERDES             0x1060 \
+82571EB_SERDES_DUAL        0x10D9 \
+82571EB_SERDES_QUAD        0x10DA \
+82571EB_QUAD_COPPER        0x10A4 \
+82571PT_QUAD_COPPER        0x10D5 \
+82571EB_QUAD_FIBER         0x10A5 \
+82571EB_QUAD_COPPER_LP     0x10BC \
+82572EI_COPPER             0x107D \
+82572EI_FIBER              0x107E \
+82572EI_SERDES             0x107F \
+82572EI                    0x10B9 \
+82573E                     0x108B \
+82573E_IAMT                0x108C \
+82573L                     0x109A \
+82574L                     0x10D3 \
+82574LA                    0x10F6 \
+82583V                     0x150C \
+80003ES2LAN_COPPER_DPT     0x1096 \
+80003ES2LAN_SERDES_DPT     0x1098 \
+80003ES2LAN_COPPER_SPT     0x10BA \
+80003ES2LAN_SERDES_SPT     0x10BB \
+ICH8_82567V_3              0x1501 \
+ICH8_IGP_M_AMT             0x1049 \
+ICH8_IGP_AMT               0x104A \
+ICH8_IGP_C                 0x104B \
+ICH8_IFE                   0x104C \
+ICH8_IFE_GT                0x10C4 \
+ICH8_IFE_G                 0x10C5 \
+ICH8_IGP_M                 0x104D \
+ICH9_IGP_M                 0x10BF \
+ICH9_IGP_M_AMT             0x10F5 \
+ICH9_IGP_M_V               0x10CB \
+ICH9_IGP_AMT               0x10BD \
+ICH9_BM                    0x10E5 \
+ICH9_IGP_C                 0x294C \
+ICH9_IFE                   0x10C0 \
+ICH9_IFE_GT                0x10C3 \
+ICH9_IFE_G                 0x10C2 \
+ICH10_R_BM_LM              0x10CC \
+ICH10_R_BM_LF              0x10CD \
+ICH10_R_BM_V               0x10CE \
+ICH10_D_BM_LM              0x10DE \
+ICH10_D_BM_LF              0x10DF \
+ICH10_D_BM_V               0x1525 \
+PCH_M_HV_LM                0x10EA \
+PCH_M_HV_LC                0x10EB \
+PCH_D_HV_DM                0x10EF \
+#
+#e1000
+82542                      0x1000 \
+82543GC_FIBER              0x1001 \
+82543GC_COPPER             0x1004 \
+82544EI_COPPER             0x1008 \
+82544EI_FIBER              0x1009 \
+82544GC_COPPER             0x100C \
+82544GC_LOM                0x100D \
+82540EM                    0x100E \
+82540EM_LOM                0x1015 \
+82540EP_LOM                0x1016 \
+82540EP                    0x1017 \
+82540EP_LP                 0x101E \
+82545EM_COPPER             0x100F \
+82545EM_FIBER              0x1011 \
+82545GM_COPPER             0x1026 \
+82545GM_FIBER              0x1027 \
+82545GM_SERDES             0x1028 \
+82546EB_COPPER             0x1010 \
+82546EB_FIBER              0x1012 \
+82546EB_QUAD_COPPER        0x101D \
+82546GB_COPPER             0x1079 \
+82546GB_FIBER              0x107A \
+82546GB_SERDES             0x107B \
+82546GB_PCIE               0x108A \
+82546GB_QUAD_COPPER        0x1099 \
+82546GB_QUAD_COPPER_KSP3   0x10B5 \
+82541EI                    0x1013 \
+82541EI_MOBILE             0x1018 \
+82541ER_LOM                0x1014 \
+82541ER                    0x1078 \
+82541GI                    0x1076 \
+82541GI_LF                 0x107C \
+82541GI_MOBILE             0x1077 \
+82547EI                    0x1019 \
+82547EI_MOBILE             0x101A \
+82547GI                    0x1075 \
+        )
+
+NIC=0
+LOM=1
+nic_name="UNKOWN"
+OS="UNKOWN"
+
+#find nic silicon name by device id
+find_nic_name ()
+{
+  found=0
+  for (( i=1; i<${#dev_id[@]}; i=$i+2 ))
+  do
+     if [ "$1" == "${dev_id[$i]}" ]; then
+         nic_name=${dev_id[$((i-1))]}
+         found=1
+         break
+     fi
+  done
+  if [ $found -eq 0 ]; then
+      nic_name="UNKOWN"
+  fi
+}
+
+LOM_or_NIC_10G ()
+{
+    ethtool -e $1 &>/dev/null
+    if [ "$?" == "0" ]; then
+       eeprom_word=`ethtool -e $1 offset 0x21 length 1 | grep 0x0021 | awk '{print $2}' | cut -c 2`
+       if [[ "${eeprom_word}" =~  "^[0-9]+" ]]; then
+          if [ ${eeprom_word} -lt 8 ]; then
+             return $NIC
+          else
+             return $LOM
+          fi  
+       fi
+    fi
+}
+
+LOM_or_NIC_1G (){
+    ethtool -e $1 &>/dev/null
+    if [ "$?" == "0" ]; then
+       eeprom_word=`ethtool -e $1 offset 0x7 length 1 | grep 0x0007 | awk '{print $2}' | cut -c 2`
+       if [[ "${eeprom_word}" =~  "^[0-9]+" ]]; then
+          if [ ${eeprom_word} -lt 8 ]; then
+             return $NIC
+          else
+             return $LOM
+          fi
+       fi  
+    fi
+}
+
+#root to run the script
+if [ "$(id -u)" != "0" ]; then 
+   echo -e "This script must be run as root" 
+   exit 1
+fi
+
+#check input parameter
+if [ $# -lt 1 ]; then
+    echo -e "Usage: ./diag.sh info.txt"
+    echo -e "Need parameter: file to keep the info gathered"
+    exit 1
+fi
+
+if [ -f $1 ]; then
+    echo -e "\n*****************************************************"
+    echo -e "* WARNNING: file \""$1"\" exists! Rename to $1.bak *"
+    echo -e "*****************************************************\n"
+    cp $1{,.bak}
+fi
+
+echo    -e "#===luck=====================================================" >> $1 2>&1
+echo -e "The info is gathered on `/bin/date`\n" | tee -a $1 2>&1
+
+##############################################################
+#OS information
+##############################################################
+if [ -f /etc/redhat-release ]; then
+    if [ "`cat /etc/redhat-release | awk '{print $1}'`" == "CentOS" ]; then
+        OS=CentOS
+        echo -e "CentOS system,kernel `uname -r`\n" | tee -a $1 2>&1
+    else
+        OS=RedHat
+    fi
+    echo -e "#==[ Command ]======================================#" >> $1 2>&1
+    echo -e "#==/etc/redhat-release" >> $1 2>&1
+    cat /etc/redhat-release | tee -a  $1 2>&1
+    echo -e "kernel `uname -a`" |tee -a $1 2>&1
+elif [ -f /etc/issue -a -f /etc/SuSE-release ]; then
+    OS=SuSE
+    cat /etc/issue | sed -n "s/.*\(SUSE.*Kernel\).*/\1 - `uname -r`/p" | tee -a $1 2>&1
+    echo -e "#==[ Command ]======================================#" >> $1
+    echo -e "#==/etc/issue" >> $1 2>&1
+    cat /etc/issue >> $1 2>&1
+    echo -e "#==[ Command ]======================================#" >> $1 2>&1
+    echo -e "#==/etc/SuSE-release" >> $1 2>&1
+    cat /etc/SuSE-release >> $1 2>&1
+else
+	echo -e "The script may NOT work well on the system other than RHEL & SUSE!\n"
+fi
+
+##############################################################
+#features supported by kernel
+##############################################################
+a=`uname -r | awk -F. '{print $1}'`
+b=`uname -r | awk -F. '{print $2}'`
+c=`uname -r | awk -F. '{print $3}'`
+c=`expr $c : '\([0-9]*\)'`
+if ! [[ ${a} =~ ^[0-9]*$ ]]; then
+    echo "-----CANNOT recognize kernel version number ${a} !"
+fi
+if ! [[ ${b} =~ ^[0-9]*$ ]]; then
+    echo "-----CANNOT recognize kernel version number ${b} !"
+fi
+if ! [[ ${c} =~ ^[0-9]*$ ]]; then
+    echo "-----CANNOT recognize kernel version number ${c} !"
+fi
+
+LINUX_VERSION_CODE=$(( ((16#$a))*65536 + 256*((16#$b)) + ((16#$c)) ))
+
+#SR-IOV support on kernel 2.6.30 or later
+SRIOV_KERNEL_CODE=$(( ((16#2))*65536 + 256*((16#6)) + ((16#30)) ))
+
+#Tx multiple queue support on kernel 2.6.27 or later
+MQ_KERNEL_CODE=$(( ((16#2))*65536 + 256*((16#6)) + ((16#18)) ))
+
+#ifconfig output changed(not exactly)
+IFCFG_KERNEL_CODE=$(( ((16#3))*65536 + 256*((16#10)) + ((16#0)) ))
+
+if [ $LINUX_VERSION_CODE -lt $SRIOV_KERNEL_CODE ]; then
+    echo -e "SR-IOV supported on kernel 2.6.30 or above" | tee -a $1 2>&1
+fi
+if [ $LINUX_VERSION_CODE -lt $MQ_KERNEL_CODE ]; then
+    echo -e "Multiple Queue supported on kernel 2.6.18 and Tx Multiple Queue is supported on kernel 2.6.27 or later" | tee -a $1 2>&1
+fi
+
+##############################################################
+#Generic Hardware Information
+#BIOS,Memory,CPU information
+##############################################################
+echo -e "#===luck=====================================================" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==lscpu" >> $1 2>&1
+lscpu >> $1 2>&1
+
+echo -e "#===luck=====================================================" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==numactl --hardware" >> $1 2>&1
+numactl  --hardware >> $1 2>&1
+
+echo -e "#===luck=====================================================" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==lstopo -" >> $1 2>&1
+lstopo - >> $1 2>&1
+
+echo -e "#===luck=====================================================" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==dmidecode" >> $1 2>&1
+dmidecode|grep -E 'Manufacturer|BIOS' >> $1 2>&1
+
+echo -e "#===luck=====================================================" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==biosdevname -d" >> $1 2>&1
+biosdevname -d >> $1 2>&1
+
+echo -e "#===luck=====================================================" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==biosdecode" >> $1 2>&1
+biosdecode  >> $1 2>&1
+
+echo -e "#===luck=====================================================" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==free" >> $1 2>&1
+free -m >> $1 2>&1
+
+echo -e "#===luck=====================================================" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==slabtop -o" >> $1 2>&1
+slabtop -o >> $1 2>&1
+
+#tree
+echo -e "#===luck=====================================================" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1
+echo -e "#==lspci -t -v" >> $1
+lspci -t -v >>$1 2>&1
+
+##############################################################
+#adapter generic information
+##############################################################
+
+echo -e "\nNIC = Network Interface Card; LOM = LAN On Motherboard"  2>&1
+echo -e "#===luck=====================================================\n" >> $1 2>&1
+echo -e "-------------------------------------------------------------------------------------------------------------------------------------------" |tee -a $1  2>&1
+printf "%-12s%-12s%-6s%-24s%-8s%-16s%-16s%-20s%-16s%-16s\r" "Interface" "Speed" "Link" "Bus - (local_cpulist)" "NIC/LOM" "PCIe slot" "Driver" "MAC" "IP Address" "Silicon"  | tee -a $1 2>&1
+echo -e "-------------------------------------------------------------------------------------------------------------------------------------------" |tee -a $1  2>&1
+#define array for keeping all ethernet interfaces
+declare -a eth_if
+declare -a bus_info
+counter=0
+
+#assuming driver is already loaded
+if [ $LINUX_VERSION_CODE -lt $IFCFG_KERNEL_CODE ]; then
+  target="Link"
+else
+  target="mtu"
+fi
+
+intfs=`ifconfig -a | grep $target | awk '{print $1}'| sort | egrep -v 'inet6|lo|vir' |awk 'BEGIN{FS=":"}{print $1}'`
+for x in $intfs 
+do
+   if [ $LINUX_VERSION_CODE -lt $IFCFG_KERNEL_CODE ]; then
+      MAC=$(ifconfig $x | grep "Link" | egrep -v inet6\|lo | awk '{print $5}')
+      if [ -z "$MAC" ]; then MAC="NULL";fi
+
+      IP=$(ifconfig $x | grep "inet addr" | cut -d: -f2 | cut -d' ' -f1)
+      if [ -z "$IP" ]; then IP="NULL";fi
+   else
+      MAC=$(ifconfig $x | grep "ether" | awk '{print $2}')
+      if [ -z "$MAC" ]; then MAC="NULL";fi
+
+      IP=$(ifconfig $x | grep "inet" |  egrep -v 'inet6' | awk '{print $2}')
+      if [ -z "$IP" ]; then IP="NULL";fi
+   fi
+
+   SPEED=$(ethtool $x 2>/dev/null | grep "Speed" | cut -d: -f2 | sed 's/^[ \t]*//')
+   if [ -z "$SPEED" ]; then SPEED="UNKOWN";fi
+   if [[ "$SPEED" =~ Unknown.* ]]; then SPEED="UNKOWN"; fi 
+
+   LINK=$(ethtool $x 2>/dev/null | grep "Link detected" | cut -d: -f2 | sed 's/^[ \t]*//')
+   if [ -z "$LINK" ]; then LINK="UNKOWN"; fi
+   
+   ethtool -i $x &>/dev/null; 
+   if [ "$?" == "0" ]; then
+       BUS=$(ethtool -i $x | grep bus-info | awk '{print $2}')
+       DRIVER=$(ethtool -i $x | grep driver | awk '{print $2}')
+       DRIVER_VER=$(ethtool -i $x | grep "^version" | awk '{print $2}')
+   else
+       BUS="NULL"
+       DRIVER="NULL"
+       DRIVER_VER="NULL"
+   fi
+
+   case ${DRIVER} in 
+       e1000|e1000e|igb)
+           LOM_or_NIC_1G $x
+           if [ "$?" == "0" ]; then
+               TYPE="NIC"
+           else
+               TYPE="LOM"
+           fi
+           eth_if[$counter]=$x
+           bus_info[$counter]=$BUS
+           ;;
+       ixgbe)
+           LOM_or_NIC_10G $x
+           if [ "$?" == "0" ]; then
+               TYPE="NIC"
+           else
+               TYPE="LOM"
+           fi
+           eth_if[$counter]=$x
+           bus_info[$counter]=$BUS
+           ;;
+       i40e)
+           TYPE="I40E"
+           eth_if[$counter]=$x
+           bus_info[$counter]=$BUS
+           ;;
+       *)
+         TYPE="UNKOWN"
+         eth_if[$counter]=$x
+         bus_info[$counter]=$BUS
+         ;;
+   esac
+   let counter++
+
+   if [[ $BUS =~ [0-9a-f]*:[0-9a-f]*:[0-9a-f]*\.[0-9a-f]* ]]; then 
+      PCIE=`lspci -s $BUS -vvv | sed  -n 's/Capabilities: \[a.\] Express (\(.*\)) Endpoint.*/\1/p' | sed 's/^[ \t]*//'`
+      if [ -z "$PCIE" ]; then
+          PCIEBW=`lspci -s $BUS -vvv | sed -n 's/Link: Speed \(.*\)/\1/p' | sed -n 's/ Width //p' | sed 's/^[ \t]*//'`
+          PCIEBW="1.x,`echo $PCIEBW`"
+      elif [ "$PCIE" == "v2" ]; then
+          PCIEBW="$PCIE,`lspci -s $BUS -vvv | grep "\<LnkSta\>" | sed -n 's/.*:\(.*\),.*/\1/p' | sed -n 's/Speed //p' | sed -n 's/ Width //p' | sed 's/^[ \t]*//'`"
+      else
+          PCIEBW="NULL"
+      fi
+
+      find_nic_name 0x`lspci -s $BUS -n | sed -n 's/.*8086:\([0-9a-f]*\).*/\1/p' | tr "[a-f]" "[A-F]" `
+      #nic cpu socket
+      BUS="$BUS - (`cat /sys/bus/pci/devices/$BUS/local_cpulist`)"
+  else
+      BUS="$BUS"
+      PCIEBW="NULL"
+      nic_name="UNKOWN"
+  fi
+
+  printf "%-12s%-12s%-6s%-24s%-8s%-16s%-16s%-20s%-16s%-16s\n" $x $SPEED $LINK "$BUS" $TYPE $PCIEBW "$DRIVER-$DRIVER_VER" $MAC $IP $nic_name | tee -a $1 2>&1
+
+done
+
+echo -e "-------------------------------------------------------------------------------------------------------------------------------------------" |tee -a $1  2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==cat /proc/net/vlan/config" >> $1
+cat /proc/net/vlan/config >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==netstat -i" >> $1
+netstat -i >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==cat /proc/net/softnet_stat" >> $1
+cat /proc/net/softnet_stat >> $1 2>&1
+
+for pdevice in `lspci | grep Eth | grep -o -e "[0-9a-f]*:[0-9a-f]*.[0-9a-f]"`
+do
+   found=0
+   for (( counter=0; counter<${#bus_info[@]}; counter++ ))
+   do
+     if [ "${bus_info[$counter]#*0000:}" == "$pdevice" ]; then
+        found=1
+        break
+     fi
+   done
+   if [ $found -eq 0 ]; then
+     echo -e "driver for Ethernet device $pdevice NOT loaded/recognized!"
+   fi
+done
+echo -e "\nWaiting......\n"
+##############################################################
+#NIC/LOM PCIe BW
+##############################################################
+echo -e "\n#===luck====================================================" >>  $1
+echo -e "1.Check whether it's NIC or LOM\n" >>$1
+echo -e "#===luck====================================================" >> $1
+echo -e "2.Check whether PCIe slot bandwidth meet the requirement" >>$1
+echo "1G x4, 10G x8" >> $1
+
+##############################################################
+#Interface Info
+##############################################################
+echo -e "\n#===luck==================================================" >> $1
+echo -e "3.Check the driver version and other information" >>$1
+echo -e "#===luck==================================================\n" >> $1
+for (( counter=0; counter<${#eth_if[@]}; counter++ ))
+do
+    echo -e "\n===ethtool -i ${eth_if[$counter]}=======================" >>$1
+    ethtool -i "${eth_if[$((counter))]}" >> $1 2>&1
+    echo -e "\n===ethtool -g ${eth_if[$counter]}=======================" >>$1
+    ethtool -g "${eth_if[$((counter))]}" >> $1 2>&1
+    echo -e "\n===ethtool -k ${eth_if[$counter]}=======================" >>$1
+    ethtool -k "${eth_if[$((counter))]}" >> $1 2>&1
+    echo -e "\n===ethtool -a ${eth_if[$counter]}=======================" >>$1
+    ethtool -a "${eth_if[$((counter))]}" >> $1 2>&1
+    echo -e "\n===ethtool -c ${eth_if[$counter]}=======================" >>$1
+    ethtool -c "${eth_if[$((counter))]}" >> $1 2>&1
+done
+
+##############################################################
+#Statistics
+##############################################################
+echo -e "\n#===luck==================================================" >> $1
+echo -e "4.Check ethernet interface statistics" >>$1
+echo -e "#===luck==================================================\n" >> $1
+for (( counter=0; counter<${#eth_if[@]}; counter++))
+do
+    ifconfig ${eth_if[$counter]} | grep RUNNING > /dev/null
+    if [ "$?" == "0" ]; then
+    echo -e "\n#===luck==================================================" >> $1
+    echo -e "Statistics at second 0 for ${eth_if[$counter]}" >> $1
+    ethtool -S "${eth_if[$counter]}" >> $1 2>&1
+    sleep 1
+    echo -e "#===luck==================================================" >> $1
+    echo -e "Statistics at second 1 for ${eth_if[$counter]}" >> $1
+    ethtool -S "${eth_if[$counter]}" >> $1 2>&1
+    sleep 1
+    echo -e "#===luck==================================================" >> $1
+    echo -e "Statistics at second 2 for ${eth_if[$counter]}" >> $1
+    ethtool -S "${eth_if[$counter]}" >> $1 2>&1
+    sleep 1
+    echo -e "#===luck==================================================" >> $1
+    echo -e "Statistics at second 3 for ${eth_if[$counter]}" >> $1
+    ethtool -S "${eth_if[$counter]}" >> $1 2>&1
+    fi 
+done
+
+##############################################################
+#CPU Utilization and traffic load
+##############################################################
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==mpstat -P ALL 1 3" >> $1
+mpstat -P ALL 1 3 >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==top -b -n 5 -d 1" >> $1
+top -b -n 5 -d 1 >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==sar -n DEV 2 5 -u" >> $1
+sar -n DEV 2 5 -u >> $1 2>&1
+
+##############################################################
+#Interrupts
+##############################################################
+echo -e "\n#===luck==================================================" >> $1
+echo "5.Check ethernet interface interrupts" >>$1
+echo -e "#===luck==================================================\n" >> $1
+echo -e "#===luck==================================================" >>$1
+echo -e "interupts @ second 0" >>$1
+cat /proc/interrupts >> $1 2>&1
+sleep 1
+echo -e "#===luck==================================================" >>$1
+echo -e "interupts @ second 1" >>$1
+cat /proc/interrupts >> $1 2>&1
+
+##############################################################
+#network stack
+##############################################################
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "/proc/sys/net/ipv4/tcp_dma_copybreak represents the lower limit of the size of the socket reads that will be offloaded to the DMA copy engine\n"
+echo -e "#==sysctl -a" >> $1
+sysctl -a >> $1 2>&1
+
+##############################################################
+#services & processes 
+##############################################################
+# check for irqbalance running
+IRQBALANCE_ON=`ps ax | grep -v grep | grep -q irqbalance; echo $?`
+if [ "$IRQBALANCE_ON" == "0" ] ; then
+	echo " WARNING: irqbalance is running and will" |tee -a  $1 2>&1
+	echo "          likely impact the interrupt affinity." |tee -a $1 2>&1
+	echo "          Please stop the irqbalance service and/or execute" |tee -a  $1 2>&1
+	echo "          'killall irqbalance'" |tee -a $1 2>&1
+fi
+if [ $OS != "SuSE" ]; then
+echo -e "\n" >> $1 2>&1
+service iptables status >> $1 2>&1
+fi
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==lsmod" >> $1
+lsmod >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==service --status-all" >> $1
+service --status-all >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==ps aux" >> $1
+ps aux >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==files in /etc/modprobe.d/* " >> $1
+ls /etc/modprobe.d >> $1 2>&1
+for mod_file in `ls /etc/modprobe.d`; 
+    do 
+        echo -e "\n==========file $mod_file ==========" >> $1 2>&1;
+        cat /etc/modprobe.d/$mod_file >>$1 2>&1;
+    done
+
+for bond_file in `ls /proc/net/bonding`; 
+    do 
+        echo -e "\n==========bonding $mod_file ==========" >> $1 2>&1;
+        cat /proc/net/bonding/$mod_file >>$1 2>&1;
+    done
+##############################################################
+#driver inforation 
+##############################################################
+echo -e "\n#===luck==================================================" >>$1
+echo -e "===modinfo===============================================" >>$1
+echo -e "===e1000=================================================" >>$1
+modinfo e1000 >>$1 2>&1
+echo -e "\n===e1000e================================================" >>$1
+modinfo e1000e >>$1 2>&1
+echo -e "\n===igb===================================================" >>$1
+modinfo igb >>$1 2>&1
+echo -e "\n===igbvf=================================================" >>$1
+modinfo igbvf >>$1 2>&1
+echo -e "\n===ixgbe=================================================" >>$1
+modinfo ixgbe >>$1 2>&1
+echo -e "\n===ixgbevf===============================================" >>$1
+modinfo ixgbevf >>$1 2>&1
+
+##############################################################
+#driver output information
+##############################################################
+echo -e "\n#===luck==================================================" >>$1
+echo -e "===e1000=================================================" >>$1
+dmesg | grep "e1000" >> $1
+echo -e "\n===e1000e================================================" >>$1
+dmesg | grep "e1000e" >> $1
+echo -e "\n===igb===================================================" >>$1
+dmesg | grep "igb" >> $1
+echo -e "\n===igbvf=================================================" >>$1
+dmesg | grep "igbvf" >> $1
+echo -e "\n===ixgbe=================================================" >>$1
+dmesg | grep "ixgbe" >> $1
+echo -e "\n===ixgbevf===============================================" >>$1
+dmesg | grep "ixgbevf" >> $1
+
+echo -e "\n#===luck==================================================" >>$1
+echo -e "===ifconfig -a==============================================" >>$1
+ifconfig -a >>$1 2>&1
+
+##############################################################
+#reboot | shutdown
+##############################################################
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==last -xF | egrep \"reboot|shutdown|runlevel|system\"" >> $1
+last -xF | egrep "reboot|shutdown|runlevel|system" >> $1 2>&1
+
+##############################################################
+#power management
+##############################################################
+echo -e "#===luck=====================================================\n" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==turbostat" >> $1 2>&1
+#turbostat  >> $1 2>&1
+
+echo -e "#===luck=====================================================\n" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==powertop -d -t 10" >> $1 2>&1
+powertop -d -t 10 >> $1 2>&1
+
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==dmesg" >> $1
+dmesg >> $1 2>&1
+
+echo -e "Sampling perf data, 60 seconds.....\n"
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==perf record -gaf" >> $1
+perf record -ga sleep 60
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==perf report" >> $1
+perf report >> $1 2>&1
+
+if [ -f perf.data ]; then
+   echo "removing perf.data"
+   \rm perf.data
+fi
+
+#original information
+echo -e "#===luck==================================================" >>$1
+echo -e "===Original information==================================\n" >>$1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==date" >> $1
+date >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >>$1
+echo -e "#==hostname" >> $1
+hostname >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==uname -a" >> $1 2>&1
+uname -a >> $1
+
+echo -e "\n#==Hardware Information" >> $1
+echo -e "#==[ Command ]======================================#" >> $1
+echo -e "#==/proc/cpuinfo" >> $1
+cat /proc/cpuinfo >> $1 2>&1
+
+echo -e "#===luck=====================================================\n" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==dmidecode" >> $1 2>&1
+dmidecode >> $1 2>&1
+
+echo -e "#===luck=====================================================\n" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==vmstat" >> $1 2>&1
+vmstat >> $1 2>&1
+
+echo -e "#===luck=====================================================\n" >> $1 2>&1
+echo -e "#==[ Command ]======================================#" >> $1 2>&1
+echo -e "#==cat /proc/meminfo" >> $1 2>&1
+cat /proc/meminfo >> $1 2>&1
+
+#bus-centric view
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==lspci -b" >> $1
+lspci -b >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==/proc/cmdline" >> $1
+cat  /proc/cmdline  >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==/var/log/boot.msg" >> $1
+cat /var/log/boot.msg >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==arp -v" >> $1
+arp -v >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==route -n" >> $1
+route -n >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==brctl show" >> $1
+brctl show >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==netstat" >> $1
+netstat >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==netstat -as" >> $1
+netstat -as >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==netstat -nlp" >> $1
+netstat -nlp >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==netstat -nr" >> $1
+netstat -nr >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==iptables -nvL" >> $1
+iptables -nvL >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==iptables -nvL -t raw" >> $1
+iptables -nvL -t raw >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==ethtool --version" >> $1
+ethtool --version >> $1 2>&1
+
+#virtualization
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==virsh version" >> $1
+virsh version >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==virsh sysinfo" >> $1
+virsh sysinfo >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==chkconfig --list" >> $1
+chkconfig --list  >> $1 2>&1
+
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==history" >> $1
+history >> $1 2>&1
+##############################################################
+#Interface detailed Info: register & EEPROM
+##############################################################
+echo -e "\n#===luck==================================================" >>$1
+for (( counter=0; counter<${#eth_if[@]}; counter++))
+do
+    echo -e "\n===ethtool -e ${eth_if[$((counter))]}=======================" >>$1
+    ethtool -e "${eth_if[$((counter))]}" >> $1 2>&1
+
+    echo -e "===ethtool -d ${eth_if[$((counter))]}=======================" >>$1
+    ethtool -d "${eth_if[$((counter))]}" >> $1 2>&1
+done
+
+
+##############################################################
+#PCIe detailed info
+##############################################################
+for (( counter=0; counter<${#eth_if[@]}; counter++))
+do
+    echo -e "\n#===luck==================================================" >> $1
+    echo -e "PCIe info for ${eth_if[$counter]} @ ${bus_info[$counter]}" >> $1
+    lspci -s ${bus_info[$counter]} -vvv >> $1 2>&1
+done
+
+#detailed
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo -e "#==lspci -vvv" >> $1
+lspci -vvv >> $1 2>&1
+
+
+#dump PCIe configuration
+echo -e "\n#==[ Command ]======================================#" >> $1
+echo "#==lspci -vvv -xxxx" >> $1
+lspci -vvv -xxxx >> $1 2>&1
+
+tar -zcf $1.tgz $1
+echo -e "\n##########################################################"
+echo -e "#            Information file : $1 & $1.tgz            "
+echo -e "##########################################################\n"
