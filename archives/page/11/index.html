@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
     
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="阿泰的菜园">
-    <title>所有文章 - 阿泰的菜园</title>
+    <title>Archives - 阿泰的菜园</title>
     <meta name="author" content="阿泰">
     
     
@@ -22,10 +22,13 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阿泰的菜园">
 <meta name="twitter:description">
+<meta name="twitter:creator" content="@huatai">
     
     
         
     
+    
+        <meta property="og:image" content="http://blog.huatai.me/assets/images/me.png"/>
     
     
     
@@ -42,18 +45,18 @@
             <!-- Define author's picture -->
 
 
-    
-
-<header id="header" data-behavior="2">
+<header id="header" data-behavior="1">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <h1 class="header-title">
         <a class="header-title-link" href="/ ">阿泰的菜园</a>
     </h1>
     
         
-            <a  class="header-right-picture "
-                href="/#about">
+            <a  class="header-right-icon st-search-show-outputs"
+                href="/#search">
         
+        
+            <i class="fa fa-lg fa-search"></i>
         
         </a>
     
@@ -62,7 +65,18 @@
             <!-- Define author's picture -->
 
 
-<nav id="sidebar" data-behavior="2">
+
+        
+    
+
+<nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/me.png"/>
+            </a>
+            <span class="sidebar-profile-name">阿泰</span>
+        </div>
     
     
         <ul class="sidebar-buttons">
@@ -75,43 +89,43 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
-                    <span class="sidebar-button-desc">首頁</span>
+                    <span class="sidebar-button-desc">Home</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/categories"
+                         href="/all-categories"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
-                    <span class="sidebar-button-desc">分類</span>
+                    <span class="sidebar-button-desc">Categories</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/tags"
+                         href="/all-tags"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-                    <span class="sidebar-button-desc">標籤</span>
+                    <span class="sidebar-button-desc">Tags</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/archives"
+                         href="/all-archives"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
-                    <span class="sidebar-button-desc">所有文章</span>
+                    <span class="sidebar-button-desc">Archives</span>
                 </a>
         </li>
         
@@ -123,7 +137,7 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                    <span class="sidebar-button-desc">搜尋</span>
+                    <span class="sidebar-button-desc">Search</span>
                 </a>
         </li>
         
@@ -135,13 +149,22 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-question"></i>
-                    <span class="sidebar-button-desc">關於</span>
+                    <span class="sidebar-button-desc">About</span>
                 </a>
         </li>
         
     </ul>
     
         <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/huataihuang" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
         
     </ul>
     
@@ -155,7 +178,7 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
-                    <span class="sidebar-button-desc">Atom</span>
+                    <span class="sidebar-button-desc">RSS</span>
                 </a>
         </li>
         
@@ -164,7 +187,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
+            <div id="main" data-behavior="1"
                  class="
                         hasCoverMetaIn
                         ">
@@ -172,6 +195,43 @@
     
 
 <section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2014/10/02/Docker-technology/">
+                            Docker技术概览
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Thu Oct 02 2014 11:38:39 GMT+0800">
+	
+		    Oct 02, 2014
+    	
+    </time>
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>作为目前最有发展前景的Linux容器技术 <a href="http://docker.com">Docker</a> ，得到了很多开源软件和组织的支持。不仅得到了 <a href="http://www.openstack.org">OpenStack</a>通过<a href="https://wiki.openstack.org/wiki/Docker">nova</a>和<a href="http://blog.docker.com/tag/openstack-2/">heat</a> 支持，而且被集成到最新的RHEL 7操作系统。</p>
+<p>这里我整理汇总Docker的学习笔记以及一些实践经验。</p>
+                    
+                        <a href="/2014/10/02/Docker-technology/" class="postShorten-excerpt_link link">
+                            Continue reading
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
     
     
     <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
@@ -187,7 +247,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Thu Oct 02 2014 06:44:46 GMT+0800">
 	
-		    10月 02, 2014
+		    Oct 02, 2014
     	
     </time>
     
@@ -211,7 +271,7 @@ Swap:  1999864k total,   141984k used,  1857880k free, 91091652k cached
 </code></pre><p>查看 <code>/var/log/messages</code> 日志并没有发现硬件异常。</p>
                     
                         <a href="/2014/10/02/kipmi0-consume-cpu-100/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -235,7 +295,7 @@ Swap:  1999864k total,   141984k used,  1857880k free, 91091652k cached
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Wed Oct 01 2014 22:10:34 GMT+0800">
 	
-		    10月 01, 2014
+		    Oct 01, 2014
     	
     </time>
     
@@ -247,7 +307,7 @@ Swap:  1999864k total,   141984k used,  1857880k free, 91091652k cached
                     <p>在决定再次使用Jekyll作为个人blog的平台之后（ <a href="2014/09/29/Hello-world-again/">Hello world again</a> ），我偶然找到了 <a href="https://github.com/orderedlist">orderedlist</a> 开发的 <a href="https://github.com/orderedlist/modernist">modernist</a> 这个主题，非常简洁美观。</p>
                     
                         <a href="/2014/10/01/use-hexo-write-blog/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -271,7 +331,7 @@ Swap:  1999864k total,   141984k used,  1857880k free, 91091652k cached
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Mon Sep 29 2014 16:39:21 GMT+0800">
 	
-		    9月 29, 2014
+		    Sep 29, 2014
     	
     </time>
     
@@ -283,7 +343,7 @@ Swap:  1999864k total,   141984k used,  1857880k free, 91091652k cached
                     <h3 id="u518D_u6B21_u542F_u52A8_u4E2A_u4EBA_u7F51_u7AD9_u7684_u66F4_u65B0_uFF0C_u8FD9_u6B21_u56E0_u4E3A_u6253_u901A_u4E86_u4E2A_u4EBA_u8BB0_u5F55_u3001_u516C_u5171_u53D1_u5E03_u7684_u6587_u6863_u517C_u5BB9_uFF0C_u76F8_u4FE1_u80FD_u591F_u6301_u7EED_u4E0B_u53BB_u4E0D_u65AD_u66F4_u65B0_u3002"><a href="#u518D_u6B21_u542F_u52A8_u4E2A_u4EBA_u7F51_u7AD9_u7684_u66F4_u65B0_uFF0C_u8FD9_u6B21_u56E0_u4E3A_u6253_u901A_u4E86_u4E2A_u4EBA_u8BB0_u5F55_u3001_u516C_u5171_u53D1_u5E03_u7684_u6587_u6863_u517C_u5BB9_uFF0C_u76F8_u4FE1_u80FD_u591F_u6301_u7EED_u4E0B_u53BB_u4E0D_u65AD_u66F4_u65B0_u3002" class="headerlink" title="再次启动个人网站的更新，这次因为打通了个人记录、公共发布的文档兼容，相信能够持续下去不断更新。"></a>再次启动个人网站的更新，这次因为打通了个人记录、公共发布的文档兼容，相信能够持续下去不断更新。</h3>
                     
                         <a href="/2014/09/29/Hello-world-again/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -301,12 +361,12 @@ Swap:  1999864k total,   141984k used,  1857880k free, 91091652k cached
                 <a class="btn btn--default btn--small" href="/archives/page/10/">
             
                 <i class="fa fa-angle-left text-base icon-mr"></i>
-                    <span>上一頁</span>
+                    <span>NEWER POSTS</span>
             </a>
         </li>
         
         
-        <li class="pagination-number">第 11 頁 共 11 頁</li>
+        <li class="pagination-number">page 11 of 11</li>
     </ul>
 </div>
 
@@ -326,11 +386,17 @@ Swap:  1999864k total,   141984k used,  1857880k free, 91091652k cached
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-remove"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/me.png"/>
         
             <h4 id="about-card-name">阿泰</h4>
         

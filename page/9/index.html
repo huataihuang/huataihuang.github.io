@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
     
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
@@ -22,10 +22,13 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阿泰的菜园">
 <meta name="twitter:description">
+<meta name="twitter:creator" content="@huatai">
     
     
         
     
+    
+        <meta property="og:image" content="http://blog.huatai.me/assets/images/me.png"/>
     
     
     
@@ -42,18 +45,18 @@
             <!-- Define author's picture -->
 
 
-    
-
-<header id="header" data-behavior="2">
+<header id="header" data-behavior="1">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <h1 class="header-title">
         <a class="header-title-link" href="/ ">阿泰的菜园</a>
     </h1>
     
         
-            <a  class="header-right-picture "
-                href="/#about">
+            <a  class="header-right-icon st-search-show-outputs"
+                href="/#search">
         
+        
+            <i class="fa fa-lg fa-search"></i>
         
         </a>
     
@@ -62,7 +65,18 @@
             <!-- Define author's picture -->
 
 
-<nav id="sidebar" data-behavior="2">
+
+        
+    
+
+<nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/me.png"/>
+            </a>
+            <span class="sidebar-profile-name">阿泰</span>
+        </div>
     
     
         <ul class="sidebar-buttons">
@@ -75,43 +89,43 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
-                    <span class="sidebar-button-desc">首頁</span>
+                    <span class="sidebar-button-desc">Home</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/categories"
+                         href="/all-categories"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
-                    <span class="sidebar-button-desc">分類</span>
+                    <span class="sidebar-button-desc">Categories</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/tags"
+                         href="/all-tags"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-                    <span class="sidebar-button-desc">標籤</span>
+                    <span class="sidebar-button-desc">Tags</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/archives"
+                         href="/all-archives"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
-                    <span class="sidebar-button-desc">所有文章</span>
+                    <span class="sidebar-button-desc">Archives</span>
                 </a>
         </li>
         
@@ -123,7 +137,7 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                    <span class="sidebar-button-desc">搜尋</span>
+                    <span class="sidebar-button-desc">Search</span>
                 </a>
         </li>
         
@@ -135,13 +149,22 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-question"></i>
-                    <span class="sidebar-button-desc">關於</span>
+                    <span class="sidebar-button-desc">About</span>
                 </a>
         </li>
         
     </ul>
     
         <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/huataihuang" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
         
     </ul>
     
@@ -155,7 +178,7 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
-                    <span class="sidebar-button-desc">Atom</span>
+                    <span class="sidebar-button-desc">RSS</span>
                 </a>
         </li>
         
@@ -164,13 +187,50 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
+            <div id="main" data-behavior="1"
                  class="
                         hasCoverMetaIn
                         ">
                 
 
 <section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2014/10/05/docker-centos-images-customize/">
+                            docker环境CentOS镜像定制
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sun Oct 05 2014 18:20:46 GMT+0800">
+	
+		    Oct 05, 2014
+    	
+    </time>
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>Docker公共镜像仓库提供了众多不同软件组合的模板，不过，我比较倾向于从最基本的操作系统按照自己的业务需求进行定制。</p>
+<p>通常采用 <code>centos</code> 组的各个版本的最基本模板进行安装一个初始模板，实际是最小化安装的CentOS，按照以下验证过的方式安装基础软件包。目前只定义安装了CentOS 7，后续不断补充各版本安装。</p>
+                    
+                        <a href="/2014/10/05/docker-centos-images-customize/" class="postShorten-excerpt_link link">
+                            Continue reading
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
     
     
     <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
@@ -186,7 +246,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Sun Oct 05 2014 15:42:42 GMT+0800">
 	
-		    10月 05, 2014
+		    Oct 05, 2014
     	
     </time>
     
@@ -207,7 +267,7 @@
 </blockquote>
                     
                         <a href="/2014/10/05/docker-container-static-ip/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -231,7 +291,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Sun Oct 05 2014 15:31:44 GMT+0800">
 	
-		    10月 05, 2014
+		    Oct 05, 2014
     	
     </time>
     
@@ -244,7 +304,7 @@
 <p>Docker的模板镜像可以从公共仓库下载最基本的OS容器模板，按需安装软件，然后以类似<code>git</code>这样的命令提交到Docker Regsitry中，提供后续部署。</p>
                     
                         <a href="/2014/10/05/customize-docker-image/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -268,7 +328,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Sat Oct 04 2014 22:34:48 GMT+0800">
 	
-		    10月 04, 2014
+		    Oct 04, 2014
     	
     </time>
     
@@ -283,7 +343,7 @@
 </blockquote>
                     
                         <a href="/2014/10/04/docker-registry-degrade-version-0-7/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -307,7 +367,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Sat Oct 04 2014 19:38:21 GMT+0800">
 	
-		    10月 04, 2014
+		    Oct 04, 2014
     	
     </time>
     
@@ -320,46 +380,7 @@
 <p>这次部署Docker的网络环境，在测试环境中，为了能够解析主机，部署了dnsmasq来完成DNS功能。</p>
                     
                         <a href="/2014/10/04/Deploy-DNSmasq/" class="postShorten-excerpt_link link">
-                            繼續閱讀
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2014/10/03/Deploy-Docker-Registry-test-environment/">
-                            部署Docker Registry测试环境
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Fri Oct 03 2014 22:56:00 GMT+0800">
-	
-		    10月 03, 2014
-    	
-    </time>
-    
-</div>
-            </div>
-            
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <h1 id="Docker_Registry_u7B80_u4ECB"><a href="#Docker_Registry_u7B80_u4ECB" class="headerlink" title="Docker Registry简介"></a>Docker Registry简介</h1><p><a href="https://github.com/dotcloud/docker-registry">Docker Registry</a> 是将Docker镜像推送到存储和共享的服务，提供给内部服务器部署Docker。任何支持<a href="http://upstart.ubuntu.com/">upstart</a>的操作系统都可以部署registry。使用Nginx的SSL加密和HTTP基本认证，作为Docker Regsitry的前端代理服务器。Upstart将管理运行在registry上的gunicorn进程，同时使用LRU缓存来减少后端存储的消耗。缓存使用Redis。</p>
-<blockquote>
-<p>Docker Registry是一个基于Flask的web服务器，需要结合高速缓存和适合大规模使用的Nginx前端服务来实现分布式大负载集群。</p>
-</blockquote>
-                    
-                        <a href="/2014/10/03/Deploy-Docker-Registry-test-environment/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -377,19 +398,19 @@
                 <a class="btn btn--default btn--small" href="/page/8/">
             
                 <i class="fa fa-angle-left text-base icon-mr"></i>
-                    <span>上一頁</span>
+                    <span>NEWER POSTS</span>
             </a>
         </li>
         
         
         <li class="pagination-next">
             <a class="btn btn--default btn--small" href="/page/10/">
-                    <span>下一頁</span>
+                    <span>OLDER POSTS</span>
                 <i class="fa fa-angle-right text-base icon-ml"></i>
             </a>
         </li>
         
-        <li class="pagination-number">第 9 頁 共 11 頁</li>
+        <li class="pagination-number">page 9 of 11</li>
     </ul>
 </div>
 
@@ -408,11 +429,17 @@
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-remove"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/me.png"/>
         
             <h4 id="about-card-name">阿泰</h4>
         

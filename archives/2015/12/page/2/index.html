@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
     
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="阿泰的菜园">
-    <title>所有文章: 2015/12 - 阿泰的菜园</title>
+    <title>Archives: 2015/12 - 阿泰的菜园</title>
     <meta name="author" content="阿泰">
     
     
@@ -22,10 +22,13 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阿泰的菜园">
 <meta name="twitter:description">
+<meta name="twitter:creator" content="@huatai">
     
     
         
     
+    
+        <meta property="og:image" content="http://blog.huatai.me/assets/images/me.png"/>
     
     
     
@@ -42,18 +45,18 @@
             <!-- Define author's picture -->
 
 
-    
-
-<header id="header" data-behavior="2">
+<header id="header" data-behavior="1">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <h1 class="header-title">
         <a class="header-title-link" href="/ ">阿泰的菜园</a>
     </h1>
     
         
-            <a  class="header-right-picture "
-                href="/#about">
+            <a  class="header-right-icon st-search-show-outputs"
+                href="/#search">
         
+        
+            <i class="fa fa-lg fa-search"></i>
         
         </a>
     
@@ -62,7 +65,18 @@
             <!-- Define author's picture -->
 
 
-<nav id="sidebar" data-behavior="2">
+
+        
+    
+
+<nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/me.png"/>
+            </a>
+            <span class="sidebar-profile-name">阿泰</span>
+        </div>
     
     
         <ul class="sidebar-buttons">
@@ -75,43 +89,43 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
-                    <span class="sidebar-button-desc">首頁</span>
+                    <span class="sidebar-button-desc">Home</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/categories"
+                         href="/all-categories"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
-                    <span class="sidebar-button-desc">分類</span>
+                    <span class="sidebar-button-desc">Categories</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/tags"
+                         href="/all-tags"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-                    <span class="sidebar-button-desc">標籤</span>
+                    <span class="sidebar-button-desc">Tags</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/archives"
+                         href="/all-archives"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
-                    <span class="sidebar-button-desc">所有文章</span>
+                    <span class="sidebar-button-desc">Archives</span>
                 </a>
         </li>
         
@@ -123,7 +137,7 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                    <span class="sidebar-button-desc">搜尋</span>
+                    <span class="sidebar-button-desc">Search</span>
                 </a>
         </li>
         
@@ -135,13 +149,22 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-question"></i>
-                    <span class="sidebar-button-desc">關於</span>
+                    <span class="sidebar-button-desc">About</span>
                 </a>
         </li>
         
     </ul>
     
         <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/huataihuang" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
         
     </ul>
     
@@ -155,7 +178,7 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
-                    <span class="sidebar-button-desc">Atom</span>
+                    <span class="sidebar-button-desc">RSS</span>
                 </a>
         </li>
         
@@ -164,7 +187,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
+            <div id="main" data-behavior="1"
                  class="
                         hasCoverMetaIn
                         ">
@@ -187,7 +210,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Thu Dec 03 2015 17:03:43 GMT+0800">
 	
-		    12月 03, 2015
+		    Dec 03, 2015
     	
     </time>
     
@@ -199,7 +222,7 @@
                     <h1 id="libguestfs"><a href="#libguestfs" class="headerlink" title="libguestfs"></a><code>libguestfs</code></h1><p><a href="http://libguestfs.org">libguestfs</a>是一个访问和修改虚拟机磁盘镜像的一组工具。可以使用这个工具查看和修改guest虚拟机中的文件，通过脚本修改虚拟机，<a href="http://libguestfs.org/virt-df.1.html">监视磁盘使用状态</a>，<a href="http://libguestfs.org/virt-builder.1.html">创建虚拟机</a>，P2V，<a href="http://libguestfs.org/virt-v2v.1.html">V2V</a>，执行备份，clone虚拟机，构建虚拟机，格式化磁盘，修改磁盘大小等等。</p>
                     
                         <a href="/2015/12/03/libguestfs-learning-note-1/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -223,7 +246,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Thu Dec 03 2015 17:02:05 GMT+0800">
 	
-		    12月 03, 2015
+		    Dec 03, 2015
     	
     </time>
     
@@ -235,7 +258,7 @@
                     <p><a href="http://ebtables.netfilter.org">ebtalbes</a> 是 netfilter 针对Linux网桥防火墙的一个过滤工具。<code>ebtables</code>透明地过滤通过Linux网桥传输的数据流。这个<code>ebtables</code>过滤可以限制链路层过滤以及一些更网络层的基础过滤。同时也包括了高级日志，<code>MAC DNAT/SNAT</code> 和<code>brouter</code>能力。</p>
                     
                         <a href="/2015/12/03/ebtables-learning-note-1/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -259,7 +282,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Thu Dec 03 2015 14:12:31 GMT+0800">
 	
-		    12月 03, 2015
+		    Dec 03, 2015
     	
     </time>
     
@@ -273,7 +296,7 @@
 </blockquote>
                     
                         <a href="/2015/12/03/use-vagrant-snapshot-create-backup/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -297,7 +320,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Thu Dec 03 2015 14:11:09 GMT+0800">
 	
-		    12月 03, 2015
+		    Dec 03, 2015
     	
     </time>
     
@@ -313,7 +336,7 @@
 </blockquote>
                     
                         <a href="/2015/12/03/use-vagrant-package-VirtualBox-environment/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -337,7 +360,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Thu Dec 03 2015 14:08:19 GMT+0800">
 	
-		    12月 03, 2015
+		    Dec 03, 2015
     	
     </time>
     
@@ -349,7 +372,7 @@
                     <p>在新增<code>bento/centos-6.7</code>时（<code>vagrant up</code>），由于网络不佳，终止了当前下载进程，遇到了一些小麻烦。</p>
                     
                         <a href="/2015/12/03/vagrant-up-download-image-resume-error/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -367,19 +390,19 @@
                 <a class="btn btn--default btn--small" href="/ ">
             
                 <i class="fa fa-angle-left text-base icon-mr"></i>
-                    <span>上一頁</span>
+                    <span>NEWER POSTS</span>
             </a>
         </li>
         
         
         <li class="pagination-next">
             <a class="btn btn--default btn--small" href="/archives/2015/12/page/3/">
-                    <span>下一頁</span>
+                    <span>OLDER POSTS</span>
                 <i class="fa fa-angle-right text-base icon-ml"></i>
             </a>
         </li>
         
-        <li class="pagination-number">第 2 頁 共 3 頁</li>
+        <li class="pagination-number">page 2 of 3</li>
     </ul>
 </div>
 
@@ -399,11 +422,17 @@
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-remove"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/me.png"/>
         
             <h4 id="about-card-name">阿泰</h4>
         

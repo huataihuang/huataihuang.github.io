@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
     
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="阿泰的菜园">
-    <title>所有文章 - 阿泰的菜园</title>
+    <title>Archives - 阿泰的菜园</title>
     <meta name="author" content="阿泰">
     
     
@@ -22,10 +22,13 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阿泰的菜园">
 <meta name="twitter:description">
+<meta name="twitter:creator" content="@huatai">
     
     
         
     
+    
+        <meta property="og:image" content="http://blog.huatai.me/assets/images/me.png"/>
     
     
     
@@ -42,18 +45,18 @@
             <!-- Define author's picture -->
 
 
-    
-
-<header id="header" data-behavior="2">
+<header id="header" data-behavior="1">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <h1 class="header-title">
         <a class="header-title-link" href="/ ">阿泰的菜园</a>
     </h1>
     
         
-            <a  class="header-right-picture "
-                href="/#about">
+            <a  class="header-right-icon st-search-show-outputs"
+                href="/#search">
         
+        
+            <i class="fa fa-lg fa-search"></i>
         
         </a>
     
@@ -62,7 +65,18 @@
             <!-- Define author's picture -->
 
 
-<nav id="sidebar" data-behavior="2">
+
+        
+    
+
+<nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/me.png"/>
+            </a>
+            <span class="sidebar-profile-name">阿泰</span>
+        </div>
     
     
         <ul class="sidebar-buttons">
@@ -75,43 +89,43 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
-                    <span class="sidebar-button-desc">首頁</span>
+                    <span class="sidebar-button-desc">Home</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/categories"
+                         href="/all-categories"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
-                    <span class="sidebar-button-desc">分類</span>
+                    <span class="sidebar-button-desc">Categories</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/tags"
+                         href="/all-tags"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-                    <span class="sidebar-button-desc">標籤</span>
+                    <span class="sidebar-button-desc">Tags</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/archives"
+                         href="/all-archives"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
-                    <span class="sidebar-button-desc">所有文章</span>
+                    <span class="sidebar-button-desc">Archives</span>
                 </a>
         </li>
         
@@ -123,7 +137,7 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                    <span class="sidebar-button-desc">搜尋</span>
+                    <span class="sidebar-button-desc">Search</span>
                 </a>
         </li>
         
@@ -135,13 +149,22 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-question"></i>
-                    <span class="sidebar-button-desc">關於</span>
+                    <span class="sidebar-button-desc">About</span>
                 </a>
         </li>
         
     </ul>
     
         <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/huataihuang" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
         
     </ul>
     
@@ -155,7 +178,7 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
-                    <span class="sidebar-button-desc">Atom</span>
+                    <span class="sidebar-button-desc">RSS</span>
                 </a>
         </li>
         
@@ -164,7 +187,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
+            <div id="main" data-behavior="1"
                  class="
                         hasCoverMetaIn
                         ">
@@ -172,6 +195,43 @@
     
 
 <section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2014/10/20/arch-linux-nfs-export/">
+                            Arch Linux NFS输出
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Mon Oct 20 2014 00:28:59 GMT+0800">
+	
+		    Oct 20, 2014
+    	
+    </time>
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>Network File System (NFS) 是非常成熟的Uninx环境远程访问文件系统协议，允许一个客户端通过网络访问服务器共享的文件系统目录。Linx对NFS支持相对完善，性能也较好，通过合适的部署，可以接近商业NAS系统的性能和可靠性。</p>
+<p>本文是在<a href="/2014/10/18/seagate-goflex-home-nas-install-arch-linux-arm/">Seagate GoFlex Home网络存储安装Arch Linux ARM</a>初步搭建NFS输出，提供客户端备份和访问文件。</p>
+                    
+                        <a href="/2014/10/20/arch-linux-nfs-export/" class="postShorten-excerpt_link link">
+                            Continue reading
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
     
     
     <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
@@ -187,7 +247,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Mon Oct 20 2014 00:10:03 GMT+0800">
 	
-		    10月 20, 2014
+		    Oct 20, 2014
     	
     </time>
     
@@ -199,7 +259,7 @@
                     <p>Arch Linux设置静态IP地址的问参考 <a href="https://wiki.archlinux.org/index.php/Network_Configuration#Static_IP_address">Arch Linux Network</a> 完成。本案例是在 <a href="/2014/10/18/seagate-goflex-home-nas-install-arch-linux-arm/">Seagate GoFlex Home网络存储安装Arch Linux ARM</a>实施记录。</p>
                     
                         <a href="/2014/10/20/arch-linux-set-static-ip/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -223,7 +283,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Mon Oct 20 2014 00:00:39 GMT+0800">
 	
-		    10月 20, 2014
+		    Oct 20, 2014
     	
     </time>
     
@@ -240,7 +300,7 @@
 </blockquote>
                     
                         <a href="/2014/10/20/use-two-goflex-deploy-glusterfs/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -264,7 +324,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Sun Oct 19 2014 23:45:29 GMT+0800">
 	
-		    10月 19, 2014
+		    Oct 19, 2014
     	
     </time>
     
@@ -282,7 +342,7 @@
 <p>总之，折腾。。。</p>
                     
                         <a href="/2014/10/19/update-arch-linux-arm/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -306,7 +366,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" content="Sat Oct 18 2014 10:46:34 GMT+0800">
 	
-		    10月 18, 2014
+		    Oct 18, 2014
     	
     </time>
     
@@ -321,48 +381,7 @@
 <p>然后 …… 然后，我又购买了一台，<a href="/2014/10/20/use-two-goflex-deploy-glusterfs/">使用两台Seagate GoFlex Home网络存储部署glusterfs分布式文件系统</a>。这样，所有存储到NAS的文件自动会在两台存储设备上镜像，确保数据高可用。</p>
                     
                         <a href="/2014/10/18/seagate-goflex-home-nas-install-arch-linux-arm/" class="postShorten-excerpt_link link">
-                            繼續閱讀
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2014/10/17/plone-quick-deploy/">
-                            plone快速部署
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Fri Oct 17 2014 09:13:59 GMT+0800">
-	
-		    10月 17, 2014
-    	
-    </time>
-    
-</div>
-            </div>
-            
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>最近想实现一个个人网站 <a href="http://atlas.huatai.me">“图志”</a>，来搜集和整理有一天会去亲眼看看的世界的历史、文化和自然景观的资料。这个网站虽然也可以简单用WordPress来实现，但是我还是想能够做一个更为完善的平台，能够持续地运作并且借此机会提高在知识管理、CMS、Python方面的技能。</p>
-<p><a href="https://plone.org">Plone</a>平台是开源的CMS平台，适合企业级的应用，有完善的权限管理以及流程支持，是目前开源CMS的翘楚。虽然个人网站极为渺小，但是通过实践一个优秀的开源产品，可以开阔思路和眼界。</p>
-<blockquote>
-<p>任何一个企业，企业知识的积累和传承是核心竞争能力。虽然目前所处的互联网行业热点瞬息万变，但是核心的知识管理依然是非常基础的管理要点。</p>
-</blockquote>
-<p>本文是单机简化部署Plone的记录，适合小型网站使用，大规模部署Plone需要集群多台服务器，后续再补充集群部署案例。</p>
-                    
-                        <a href="/2014/10/17/plone-quick-deploy/" class="postShorten-excerpt_link link">
-                            繼續閱讀
+                            Continue reading
                         </a>
                         
                     
@@ -380,19 +399,19 @@
                 <a class="btn btn--default btn--small" href="/archives/page/6/">
             
                 <i class="fa fa-angle-left text-base icon-mr"></i>
-                    <span>上一頁</span>
+                    <span>NEWER POSTS</span>
             </a>
         </li>
         
         
         <li class="pagination-next">
             <a class="btn btn--default btn--small" href="/archives/page/8/">
-                    <span>下一頁</span>
+                    <span>OLDER POSTS</span>
                 <i class="fa fa-angle-right text-base icon-ml"></i>
             </a>
         </li>
         
-        <li class="pagination-number">第 7 頁 共 11 頁</li>
+        <li class="pagination-number">page 7 of 11</li>
     </ul>
 </div>
 
@@ -412,11 +431,17 @@
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-remove"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/me.png"/>
         
             <h4 id="about-card-name">阿泰</h4>
         

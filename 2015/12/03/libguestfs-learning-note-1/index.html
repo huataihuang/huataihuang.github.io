@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
     
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
@@ -23,10 +23,13 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="libguestfs学习笔记（一）">
 <meta name="twitter:description" content="libguestfslibguestfs是一个访问和修改虚拟机磁盘镜像的一组工具。可以使用这个工具查看和修改guest虚拟机中的文件，通过脚本修改虚拟机，监视磁盘使用状态，创建虚拟机，P2V，V2V，执行备份，clone虚拟机，构建虚拟机，格式化磁盘，修改磁盘大小等等。">
+<meta name="twitter:creator" content="@huatai">
     
     
         
     
+    
+        <meta property="og:image" content="http://blog.huatai.me/assets/images/me.png"/>
     
     
     
@@ -43,18 +46,18 @@
             <!-- Define author's picture -->
 
 
-    
-
-<header id="header" data-behavior="4">
+<header id="header" data-behavior="3">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <h1 class="header-title">
         <a class="header-title-link" href="/ ">阿泰的菜园</a>
     </h1>
     
         
-            <a  class="header-right-picture "
-                href="/#about">
+            <a  class="header-right-icon st-search-show-outputs"
+                href="/#search">
         
+        
+            <i class="fa fa-lg fa-search"></i>
         
         </a>
     
@@ -63,7 +66,18 @@
             <!-- Define author's picture -->
 
 
-<nav id="sidebar" data-behavior="4">
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/me.png"/>
+            </a>
+            <span class="sidebar-profile-name">阿泰</span>
+        </div>
     
     
         <ul class="sidebar-buttons">
@@ -76,43 +90,43 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
-                    <span class="sidebar-button-desc">首頁</span>
+                    <span class="sidebar-button-desc">Home</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/categories"
+                         href="/all-categories"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
-                    <span class="sidebar-button-desc">分類</span>
+                    <span class="sidebar-button-desc">Categories</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/tags"
+                         href="/all-tags"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-                    <span class="sidebar-button-desc">標籤</span>
+                    <span class="sidebar-button-desc">Tags</span>
                 </a>
         </li>
         
             <li class="sidebar-button">
                 
                     <a  class="sidebar-button-link "
-                         href="/archives"
+                         href="/all-archives"
                         
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
-                    <span class="sidebar-button-desc">所有文章</span>
+                    <span class="sidebar-button-desc">Archives</span>
                 </a>
         </li>
         
@@ -124,7 +138,7 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                    <span class="sidebar-button-desc">搜尋</span>
+                    <span class="sidebar-button-desc">Search</span>
                 </a>
         </li>
         
@@ -136,13 +150,22 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-question"></i>
-                    <span class="sidebar-button-desc">關於</span>
+                    <span class="sidebar-button-desc">About</span>
                 </a>
         </li>
         
     </ul>
     
         <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/huataihuang" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
         
     </ul>
     
@@ -156,7 +179,7 @@
                     >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
-                    <span class="sidebar-button-desc">Atom</span>
+                    <span class="sidebar-button-desc">RSS</span>
                 </a>
         </li>
         
@@ -165,7 +188,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="4"
+            <div id="main" data-behavior="3"
                  class="
                         hasCoverMetaIn
                         ">
@@ -182,7 +205,7 @@
     <div class="post-meta">
     <time itemprop="datePublished" content="Thu Dec 03 2015 17:03:43 GMT+0800">
 	
-		    12月 03, 2015
+		    Dec 03, 2015
     	
     </time>
     
@@ -223,7 +246,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">標籤</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/libguestfs/">libguestfs</a>
 
@@ -237,14 +260,14 @@
                     <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/05/fired-chicken-wings/"  data-tooltip="烤箱第一次烹饪：烤鸡翅">
                 
                     <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                 </a>
             </li>
             <li class="post-action">
                 
                     <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/03/ebtables-learning-note-1/" data-tooltip="ebtables学习笔记（一）">
                 
-                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
             </li>
@@ -272,6 +295,12 @@
             </a>
         </li>
         
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
         <li class="post-action">
             
                 <a class="post-action-btn btn btn--default" href="#">
@@ -284,6 +313,10 @@
 
 
         
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
             
         
     </div>
@@ -299,7 +332,7 @@
 
             </div>
             
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
                     <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -308,14 +341,14 @@
                     <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/05/fired-chicken-wings/"  data-tooltip="烤箱第一次烹饪：烤鸡翅">
                 
                     <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                 </a>
             </li>
             <li class="post-action">
                 
                     <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/03/ebtables-learning-note-1/" data-tooltip="ebtables学习笔记（一）">
                 
-                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
             </li>
@@ -343,6 +376,12 @@
             </a>
         </li>
         
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
         <li class="post-action">
             
                 <a class="post-action-btn btn btn--default" href="#">
@@ -355,21 +394,21 @@
 
 
                 </div>
-                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
     <ul class="share-options">
         <li class="share-option">
             <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.huatai.me/2015/12/03/libguestfs-learning-note-1/">
-                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
             <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.huatai.me/2015/12/03/libguestfs-learning-note-1/">
-                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
             <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.huatai.me/2015/12/03/libguestfs-learning-note-1/">
-                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
     </ul>
@@ -380,11 +419,17 @@
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-remove"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/me.png"/>
         
             <h4 id="about-card-name">阿泰</h4>
         
@@ -410,6 +455,23 @@
 <script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
 <!--SCRIPTS END-->
 
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://blog.huatai.me/2015/12/03/libguestfs-learning-note-1/';
+                 
+                    this.page.identifier = '2015/12/03/libguestfs-learning-note-1/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'bloghuataime';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
     
 
 
